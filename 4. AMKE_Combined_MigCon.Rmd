@@ -1,0 +1,788 @@
+---
+title: "MigConnectivity-AMKE-CombinedBanding&Genetics"
+author: "Christen Bossu"
+date: "5/13/2026"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##MigConnectivity for strength of connectivity
+```{r}
+#devtools::install_github(repo = "SMBC-NZP/MigConnectivity", ref = "devpsi2")
+```
+
+```{r}
+#Sys.setenv("PROJ_LIB"="/Library/Frameworks/R.framework/Resources/library/sf/proj")
+library(MigConnectivity)
+library(mignette)
+library(terra)
+library(lwgeom)
+library(tidyverse)
+library(xlsx)
+#library(OriGen)
+library(sf)
+library(data.table)
+
+```
+
+#Read in polygons of breeding 
+```{r}
+AK <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_4.45no_ovlp.WGS84.shp") 
+West <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_2.45no_ovlp.WGS84.shp") 
+TX <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_5.45no_ovlp.WGS84.shp") 
+East <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_1.45no_ovlp.WGS84.shp") 
+FL <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_3.45no_ovlp.WGS84.shp")
+
+ggplot() +
+  geom_sf(data = East,alpha = 0.75, aes(fill = "blue")) +
+  geom_sf(data = West,alpha = 0.75, aes(fill = "yellow")) +
+  geom_sf(data = AK,alpha = 0.75, aes(fill = "cyan")) 
+  #scale_fill_manual(values = cluster_colors) +
+  theme_bw()
+
+genoscape <- rbind(AK,
+                   West,
+                   East
+                   )
+genoscape$Cluster <- c("AK", "West", "East")
+
+#defining order
+genoscape$Cluster <- factor(genoscape$Cluster, levels = c("AK","West","East"))
+genoscape <- genoscape[order(genoscape$Cluster), ]
+
+ggplot() +
+  geom_sf(data = genoscape,alpha = 0.75, aes(fill = Cluster)) +
+  #scale_fill_manual(values = cluster_colors) +
+  theme_bw()
+origin.names <- genoscape$Cluster
+origin.names
+
+# object with the number of originSites 
+nOriginSites <- 3
+```
+
+##Ecoregions- 
+```{r, eval=FALSE}
+
+ecoregionsGen <- c("Atlantic Lowland Mexico","California","Highland Central America", "Highland/Interior Mexico","Northern Andes","Northwest Mexico","Southcentral US","Southeastern US","Southwest Mexico","Northwestern Forested Mountains", "Marine West Coast Forests")
+ecoregionsBand <- c("Eastern Temperate Forests","Great Plains","Highland/Interior Mexico","North American Deserts","Southcentral US","Southeastern US")
+
+ecoregions<-read_sf("AMKE_shapefiles_rasters/winter_ecoregion/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326) %>% 
+  group_by(Region) %>%
+  summarise(
+    geometry = sf::st_union(geometry)
+  ) %>%
+  ungroup() %>% 
+  filter(Region %in% c(ecoregionsGen,ecoregionsBand)) %>%  
+  sf::st_as_sf()
+
+ecoregions$Region
+```
+
+#Calculate global wintering abundances
+```{r, eval=FALSE}
+nonbr_abunds<-terra::rast("~/Downloads/amekes_abundance_seasonal_nonbreeding_mean_2023.tif") 
+nonbr_abunds_proj <- terra::project(nonbr_abunds, crs(ecoregions))
+
+winter_abunds <- get_vector_abunds(populations = ecoregions, abunds = nonbr_abunds_proj,pop_names=ecoregions[[1]])
+winter_abunds %>% mutate(Region2=paste("AMKE",Population,sep="_")) %>% write.table("AMKE.winter_node_abundance.Genetics_Band_comb.rmNorthernForests.txt",row.names=F,quote=F,sep="\t")
+target.names <- unique(ecoregions$Region)
+target.names
+```
+
+#Calculate relative abundances 
+```{r,eval=FALSE}
+library(writexl)
+library(gridExtra)
+library(grid)
+
+target.abund <- c(27989,22565,52007,39451,4822,96736,3152,32369,12112,30908,2823,95139,100632,6573) #9 conservation regions for gen, 14 for genetic and banding after removing tiny Northern forests
+
+target.abund <- target.abund / sum(target.abund)
+target.abund
+#table of abundances
+winter_df <- data.frame(
+  Population = c("Alaska", "West", "East", "Atlantic Lowland Mexico", "California", "Eastern Temperate Forests",
+                 "Great Plains", "Highland Central America", "Highland/Interior Mexico",
+                 "Marine West Coast Forests", "North American Deserts", "Northern Andes",
+                 "Northwest Mexico", "Northwestern Forested Mountains", "Southcentral US",
+                 "Southeastern US", "Southwest Mexico"),
+  Abundance = c(0.008888352, 0.757599179, 0.233512469, 0.053082055, 0.042795262, 0.098632979, 0.074820114,
+                         0.009145081, 0.183462993, 0.005977871, 0.061388869,
+                         0.022970805, 0.058618035, 0.005353912, 0.180434230,
+                         0.190851885, 0.012465910)
+)
+colnames(winter_df) <- c("Population", "Relative Abundance")
+
+#save abundance values
+write_xlsx(winter_df, "abundance_table.xlsx")
+pdf("abundance_table.pdf", width = 8, height = 6)
+grid.table(winter_df, rows= NULL)
+dev.off()
+
+```
+
+#Read in genetic data
+#Sample, AK, West, East, FL, Lat, Long, Stage
+```{r, eval=FALSE}
+`%notin%`<-Negate(`%in%`)
+
+#read in the data 
+genetic_samples<-read.xlsx("../SupplementaryTable2.AppendixCH.7172026.xlsx",sheetIndex=1) %>% arrange(Sample) %>% 
+  filter(Stage %notin% c("Breeding","Migratory"))
+
+genetic_samples<-read.xlsx("1.Rubias_assignment_NEED/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheetIndex=1) %>% arrange(Sample) %>% rename(Lat=Latitude,Long=Longitude) %>% 
+  filter(Stage %notin% c("Breeding","Migratory"))
+
+genetic_samples %>% write.table("4.Combined MigCon/AMKE.genetic_sample_wint_only.appendix.txt",row.names=F,quote=F,sep="\t")
+library(writexl)
+
+genetic_samples %>%
+  write_xlsx("4.Combined MigCon/AMKE.genetic_sample_wint_only351.appendix.xlsx")
+```
+
+#Let's look at data
+```{r}
+ggplot() +
+  geom_sf(data = ecoregions,alpha = 0.75, aes(fill = Region)) +
+  geom_point(data=genetic_samples,aes(Long,Lat),size=2,shape=1)+
+  #scale_fill_manual(values = cluster_colors) +
+  theme_bw()
+```
+
+The genetic data have the probabilty that each individual is assigned to a specific genetic population. These data are used during the resampling process to estimate transition probabilities and the strength of MC. Below, we format the data so we can easily use it in our analysis.
+
+```{r, eval=FALSE}
+# Note that we re-order the probabilities to match the order of originNames #
+AMKE_genetics <- as.matrix(genetic_samples[,c("AK", "West","East")])
+AMKE_genetics_df <- as.data.frame(AMKE_genetics)
+
+```
+
+# Convert the genetic data into spatial object 
+```{r, eval=FALSE}
+
+targetPoints_genetic <- st_as_sf(genetic_samples[,c("Long","Lat")],
+                                  coords = c("Long","Lat"),
+                                  crs = 4326) # WGS84
+
+# Assign the data type to the spatial layer 
+
+targetPoints_genetic$Type <- "Genetics Capture"
+summary(targetPoints_genetic)
+
+#read in the data 
+library(readr)
+Band <- read_csv('~/Downloads/AMKEbandingrecovery_filt.csv')
+
+targetPoints_bbl<- st_as_sf(Band[,c("winter_long","winter_lat")],
+                                  coords = c("winter_long","winter_lat"),
+                                  crs = 4326) # WGS84
+
+targetPoints_bbl$Type <- "Band Recapture"
+summary(targetPoints_bbl)
+```
+
+#Read in banding data
+#Sample, AK, West, East, FL, Lat, Long, Stage
+```{r, eval=FALSE}
+##Unfiltered by number per site
+recmatrix<-read.csv("4.Combined MigCon/AMKE814_recovery_matrix_all_data_filt1.csv",row.names = 1)
+
+#Filtered for sites with greater than 2 inds
+recmatrix_filt <- read.csv("4.Combined MigCon/AMKE814_recovery_matrix_all_data_filt1.csv",row.names = 1)  %>%
+  rename(`Eastern Temperate Forests`=`Eastern.Temperate..Forests`,`Highland/Interior Mexico`= `Highland.Interior.Mexico`,`North American Deserts`= North.American.Deserts, `Southeastern US`= Southeastern.US , `Southcentral US`= Southcentral.US, `Northern Forests`= Northern.Forests,`Great Plains`= `Great.Plains` ) %>% 
+  mutate(`Southwest Mexico`= 0, `Northern Andes`=0, `Atlantic Lowland Mexico`=0, `Highland Central America` =0, California =0, `Marine West Coast Forests` = 0, `Northwestern Forested Mountains` =0,`Northwest Mexico` =0) %>%
+  mutate(`Eastern Temperate Forests2`=(`Eastern Temperate Forests` + `Northern Forests`)) %>% 
+  dplyr::select(-c(`Northern Forests`,`Eastern Temperate Forests`)) %>% 
+  rename(`Eastern Temperate Forests`=`Eastern Temperate Forests2`)  %>% 
+  dplyr::select(`Atlantic Lowland Mexico`, California,`Eastern Temperate Forests`,`Great Plains`,`Highland Central America`,`Highland/Interior Mexico`,`Marine West Coast Forests`,`North American Deserts`, `Northern Andes`,`Northwest Mexico`,`Northwestern Forested Mountains`,`Southcentral US`,`Southeastern US`, `Southwest Mexico`) 
+
+
+#Claire reordering
+desired_order <- c("AK","West","East")
+
+#keep only West & East from real data
+updated_matrix <- recmatrix_filt %>%
+  as.data.frame() %>%
+  rownames_to_column("Cluster") %>%
+  filter(Cluster %in% desired_order)
+
+#add AK as zeros IF missing
+if(!"AK" %in% updated_matrix$Cluster){
+  ak_row <- data.frame(Cluster = "AK",
+                       matrix(0, nrow = 1, ncol = ncol(recmatrix_filt)))
+  colnames(ak_row)[-1] <- colnames(recmatrix_filt)
+  updated_matrix <- rbind(updated_matrix, ak_row)
+}
+
+#enforce correct order
+updated_matrix <- updated_matrix %>%
+  arrange(match(Cluster, desired_order)) %>%
+  column_to_rownames("Cluster") %>%
+  as.matrix()
+
+```
+
+
+```{r}
+band_matrix <-
+  data.frame(updated_matrix) %>%
+  rownames_to_column(var="Cluster") %>% 
+  group_by(Cluster) %>%
+  filter(Cluster %in% origin.names) %>%
+  # filter to only breeding regions where birds were recovered from
+  mutate(n= rowSums(across(where(is.numeric)), na.rm = TRUE)) %>% 
+  #rowSums=c(na.rm=T) %>%
+  as.data.frame() %>%
+  dplyr::select(n)
+band_matrix <- as.numeric(band_matrix[,1]) #needs to be a numeric vector not a matrix
+Breeding.name<-c("AK","West","East")
+
+names(band_matrix) <- Breeding.name 
+cat('band_matrix:\n'); print(band_matrix)
+cat('updated_matrix:\n'); print(updated_matrix)
+
+band_matrix2 <-
+  data.frame(recmatrix_filt) %>%
+  rownames_to_column(var="Cluster") %>% 
+  group_by(Cluster) %>%
+  filter(Cluster %in% origin.names) %>%
+  # filter to only breeding regions where birds were recovered from
+  mutate(n= rowSums(across(where(is.numeric)), na.rm = TRUE)) %>% 
+  #rowSums=c(na.rm=T) %>%
+  as.data.frame() %>%
+  dplyr::select(n)
+band_matrix2 <- as.numeric(band_matrix2[,1]) #needs to be a numeric vector not a matrix
+Breeding.name2<-c("West","East")
+
+names(band_matrix2) <- Breeding.name2 
+#cat('band_matrix2:\n'); print(band_matrix2)
+#cat('recmatrix_filt2:\n'); print(recmatrix_filt2)
+rowSums(updated_matrix)
+band_matrix
+```
+
+##Target points
+# combine all the target locations into a single object 
+# NOTE - we reorder the columns to match between the data sets
+```{r, eval=FALSE}
+targetPointsAMKE <- rbind(targetPoints_genetic[,c("Type","geometry")],targetPoints_bbl[,c("Type","geometry")])
+
+# Transform (re-project the data) into Equidistant conic projection
+#targetPointsAMKE<- st_transform(targetPoints_genetic, "ESRI:102010")
+```
+
+```{r, eval=FALSE}
+# Transform (re-project) data into Equidistant conic projection 
+targetSitesAMKE <- st_transform(ecoregions, "ESRI:102010")
+
+#Claire- changed points to same projection
+targetPointsAMKE <- st_transform(targetPointsAMKE, st_crs(targetSitesAMKE))
+
+# Create a vector of the target assignments of the input data
+targetAssignment <- suppressMessages(unclass(sf::st_intersects(x = targetPointsAMKE,                                                             y = targetSitesAMKE,                                                         sparse = TRUE)))
+
+# Set any target assignment that results in 0 to NA
+targetAssignment[lengths(targetAssignment)==0] <- NA
+
+# convert from a list to an array #
+targetAssignment <- array(unlist(targetAssignment))
+
+# If the assignment is NA - assign to the nearest targetSite
+targetAssignment[is.na(targetAssignment)] <- sf::st_nearest_feature(x = targetPointsAMKE[is.na(targetAssignment),], y = targetSitesAMKE)
+
+```
+
+
+```{r, eval=FALSE}
+# Transform (re-project) data into Equidistant conic projection 
+originSitesAMKE<-genoscape %>% dplyr::select(-layer,-ers__ID)
+#originSitesAMKE <- st_transform(originSitesAMKE, "ESRI:102010")
+
+```
+
+```{r, eval=FALSE}
+## Run analysis for psi
+summary(targetPoints_genetic)
+library(ggspatial)
+  ggplot() +
+  geom_sf(data = ecoregions, alpha = 0.75, aes(fill = Region)) +
+  geom_sf(data = targetPointsAMKE, aes(shape = Type)) +
+  theme_bw()
+
+rowSums(updated_matrix)
+band_matrix
+```
+
+```{r, eval=FALSE}
+
+#redefining order
+updated_matrix <- updated_matrix[c("AK","West","East"), ]
+band_matrix <- band_matrix[c("AK","West","East")]
+AMKE_genetics <- AMKE_genetics[, c("AK","West","East")]
+band_matrix
+
+#run transition
+st_crs(targetPointsAMKE) <- st_crs(originSitesAMKE) <- st_crs(ecoregions)
+est.psi.gen_band <- estTransition(originSites = originSitesAMKE,
+                          targetSites = ecoregions,
+                          targetPoints = targetPoints_genetic,
+                          originAssignment = AMKE_genetics,
+                          isTelemetry = FALSE,
+                          isRaster = FALSE,
+                          isProb = TRUE,
+                          captured = "target",
+                          targetNames = target.names,
+                          originNames = origin.names,
+                          targetRelAbund = target.abund,
+                          verbose = 3,
+                          nSamples = 100,
+                         banded = band_matrix, 
+                         reencountered = updated_matrix,
+                         dataOverlapSetting="none",
+                         method="bootstrap"
+                          )
+
+summary(est.psi.gen_band)
+```
+
+```{r}
+library(gridExtra)
+library(grid)
+
+saveRDS(est.psi.gen_band ,"4.Combined MigCon/AMKE.MigConn.COMBINED.psi.redoCH.RDS")
+psiAMKE<- readRDS("4.Combined MigCon/AMKE.MigConn.COMBINED.psi.RDS")
+ 
+ pdf("AMKE.COMBINED.pdf")
+par(mar = c(2,3,0,0))
+plot(psiAMKE, cex = 0.02)
+
+legend("topright",
+       legend = c("ALM", "CAL", "ETF", "GP", "HCA", "HIM", "MWCF", "NAD", "NANDES", "NWM", "NWFM", "SCUS", "SEUS", "SWM"),
+       col = c("#44AA99", "#303942", "#882255", "#ddcc77", "#533956", "#88ccee", "#fbded5", "#332288", "#1e264b", "#ce7f60", "#cec106", "#117733", "#999933", "#d1f0e1" ),
+       pch = 16,
+       bty = "n")
+
+dev.off()
+
+  #save transition probabilities 
+psi_table <- as.data.frame(psiAMKE$psi$mean) %>%
+  rownames_to_column("origin")
+write.xlsx(psi_table, "4.Combined MigCon/AMKE.psi_table.redoCH.xlsx", row.names = FALSE)
+
+psi_mat <- ifelse(
+  psiAMKE$psi$mean < 0.001,
+  formatC(psiAMKE$psi$mean, format = "e", digits = 2),
+  round(psiAMKE$psi$mean, 3)
+)
+#  rownames_to_column("origin")
+ 
+write.xlsx(psi_mat, "4.Combined MigCon/AMKE.psi_table.redoCH.Combined.xlsx", row.names = T)
+
+table_grob <- tableGrob(psi_mat)
+
+pdf("4.Combined MigCon/AMKE_psi_table.redoCH.pdf", width = 30, height = 6)
+grid.draw(table_grob)
+dev.off()
+
+```
+
+
+```{r}
+library(tidyverse)
+library(mignette)
+library(ggalluvial)
+cluster_colors <-  c(
+  West = "#ffff33", #west yellow 
+  East = "#377eb8", #East, blue
+  AK = "#00ffff") #AK, cyan 
+
+brnode_names <- c("AK","West", "East")
+nbnode_names <- c("NWFM","MWCF","NAD","CAL","SCUS","NWM","SWM","HCA", "HIM", "ALM", "SEUS","GP","ETF", "NAndes")
+
+
+amke_conn_df<- psiAMKE$psi$mean %>% 
+  as.data.frame() %>% 
+  rename(SWM=`Southwest Mexico`, HIM=`Highland/Interior Mexico`, NAndes=`Northern Andes`, ALM=`Atlantic Lowland Mexico`, HCA=`Highland Central America`, SEUS=`Southeastern US`, CAL=California, MWCF=`Marine West Coast Forests`,SCUS=`Southcentral US`, NWFM =`Northwestern Forested Mountains`, SEUS=`Southeastern US`,NWM=`Northwest Mexico`,ETF=`Eastern Temperate Forests`,NAD=`North American Deserts`,GP=`Great Plains`) %>%
+  as_tibble(rownames = "Breeding") %>%
+  dplyr::select(MWCF,NWFM,CAL,NAD,GP,SCUS,NWM,SWM,HIM,HCA,NAndes,ALM,SEUS,ETF)
+
+amke_conn_df3<- psiAMKE$psi$mean %>% 
+  as.data.frame() %>% 
+  rename(SWM=`Southwest Mexico`, HIM=`Highland/Interior Mexico`, NAndes=`Northern Andes`, ALM=`Atlantic Lowland Mexico`, HCA=`Highland Central America`, SEUS=`Southeastern US`, CAL=California, MWCF=`Marine West Coast Forests`,SCUS=`Southcentral US`, NWFM =`Northwestern Forested Mountains`, SEUS=`Southeastern US`,NWM=`Northwest Mexico`,ETF=`Eastern Temperate Forests`,NAD=`North American Deserts`,GP=`Great Plains`)  %>%
+  as_tibble(rownames = "Breeding") %>%
+  dplyr::select(Breeding,MWCF,NWFM,CAL,NAD,GP,SCUS,NWM,SWM,HIM,HCA,NAndes,ALM,SEUS,ETF)
+```
+
+##Get abundance of Origin 
+```{r}
+#West, FL, East
+br_abunds<-terra::rast("~/Downloads/amekes_abundance_seasonal_breeding_mean_2023.tif") 
+br_abunds_proj <- terra::project(br_abunds, crs(genoscape))
+
+br_abunds <- get_vector_abunds(populations = genoscape, abunds = br_abunds_proj,pop_names=genoscape[[3]])
+br_abunds
+str(br_abunds)
+```
+
+#Calculate relative abundance, plot weighted alluvial
+```{r}
+Breeding<-c("AK","West", "East")
+#actual abundance
+origin.abund <- br_abunds$Relative_abundance[c(1,2,3)] 
+#reduce West abundance for plotting purposes, 25% of it's global abundance
+origin.abund[c(2)] <- origin.abund[c(2)]*.4
+origin.abund <- origin.abund / sum(origin.abund)
+d<-as.data.frame(origin.abund)
+d2<-cbind(Breeding,d)
+d2
+
+amke_conn_df_abun<-amke_conn_df %>%
+  mutate_all(.,function(col){d2$origin.abund*col})
+amke_conn_df4<-cbind(d2,amke_conn_df_abun) %>% dplyr::select(-origin.abund)
+
+row.sum <-apply(amke_conn_df4[1:3,2:10],1,sum)
+col.sum <-apply(amke_conn_df4[1:3,2:10],2,sum)
+
+amke_conn_df_abun <- amke_conn_df4 %>% 
+  pivot_longer(cols = MWCF:ETF, names_to = "Nonbreeding", values_to = "Connectivity") %>%
+  mutate(Connectivity = ifelse(Connectivity < 0.0001, 0, Connectivity)) %>%
+  mutate(Breeding = factor(Breeding, levels = rev(brnode_names)),
+         Nonbreeding = factor(Nonbreeding, levels = rev(nbnode_names)))
+
+
+amke_conn_df_abun <- as.data.table(amke_conn_df_abun)
+
+amke_lodes <- to_lodes_form(as.data.frame(amke_conn_df_abun),
+                            axes = 1:2,
+                            id = "Con")
+amke_lodes <- as.data.table(amke_lodes)
+mamke_lodes <- merge(amke_lodes[x == "Breeding",], amke_lodes[x == "Nonbreeding",], by = "Con")
+mamke_lodes[,color := stratum.x]
+amke_lodes <- merge(amke_lodes, mamke_lodes[,.(Con, color)], by = "Con")
+
+pop_colors <- as.data.frame(matrix(c("Northern Forests", "#CC6677", "NF",
+                                     "North American Deserts", "#332288", "NAD",
+                                     "Great Plains", "#DDCC77", "GP",
+                                     "Southcentral US", "#117733", "SCUS",
+                                     "Highland/Interior Mexico", "#88CCEE", "HIM",
+                                     "Eastern Temperate Forest", "#882255", "ETF",
+                                     "Southeastern US", "#999933", "SEUS",
+                                     "Atlantic Lowland Mexico", "#44AA99", "ALM",
+                                     "Highland Central America", "#533956", "HCA",
+                                     "Southwest Mexico","#d1f0e1","SWM",
+                                     "California","#303942","CAL",
+                                     "Northwest Mexico","#ce7f60","NWM",
+                                     "Northwestern Forested Mountains","#cec106","NWFM",
+                                     "Northern Andes","#1e264b","NAndes",
+                                     "Marine West Coast Forests","#fbded5","MWCF"
+                                    ), byrow = TRUE, ncol = 3))
+
+pop_colors_vec <- pop_colors[,2]
+names(pop_colors_vec) <- pop_colors[,3]
+
+g.alluvial <- ggplot(amke_lodes,
+       aes(x = x, y = Connectivity, stratum = stratum, fill = color, label = stratum,
+           alluvium = Con)) +
+  geom_alluvium(width = 1/12, show.legend = FALSE) +
+  scale_fill_manual(values = c(cluster_colors, pop_colors_vec), 
+                    labels = c(names(cluster_colors),pop_colors[,1]),
+                    breaks = names(c(cluster_colors, pop_colors_vec))) +
+  geom_stratum(alpha = 0.8, width = 1/12, aes(fill = stratum)) +
+  # geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  ggrepel::geom_label_repel(
+    aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
+    stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
+  ) +
+  ggrepel::geom_label_repel(
+    aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
+    stat = "stratum", size = 3, force = 15, xlim = .75, fill = "white",
+  ) +
+  scale_x_discrete(limits=rev) +
+  coord_flip() +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "white")) +
+  theme(aspect.ratio = 1)
+
+g.alluvial
+```
+
+# Below is the alluvial plot if you do not adjust the the transition probablities by breeding node abundance. 
+
+Visually, it is easier to see where Alaska breeing population is going.
+
+```{r}
+amke_conn_band_df_abun <-psiAMKE$psi$mean %>% 
+  as.data.frame() %>% 
+  rename(SWM=`Southwest Mexico`, HIM=`Highland/Interior Mexico`, NAndes=`Northern Andes`, ALM=`Atlantic Lowland Mexico`, HCA=`Highland Central America`, SEUS=`Southeastern US`, CAL=California, MWCF=`Marine West Coast Forests`,SCUS=`Southcentral US`, NWFM =`Northwestern Forested Mountains`, SEUS=`Southeastern US`,NWM=`Northwest Mexico`,ETF=`Eastern Temperate Forests`,NAD=`North American Deserts`,GP=`Great Plains`) %>%
+  dplyr::select(MWCF,NWFM,CAL,NAD,SCUS,NWM,SWM,HIM,HCA,NAndes,ALM,SEUS,GP,ETF) %>% 
+  as.data.frame()
+
+rownames(amke_conn_band_df_abun) <- Breeding 
+
+amke_conn_band_df_abun<- amke_conn_band_df_abun %>% as_tibble(rownames = "Breeding") %>%  dplyr::select(Breeding,MWCF,NWFM,CAL,NAD,SCUS,NWM,SWM,HIM,HCA,NAndes,ALM,SEUS,GP,ETF) %>% 
+  pivot_longer(cols = MWCF:ETF, names_to = "Nonbreeding", values_to = "Connectivity") %>%
+  mutate(Connectivity = ifelse(Connectivity < 0.0001, 0, Connectivity)) %>%
+  mutate(Breeding = factor(Breeding, levels = rev(brnode_names)),
+         Nonbreeding = factor(Nonbreeding, levels = rev(nbnode_names)))
+
+amke_conn_band_df_no_abd <- as.data.table(amke_conn_band_df_abun) 
+amke_lodes <- to_lodes_form(as.data.frame(amke_conn_band_df_no_abd),
+                            axes = 1:2,
+                            id = "Con")
+amke_lodes <- as.data.table(amke_lodes)
+mamke_lodes <- merge(amke_lodes[x == "Breeding",], amke_lodes[x == "Nonbreeding",], by = "Con")
+mamke_lodes[,color := stratum.x]
+amke_lodes <- merge(amke_lodes, mamke_lodes[,.(Con, color)], by = "Con")
+
+g.alluvial_no_weight <- ggplot(amke_lodes,
+       aes(x = x, y = Connectivity, stratum = stratum, fill = color, label = stratum,
+           alluvium = Con)) +
+  geom_alluvium(width = 1/12, show.legend = FALSE) +
+  scale_fill_manual(values = c(cluster_colors, pop_colors_vec), 
+                    labels = c(names(cluster_colors),pop_colors[,1]),
+                    breaks = names(c(cluster_colors, pop_colors_vec)), name = "Region") +
+  geom_stratum(alpha = 0.8, width = 1/12, aes(fill = stratum)) +
+  # geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  ggrepel::geom_label_repel(
+    aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
+    stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
+  ) +
+  ggrepel::geom_label_repel(
+    aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
+    stat = "stratum", size = 3, force = 20, xlim = .75, fill = "white",
+  ) +
+  scale_x_discrete(limits=rev) +
+  coord_flip() +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "white")) +
+  theme(aspect.ratio = 1)
+
+g.alluvial_no_weight
+```
+
+```{r}
+ggsave("AMKE.alluvial.no_weight_by_BreedAbund.combined_band_genetics.pdf")
+```
+# combine
+```{r}
+library(cowplot); library(gridExtra)
+set.seed(11)
+pf <- grid.arrange(g.alluvial_no_weight + guides(fill = "none") + theme_nothing(),
+             g.alluvial + guides(fill = "none")+ theme_nothing(),
+             ncol = 1)
+pf <- grid.arrange(pf, ggpubr::get_legend(g.alluvial_no_weight), widths = c(2, .8), nrow = 1)
+```
+
+```{r}
+ggsave("AMKE.FINALCOMBINED.combined_alluvial.redo_geneticsCH.pdf", pf, width = 13, height = 6)
+```
+
+#Calculate NMC
+```{r}
+calcNMC(psiAMKE$psi$mean)
+
+estNMC(
+  psiAMKE,
+  originNames = NULL,
+  targetNames = NULL,
+  originSites = NULL,
+  targetSites = NULL,
+  nSamples = 1000,
+  verbose = 0,
+  alpha = 0.05,
+  returnAllInput = TRUE
+)
+```
+
+#Plot NMC values
+```{r}
+library(tidyverse)
+# Node names
+nodes <- c("AK", "West", "East")
+
+# Node-specific means and SEs
+means <- c(0.7686, 0.4295, 0.5983 )
+SE <- c(0.13860, 0.02053, 0.01584 )
+
+# Node-specific means and SEs, redoCH
+means <- c(0.7705, 0.4301, 0.5983 )
+SE <- c(0.14717, 0.02038, 0.01563 )
+
+# Combine into a tibble
+nmc_df <- tibble(
+  Node = nodes,
+  Mean = means,
+  SE = SE, 
+  Type= "Combined"
+)
+
+band_df <- tibble(
+  Node = c("West", "East"),
+Mean = c(.5019, .6048 ), 
+SE = c(.03437, .01833 ),
+  Type = "Banding"
+)
+
+gen_df <- tibble(
+  Node = c("AK", "West", "East"),
+  Mean = c( 0.7322, 0.2334, 0.2707),
+  SE = c(0.14716, 0.02052, 0.03388 ),
+  Type = "Genetic"
+)
+
+combined_df <- bind_rows(nmc_df, band_df, gen_df)
+combined_df$Type <- factor(combined_df$Type, 
+                           levels = c("Banding", "Genetic", "Combined"))
+combined_df$Node <- factor(combined_df$Node, levels = c("AK", "West", "East"))
+
+# Define the colors (same as your map)
+node_colors <- c(
+  AK = "cyan",
+  West = "yellow",
+  East = "#377eb8"
+)
+#nmc_df$Node <- factor(nmc_df$Node, levels = c("AK", "West", "East"))
+
+# Plot
+combined_plot <- ggplot(combined_df, aes(x = Node, y = Mean, color = Node)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE), width = 0.2) +
+  scale_color_manual(values = node_colors) +
+  ylim(0, 1.1) +
+  facet_wrap(~Type) +
+  labs(
+    title = "Node-specific Migratory Connectivity (NMC_XY)",
+    x = "Breeding Node",
+    y = "NMC (mean ± SE)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+combined_plot
+
+ggsave("4.Combined MigCon/FULLcombined_NMC_Oct052026.pdf", combined_plot, width = 10, height = 8)
+```
+
+#Creating and saving table of NMCs
+```{r}
+library(tidyverse)
+library(gt)
+
+# Input your values here
+table_df <- tibble(
+  Node = c("AK", "West", "East",
+           "AK", "West", "East",
+           "AK", "West", "East"),
+  
+  Type = c("Banding", "Banding", "Banding",
+           "Genetic", "Genetic", "Genetic",
+           "Combined", "Combined", "Combined"),
+  
+  Mean = c(NA, .5019, .6048,     # Banding
+        0.7322, 0.2334, 0.2707,  # Genetic
+         0.7686, 0.4295, 0.5983), # Combined
+  
+  Lower = c(NA, .4321, .5669,   # <-- replace with your CI lower bounds
+            4725, 0.1965 ,0.2059,
+            .5401, .3842, .5681),
+  
+  Upper = c(NA, .5680, .6381,   # <-- replace with your CI upper bounds
+            1.0000, 0.2728, 0.3461,
+            1.000, .4622, .6291)
+)
+
+write_xlsx(table_df,
+           "~/Downloads/table_df.xlsx")
+
+# Format Mean (CI)
+table_df <- table_df %>%
+  mutate(
+    Mean_CI = ifelse(
+      is.na(Mean),
+      "—",
+      sprintf("%.3f (%.3f–%.3f)", Mean, Lower, Upper)
+    )
+  )
+
+
+# Pivot to wide format
+final_table <- table_df %>%
+   dplyr::select(Node, Type, Mean_CI) %>%
+  pivot_wider(names_from = Type, values_from = Mean_CI) %>%
+  mutate(Node = factor(Node, levels = c("AK", "West", "East"))) %>%
+  arrange(Node)
+
+final_table
+
+# Create table
+gt_table <- final_table %>%
+  gt() %>%
+  tab_header(
+    title = "Node-specific Migratory Connectivity"
+  )
+
+# Save as image
+#gtsave(gt_table, "nmc_table.pdf")
+```
+
+```{r}
+# Input your values here- redo CH
+table_df <- tibble(
+  Node = c("AK", "West", "East",
+           "AK", "West", "East",
+           "AK", "West", "East"),
+  
+  Type = c("Banding", "Banding", "Banding",
+           "Genetic", "Genetic", "Genetic",
+           "Combined", "Combined", "Combined"),
+  
+  Mean = c(NA, .5019, .6048,     # Banding
+        0.7322, 0.2334, 0.2707,  # Genetic
+         0.7705, 0.4301, 0.5983), # Combined
+  
+  Lower = c(NA, .4321, .5669,   # <-- replace with your CI lower bounds
+            4725, 0.1965 ,0.2059,
+            .5403, .3817, .5681),
+  
+  Upper = c(NA, .5680, .6381,   # <-- replace with your CI upper bounds
+            1.0000, 0.2728, 0.3461,
+            1.000, .4715, .6291)
+)
+
+write_xlsx(table_df,
+           "~/Downloads/table_df.xlsx")
+
+# Format Mean (CI)
+table_df <- table_df %>%
+  mutate(
+    Mean_CI = ifelse(
+      is.na(Mean),
+      "—",
+      sprintf("%.3f (%.3f–%.3f)", Mean, Lower, Upper)
+    )
+  )
+
+
+# Pivot to wide format
+final_table <- table_df %>%
+   dplyr::select(Node, Type, Mean_CI) %>%
+  pivot_wider(names_from = Type, values_from = Mean_CI) %>%
+  mutate(Node = factor(Node, levels = c("AK", "West", "East"))) %>%
+  arrange(Node)
+
+final_table
+
+# Create table
+gt_table <- final_table %>%
+  gt() %>%
+  tab_header(
+    title = "Node-specific Migratory Connectivity"
+  )
+```

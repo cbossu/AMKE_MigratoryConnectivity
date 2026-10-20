@@ -416,24 +416,25 @@ winter_birds_gen <- winter_birds_gen %>%
 winter_birds_gen %>% group_by(assignment) %>% tally()
 ```
 
-#read in ecoregions
+# Read in ecoregions and add abbreviations
 ```{r}
 ecoregions <- st_read("AMKE_shapefiles_rasters/winter_ecoregion/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp")
 ecoregions <- ecoregions %>%
   mutate(node = case_when(
-        Region == "Marine West Coast Forests" ~ "MWCF",
-            Region == "Northwestern Forested Mountains" ~ "NWFM",
-    Region == "Highland/Interior Mexico" ~ "HIM",
+        Region == "Highland/Interior Mexico" ~ "HIM",
     Region == "Highland Central America" ~ "HCA",
-    Region == "Northwest Mexico" ~ "NWM",
+    Region == "Lowland Central America" ~ "LCA",
     Region == "Atlantic Lowland Mexico" ~ "ALM",
+    Region == "Northwest Mexico" ~ "NWM",
+    Region == "Southwest Mexico" ~ "SWM",
+    Region == "Northern Andes" ~ "NAndes",
+    Region == "Amazon/Orinoco-Northern Uplands" ~ "AONU",
+    Region == "Caribbean" ~ "CAR",
     Region == "California" ~ "CAL",
     Region == "Southcentral US" ~ "SCUS",
     Region == "Southeastern US" ~ "SEUS",
-    Region== "Southwest Mexico" ~ "SWM",
-    Region == "Northern Andes" ~ "NAndes",
-        Region == "Eastern Temperate Forests" ~ "ETF",
-        Region == "North American Deserts" ~ "NAD",
+    Region == "Marine West Coast Forests" ~ "MWCF",
+    Region == "Northwestern Forested Mountains" ~ "NFM",
     TRUE ~ Region
   ))
 centroids <- cbind(
@@ -678,10 +679,6 @@ ggplot() +
 ```
 
 #PIES WITH NICE BACKGROUND
-```{r}
-library(ggforce)
-```
-
 
 ```{r}
 breeding_colors <- c(
@@ -736,7 +733,7 @@ ggplot() +
 ```{r}
 # Define all 5 breeding populations and colors
 breeding_colors <- c(
-  "AK" = "cyan",
+  "Alaska" = "cyan",
   "West" = "yellow",
   "East" = "#377eb8",
   "TX" = "orange",
@@ -755,7 +752,7 @@ ggplot() +
   geom_scatterpie(
     aes(x = X, y = Y, group = grid_id),
     data = filt_pies,
-    cols = c("AK", "West", "East"), # only the populations present
+    cols = c("Alaska", "West", "East"), # only the populations present
     color = NA,
     alpha = .9,
     pie_scale = .8
@@ -796,7 +793,7 @@ ggplot() +
 # --- Step 1: Add abbreviations to your ecoregions ---
 ecoregions <- ecoregions %>%
   mutate(node = case_when(
-    Region == "Highland/Interior Mexico" ~ "HIM",
+        Region == "Highland/Interior Mexico" ~ "HIM",
     Region == "Highland Central America" ~ "HCA",
     Region == "Lowland Central America" ~ "LCA",
     Region == "Atlantic Lowland Mexico" ~ "ALM",
@@ -1167,25 +1164,7 @@ filt_pies_combined <- filt_pies_combined %>%
 
 
 #plotting
-# ---  Add abbreviations to ecoregions ---
-ecoregions <- ecoregions %>%
-  mutate(node = case_when(
-    Region == "Highland/Interior Mexico" ~ "HIM",
-    Region == "Highland Central America" ~ "HCA",
-    Region == "Lowland Central America" ~ "LCA",
-    Region == "Atlantic Lowland Mexico" ~ "ALM",
-    Region == "Northwest Mexico" ~ "NWM",
-    Region == "Southwest Mexico" ~ "SWM",
-    Region == "Northern Andes" ~ "NAndes",
-    Region == "Amazon/Orinoco-Northern Uplands" ~ "AONU",
-    Region == "Caribbean" ~ "CAR",
-    Region == "California" ~ "CAL",
-    Region == "Southcentral US" ~ "SCUS",
-    Region == "Southeastern US" ~ "SEUS",
-    Region == "Marine West Coast Forests" ~ "MWCF",
-    Region == "Northwestern Forested Mountains" ~ "NFM",
-    TRUE ~ Region
-  ))
+# ---  Added abbreviations to ecoregions previously ---
 
 # --- Compute centroids for labeling ---
 ecoregion_centroids <- cbind(

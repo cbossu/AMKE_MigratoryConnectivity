@@ -68,11 +68,10 @@ by interpolating Q-values from a program like STRUCTURE or ADMIXTURE between ind
 that were sampled in space. 
 
 ### Input Data
-Normally you would input the ancestry matrix created in STRUCTURE or ADMIXTURE. But since I've created the genoscape already, I'm just providing you the raster of the genoscape, with the colors and you can plot this for your figures.
-
+Normally you would input the ancestry matrix created in STRUCTURE or ADMIXTURE. But since the genoscape was created already (Ruegg et al. 2021), I'm just providing you the raster of the genoscape, with the colors we used to be consistent and you can plot this for your figures.
 
 #### Breeding Bird Lat-Longs
-We also need to know where those individuals were sampled in space. We have that here- though use the file I created specifically for the breeding birds from your previous tutorial.
+We also need to know where those individuals were sampled in space. We have that here- though use the file I created specifically for the breeding birds.
 ```{r, message=FALSE}
 met<-read_delim("input/Rubias/AMKE_186SNPgenotypes.breeders.412inds_197Radinds.stateFID.hwe.ped.locationfile_fix.txt",delim="\t") %>%
   rename(indiv=Sample_Name)
@@ -94,7 +93,7 @@ cluster_colors <-  c(
   TX = "#ff7f00", #TX, orange 
   East = "#377eb8", #East, blue
   FL = "#984ea3", #FL, purple 
-  AK = "#00ffff") #AK, cyan 
+  Alaska = "#00ffff") #AK, cyan 
 
 show_col(cluster_colors)
 ```
@@ -134,7 +133,7 @@ Here is the raster of the AMKE genoscape. Read it in, and name the layers so the
 genoscape_brick1 <- stack("AMKE_shapefiles_rasters/AMKE_crop.genoscape_brick.tif")
 crs(genoscape_brick1) <- "EPSG:4326"
 summary(genoscape_brick1)
-names(genoscape_brick1) <- c("West", "TX", "East", "FL", "AK")
+names(genoscape_brick1) <- c("West", "TX", "East", "FL", "Alaska")
 
 ```
 
@@ -146,9 +145,9 @@ a little bit in the next section.
 
 For this we use the function `genoscapeRtools::qprob_rando_raster()`.  This takes the raster
 brick that comes out of tess3Q_map_rasters() and does some rescaling and (maybe) some random sampling to return a raster of colors that I hope will do a reliable job of representing (in some way) predicted assignment accuracy over space.
-See `?genoscapeRtools::qprob_rando_raster` to learn about the scaling options, etc. (However, I am not convinced that all of those options are reliably estimated.)
+See `?genoscapeRtools::qprob_rando_raster` to learn about the scaling options, etc. 
 
-This will squash the raster brick down to a single RGBA (i.e., four channels, red, green, blue and alpha) raster brick. You can adjust the alpha (the transparency) by adjusting teh alpha_exp parameter. The higher it is, the more transparency there is.
+This will squash the raster brick down to a single RGBA (i.e., four channels, red, green, blue and alpha) raster brick. You can adjust the alpha (the transparency) by adjusting the alpha_exp parameter. The higher it is, the more transparency there is.
 ```{r}
 genoscape_rgba <- genoscapeRtools::qprob_rando_raster(
   TRB = genoscape_brick1,
@@ -174,31 +173,16 @@ ggplot() +
 ```
 
 Note that if we wanted to add the actual sampling points to this (that are given
-in `long_lat_tibble`), we can use ggspatial's `geom_spatial_point()` function.
-/Users/clairelabuda/Downloads/AMKEproject/AMKE.Plate58.Wint.SoutheastUS.rep_indiv_est.inclRES_result.filt_certain.assignment.meta.xlsx
+in `LatLong_tibble`), we can use ggspatial's `geom_spatial_point()` function.
+
 ```{r}
 
 #Rub_result<-read_delim("~/Downloads/Supp_Table_2.txt",delim="\t")
 Rub_result<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates =T) %>% filter(Stage!="Breeding")
 
 
-
-#write_xlsx(Rub_result, "~/Downloads/Rub_result.xlsx")
-
-Rub_result <- Rub_result %>%
-  mutate(
-    max_prob = pmax(AK, West, East),
-    assignment2 = case_when(
-      max_prob < 0.8 ~ "Uncertain",
-      AK == max_prob ~ "AK",
-      West == max_prob ~ "West",
-      East == max_prob ~ "East",
-    ) 
-  ) 
-
-
 Rub_certain <- Rub_result %>%
-  filter(!is.na(assignment2), assignment2 != "Uncertain")
+  filter(!is.na(assignment), assignment != "Uncertain")
 
 #write.table(Rub_certain, "genetics_certain1.txt", sep = "\t", row.names = FALSE)
 
@@ -209,7 +193,7 @@ geno_simple
 
  
 map_assignRub_geno <-geno_simple + 
-  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude,color=assignment2,shape=Stage)) +
+  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude,color=assignment,shape=Stage)) +
   scale_colour_manual(values=c( "cyan","#377eb8","#ffff33", "purple")) +
 theme_bw() +
   coord_sf()
@@ -280,7 +264,7 @@ mapg <- ggplot() +
 
 # now plot it under default lat-long projection
 mapg +
-  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude, col=assignment2),size=2)+
+  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude, col=assignment),size=2)+
   scale_colour_manual(values=c("cyan","#377eb8","#ffff33")) +
   coord_sf(xlim=c(-165,-55),ylim=c(-10,70),expand=F) 
 
@@ -300,7 +284,7 @@ Now, let's see how our developing map looks under such a projection.  We just de
 a coordinate reference system and pass it in to `coord_sf()`:
 ```{r}
 mapg +
-  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude, col=assignment2),size=2)+
+  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude, col=assignment),size=2)+
   scale_colour_manual(values=c("cyan","#377eb8","#ffff33")) +
   coord_sf(crs = st_crs(lamproj))
 ```
@@ -317,8 +301,6 @@ I am going to recommend that you get the hypsometrically tinted Natural Earth ma
 basin coloring too.  We will put it into a directory in the project called `ne_rasters`.  Note, this expands to about half a gig of data. 
 
 ```{r}
-
-
 name <- "HYP_HR_SR_OB_DR"            # or "HYP_HR_SR_W_DR" for full resolution
 url  <- sprintf("https://naciscdn.org/naturalearth/10m/raster/%s.zip", name)
 
@@ -326,7 +308,8 @@ options(timeout = 3600)             # large file; the default 60 s will time out
 download.file(url, paste0(name, ".zip"), mode = "wb")
 unzip(paste0(name, ".zip"), exdir = name)
 ```
-### Read in the raster and crop it
+
+## Read in the raster and crop it
 
 Reading a large raster in with the raster package does not take up much memory, because it leaves it on disk.  So we will open a connection to
 the big, massive raster using the `brick` function from the `raster` package
@@ -445,7 +428,7 @@ centroids <- cbind(
 winter_colors <- c(
   "Alaska" = "cyan",
   "West" = "yellow",
-  "East" = "dodgerblue",
+  "East" = "#377eb8",
   "FL" = "#000066"
 )
 

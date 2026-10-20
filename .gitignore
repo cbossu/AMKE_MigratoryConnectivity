@@ -1,0 +1,19 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+#Large files to ignore
+output/Banding_filtered/map_with_popouts_ALLECOREGIONS.pdf
+output/Rubias/AMKE.pie_chart.quick_n_dirty.pdf
+# R data objects
+*.rds
+*.RDS
+
+# Large tif files that are easily downloadable
+HYP_HR_SR_OB_DR.zip
+HYP_HR_SR_OB_DR/*
+AMKE_shapefiles_rasters/hypso_background_extended.tif*
+
+# Range files that can be downloaded from eBird
+AMKE_shapefiles_rasters/eBird_range/*

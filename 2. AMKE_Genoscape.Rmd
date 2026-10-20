@@ -16,9 +16,9 @@ This chronicles the steps taken whilst making a `genoscape` for American Kestrel
 This work draws on a few functions that I have in packages that I have up on GitHub,
 namely:
 
-1. **my fork** of `tess3r`.  Note that you can't use the default version of `tess3r`,
-you have to use my fork of it, which has some extra functionality.
-2. my package `genoscapeRtools`
+1. **Eric Anderson's fork** of `tess3r`.  Note that you can't use the default version of `tess3r`,
+you have to use Eric's fork of it, which has some extra functionality.
+2. Eric's package `genoscapeRtools`
 
 Get those packages like this:
 ```{r, eval=FALSE}
@@ -40,7 +40,7 @@ You can get those like this:
 ### Load the Packages We will work with
 
 ```{r, comment=FALSE, warning=FALSE, message=FALSE}
-#library(raster)  # important to load before tidyverse, otherwise it masks select()
+library(raster)  # important to load before tidyverse, otherwise it masks select()
 library(tidyverse)
 library(sf)
 library(ggspatial)
@@ -48,6 +48,14 @@ library(scales)
 library(terra)
 library(tess3r)
 library(genoscapeRtools)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(openxlsx)
+library(writexl)
+library(ggplot2)
+library(scatterpie)
+library(ggforce)
 ```
 
 ## Making the genoscape
@@ -169,11 +177,11 @@ Note that if we wanted to add the actual sampling points to this (that are given
 in `long_lat_tibble`), we can use ggspatial's `geom_spatial_point()` function.
 /Users/clairelabuda/Downloads/AMKEproject/AMKE.Plate58.Wint.SoutheastUS.rep_indiv_est.inclRES_result.filt_certain.assignment.meta.xlsx
 ```{r}
-library(openxlsx)
+
 #Rub_result<-read_delim("~/Downloads/Supp_Table_2.txt",delim="\t")
 Rub_result<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates =T) %>% filter(Stage!="Breeding")
 
-library(writexl)
+
 
 #write_xlsx(Rub_result, "~/Downloads/Rub_result.xlsx")
 
@@ -309,7 +317,7 @@ I am going to recommend that you get the hypsometrically tinted Natural Earth ma
 basin coloring too.  We will put it into a directory in the project called `ne_rasters`.  Note, this expands to about half a gig of data. 
 
 ```{r}
-library(terra)
+
 
 name <- "HYP_HR_SR_OB_DR"            # or "HYP_HR_SR_W_DR" for full resolution
 url  <- sprintf("https://naciscdn.org/naturalearth/10m/raster/%s.zip", name)
@@ -394,22 +402,23 @@ into the ggplot framework.
 ## Session Info
 # creates genoscape with points
 ```{r}
-library(readr)
-library(dplyr)
-library(sf)
-
 # Load winter bird assignments
-winter_birds <- read_delim("~/genetics_certain1.txt", delim = "\t")
+winter_birds_gen <- read_delim("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX.result.filt_certain_withAssignments01.txt", delim = "\t") %>% filter(Stage!="Breeding") %>% mutate(Sample_type="Genetics")
 
+winter_birds_geo <- read_csv("input/MigConn/AMKEbandingrecoverymatrix_filt.csv") %>% rename(assignment=Cluster,longitude=winter_long,latitude=winter_lat,Sample=band) %>% mutate(Sample_type="Band-Recapture")
 # Rename coordinates
-winter_birds <- winter_birds %>%
+winter_birds_gen <- winter_birds_gen %>%
   rename(
-    latitude = Lat,
-    longitude = Long
+    latitude = Latitude,
+    longitude = Longitude
   )
 
+winter_birds_gen %>% group_by(assignment) %>% tally()
+```
+
 #read in ecoregions
-ecoregions <- st_read("~/Downloads/winter_ecoregion 2/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp")
+```{r}
+ecoregions <- st_read("AMKE_shapefiles_rasters/winter_ecoregion/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp")
 ecoregions <- ecoregions %>%
   mutate(node = case_when(
         Region == "Marine West Coast Forests" ~ "MWCF",
@@ -433,7 +442,7 @@ centroids <- cbind(
 )
 
 winter_colors <- c(
-  "AK" = "cyan",
+  "Alaska" = "cyan",
   "West" = "yellow",
   "East" = "dodgerblue",
   "FL" = "#000066"
@@ -441,7 +450,7 @@ winter_colors <- c(
 
 
 #see where ecoregions overlap with points
-winter_sf <- winter_birds %>%
+winter_sf <- winter_birds_gen %>%
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
 
 winter_sf <- st_transform(winter_sf, st_crs(ecoregions))
@@ -458,63 +467,60 @@ centroids_filtered <- cbind(
 
 #make plot
 winter_map <- ggplot() +
-
-  geom_sf(data = coast_cropped, fill = NA, size = 0.2) +
-
+  ggspatial::layer_spatial(hypso_bg_cropped) +
+  #geom_sf(data = coast_cropped, fill = NA, size = 0.2) +
+  ggspatial::layer_spatial(genoscape_rgba, alpha = 1.1) +
   geom_sf(
     data = ecoregions,
-    fill = "grey90",
-    color = "grey50",
-    size = 0.2,
-    alpha = 0.6
-  ) +
+    aes(color = NULL),
+    lwd=0.2,
+    alpha = 0.4
+  ) + #might be size = 0.2 not lwd
 
   geom_sf(data = countries_cropped, fill = NA, size = 0.15) +
 
   geom_spatial_point(
-    data = winter_birds,
+    data = winter_birds_gen,
     mapping = aes(
       x = longitude,
       y = latitude,
-      fill = assignment
+      color = assignment,
+      shape = Stage,
     ),
-    shape = 21,
-    color = "black",
     stroke = 0.2,
     size = 2.7,
     alpha = 0.8,
-    position = position_jitter(width = 7e03, height = 7e03)
+    position = position_jitter(width = 2e04, height = 2e04)
   ) +
 
   geom_spatial_text(
     data = centroids_filtered,
-    aes(x = X, y = Y, label = node),
+    aes(x = X-3, y = Y, label = node),
     size = 3
   ) +
 
-  scale_fill_manual(values = winter_colors) +
-
+  scale_color_manual(values = c("cyan","#377eb8","#ffff33")) +
+  scale_shape_manual(values = c(17,16)) +
+  
   theme_bw() +
 
-  coord_sf(
+ coord_sf(
     crs = st_crs(lamproj),
-    xlim = c(-2568118, 4871262),
-    ylim = c(-4799797, 880362),
+    xlim = c(-3568118, 4671262),
+    ylim = c(-4799797, 3664362),
     expand = FALSE
   )
 
 winter_map
-
-#sessioninfo::session_info()
+ 
 ```
 
-##CREATES PIECHARTS based on ecoregions
 ```{r}
-library(ggplot2)
-library(sf)
-library(dplyr)
-library(scatterpie)
+ggsave("output/Rubias/AMKE.genetic_sampling.assignment.pretty_map.lamproj.Panel2.pdf")
+```
 
+##CREATES PIECHARTS based on ecoregions: too broad
+```{r}
 # Compute centroids for ecoregions
 ecoregion_centroids <- ecoregions %>%
   st_centroid() %>%
@@ -526,7 +532,7 @@ ecoregion_centroids <- ecoregions %>%
   dplyr::select(Region, X, Y)
 
 # --- Aggregate birds by ecoregion ---
-filt_pies <- winter_birds %>%
+filt_pies <- winter_birds_gen %>%
     filter(!is.na(longitude), !is.na(latitude)) %>% 
   st_as_sf(coords = c("longitude","latitude"), crs = 4326) %>%
   st_join(ecoregions, join = st_within) %>%  # assign each bird to an ecoregion
@@ -544,7 +550,7 @@ filt_pies <- winter_birds %>%
 pie_colors <- c(
   "AK" = "cyan",
   "West" = "yellow",
-  "East" = "dodgerblue", 
+  "East" = "#377eb8", 
   "FL"= "purple"
 )
 
@@ -571,10 +577,14 @@ ggplot() +
 # Convert birds to sf + project to meters
 # -------------------------------
 birds_sf <- winter_birds %>%
-  filter(!is.na(longitude), !is.na(latitude)) %>%
+  #filter(!is.na(longitude), !is.na(latitude)) %>%
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326) %>%
   st_transform(5070)   # NAD83 / Conus Albers (good for ecology)
 
+ winter_birds_gen %>% group_by(assignment) %>% tally()
+```
+ 
+```{r}
 # -------------------------------
 # Create 100 km grid covering ALL birds
 # -------------------------------
@@ -595,15 +605,15 @@ birds_grid <- st_join(birds_sf, grid_100km, join = st_within)
 # -------------------------------
 filt_pies <- birds_grid %>%
   st_drop_geometry() %>%
-  filter(!is.na(grid_id)) %>%   # remove any edge cases
+  #filter(!is.na(grid_id)) %>%   # remove any edge cases, can't: AK is on edge in TX
   group_by(grid_id) %>%
 summarise(
-  AK   = sum(assignment == "AK",   na.rm = TRUE),
+  Alaska   = sum(assignment == "Alaska",   na.rm = TRUE),
   West = sum(assignment == "West", na.rm = TRUE),
   East = sum(assignment == "East", na.rm = TRUE),
   n    = n(),   # 👈 add this
   .groups = "drop"
-)
+) 
 
 # -------------------------------
 # Get centroids for used grid cells
@@ -624,7 +634,8 @@ grid_centroids <- grid_centroids %>%
 
 # Join coordinates to summary
 filt_pies <- filt_pies %>%
-  left_join(grid_centroids, by = "grid_id")
+  left_join(grid_centroids, by = "grid_id") %>% 
+  filter(!is.na(X))
 
 # -------------------------------
 # Convert coords back to lat/long for plotting
@@ -641,23 +652,23 @@ filt_pies$Y <- coords_ll[,2]
 # Define colors
 # -------------------------------
 pie_colors <- c(
-  "AK"   = "cyan",
+  "Alaska"   = "cyan",
   "West" = "yellow",
-  "East" = "dodgerblue"
+  "East" = "#377eb8"
 )
 
 # -------------------------------
 # Plot
 # -------------------------------
 ggplot() +
-  geom_sf(data = st_transform(ecoregions, 4326), fill = NA, color = "gray50") +
+  geom_sf(data = st_transform(ecoregions_gen, 4326), fill = NA, color = "gray50") +
   geom_scatterpie(
     aes(x = X, y = Y, group = grid_id),
     data = filt_pies,
-    cols = c("AK", "West", "East"),
+    cols = c("Alaska", "West", "East"),
     color = NA,
     alpha = 0.9,
-    pie_scale = .5
+    pie_scale = 1
   ) +
   scale_fill_manual(values = pie_colors) +
   coord_sf(crs = st_crs(4326)) +
@@ -666,187 +677,23 @@ ggplot() +
 
 ```
 
-```{r}
-library(dplyr)
-library(sf)
-library(ggplot2)
-library(ggspatial)
-library(tidyr)
-library(ggforce)
-
-# -------------------------------
-# 1️⃣ Clean and transform wintering locations
-# -------------------------------
-LatLong_clean <- LatLong_tibble %>%
-  mutate(
-    meanLat = as.numeric(meanLat),
-    meanLong = as.numeric(meanLong)
-  ) %>%
-  filter(!is.na(meanLat) & !is.na(meanLong))
-
-LatLong_winter <- st_as_sf(
-  LatLong_clean,
-  coords = c("meanLong", "meanLat"),
-  crs = 4326
-)
-LatLong_winter <- st_transform(LatLong_winter, crs = 4326)
-
-# -------------------------------
-# 2️⃣ Prepare pie chart data
-# -------------------------------
-Rub_long <- Rub_certain %>%
-  pivot_longer(
-    cols = starts_with("Assign"),
-    names_to = "Assignment",
-    values_to = "Proportion"
-  ) %>%
-  mutate(Proportion = as.numeric(Proportion)) %>%
-  filter(Proportion > 0)
-
-Rub_sf <- st_as_sf(Rub_long, coords = c("Long", "Lat"), crs = 4326)
-Rub_sf <- st_transform(Rub_sf, crs = 4326)
-
-Rub_sf <- Rub_sf %>%
-  mutate(
-    x0 = st_coordinates(geometry)[,1],
-    y0 = st_coordinates(geometry)[,2]
-  )
-
-# -------------------------------
-# 3️⃣ Build map
-# -------------------------------
-
-# ---- Convert desired bounding box to projected coordinates ----
-map_corners <- st_sfc(
-  st_point(c(-160, -5)),   # SW corner: 160W, 0N
-  st_point(c(-60, 70)),   # NE corner: 60W, 70N
-  crs = 4326
-)
-map_corners_proj <- st_transform(map_corners, crs = 4326)
-xlim_proj <- st_coordinates(map_corners_proj)[,1]
-ylim_proj <- st_coordinates(map_corners_proj)[,2]
-
-# ---- Build the map ----
-winter_map <- ggplot() +
-  ggspatial::layer_spatial(hypso_cropped) +
-  geom_sf(data = st_transform(countries_cropped, crs = 4326), fill = NA, size = 0.15) +
-  geom_sf(data = st_transform(states_cropped, crs = 4326), fill = NA, size = 0.1) +
-  geom_arc_bar(
-    data = Rub_sf,
-    aes(
-      x0 = x0,
-      y0 = y0,
-      r0 = 0,
-      r = 100000,
-      start = 0,
-      end = Proportion * 2 * pi,
-      fill = Assignment
-    ),
-    stat = "identity"
-  ) +
-  scale_fill_manual(values = c("cyan", "#377eb8", "#ffff33", "purple")) +
-  theme_bw() +
-  coord_sf(
-    crs = st_crs(4326),
-    xlim = xlim_proj,
-    ylim = ylim_proj,
-    expand = FALSE
-  )
-
-winter_map
-
-#Save the raster background
-#writeRaster(hypso_cropped, "winter_backgroundAK.tif", format="GTiff", overwrite=TRUE)
-
-# Optionally, save the vector outlines as shapefiles
-#st_write(countries_cropped, "countries_background.shp", delete_dsn=TRUE)
-#st_write(states_cropped, "states_background.shp", delete_dsn=TRUE)
-
-```
-
 #PIES WITH NICE BACKGROUND
 ```{r}
-library(raster)
-library(ggspatial)
-library(ggplot2)
-library(scatterpie)
-library(sf)
-library(dplyr)
-
-# Load the saved GeoTIFF
-hypso_bg <- raster::stack("~/winter_backgroundAK.tif")
-
-# Compute centroids (your existing code)
-ecoregion_centroids <- ecoregions %>%
-  st_centroid() %>%
-  mutate(
-    X = st_coordinates(.)[,1],
-    Y = st_coordinates(.)[,2]
-  ) %>%
-  st_drop_geometry() %>%
-  dplyr::select(Region, X, Y)
-
-# Aggregate birds (your existing code)
-filt_pies <- winter_birds %>%
-    filter(!is.na(longitude), !is.na(latitude)) %>% 
-  st_as_sf(coords = c("longitude","latitude"), crs = 4326) %>%
-  st_join(ecoregions, join = st_within) %>%
-  st_drop_geometry() %>%
-  group_by(Region) %>%
-  summarise(
-    AK = sum(assignment == "AK", na.rm = TRUE),
-    West = sum(assignment == "West", na.rm = TRUE),
-    East = sum(assignment == "East", na.rm = TRUE), 
-        n = n() 
-  ) %>%
-  left_join(ecoregion_centroids, by = "Region")
-
-# Pie chart colors
-pie_colors <- c("AK" = "cyan", "West" = "yellow", "East" = "dodgerblue", "FL"= "purple")
-
-# Build the map
-ggplot() +
-  ggspatial::layer_spatial(hypso_bg) +
-  geom_sf(data = ecoregions, fill = NA, color = "gray50") +
-  geom_scatterpie(
-    aes(x = X, y = Y, group = Region),
-    data = filt_pies,
-    cols = c("AK", "West", "East"),
-    color = NA,
-    alpha = 0.9,
-    pie_scale = 2.5
-  ) +
-  scale_fill_manual(values = pie_colors) +
-  coord_sf(
-    crs = st_crs(4326),
-    xlim = c(-160, -60),   # adjust to your desired longitudes
-    ylim = c(0, 70),       # adjust to your desired latitudes
-    expand = FALSE
-  ) +
-  theme_minimal() +
-  theme(plot.margin = unit(c(0,0,0,0), "cm"))
-
-
+library(ggforce)
 ```
 
 
 ```{r}
-library(ggplot2)
-library(ggspatial)
-library(scatterpie)
-library(sf)
-library(dplyr)
-
 breeding_colors <- c(
-  "AK" = "cyan",
+  "Alaska" = "cyan",
   "West" = "yellow",
-  "East" = "dodgerblue",
+  "East" = "#377eb8",
   "TX" = "orange",
   "FL" = "purple"
 )
 
 # Pie chart colors
-pie_colors <- c("AK" = "cyan", "West" = "yellow", "East" = "dodgerblue")
+pie_colors <- c("Alaska" = "cyan", "West" = "yellow", "East" = "#377eb8")
 
 ggplot() +
   # bottom layer: hypso background
@@ -859,7 +706,7 @@ ggplot() +
   geom_scatterpie(
     aes(x = X, y = Y, group = grid_id),
     data = filt_pies,
-    cols = c("AK", "West", "East"),
+    cols = c("Alaska", "West", "East"),
     color = NA,
     alpha = 0.9,
     pie_scale = .8
@@ -867,9 +714,9 @@ ggplot() +
   # Force legend to show all 5 populations
   scale_fill_manual(
     values = breeding_colors,
-    breaks = c("AK", "West", "East", "TX", "FL"), # forces legend entries
-    labels = c("AK", "West", "East", "TX", "FL"),
-    name = "B Population"
+    breaks = c("Alaska", "West", "East", "TX", "FL"), # forces legend entries
+    labels = c("Alaska", "West", "East", "TX", "FL"),
+    name = "Breeding node"
   ) +
   coord_sf(
     crs = st_crs(4326),
@@ -887,17 +734,11 @@ ggplot() +
 
 #Creates FULL GENOSCAPE
 ```{r}
-library(ggplot2)
-library(ggspatial)
-library(scatterpie)
-library(sf)
-library(dplyr)
-
 # Define all 5 breeding populations and colors
 breeding_colors <- c(
   "AK" = "cyan",
   "West" = "yellow",
-  "East" = "dodgerblue",
+  "East" = "#377eb8",
   "TX" = "orange",
   "FL" = "purple"
 )
@@ -952,13 +793,6 @@ ggplot() +
 
 #Adds labels to ecoregions
 ```{r}
-library(ggplot2)
-library(ggspatial)
-library(sf)
-library(scatterpie)
-library(dplyr)
-
-
 # --- Step 1: Add abbreviations to your ecoregions ---
 ecoregions <- ecoregions %>%
   mutate(node = case_when(
@@ -987,9 +821,9 @@ ecoregion_centroids <- cbind(
 
 # --- Step 3: Define breeding colors ---
 breeding_colors <- c(
-  "AK" = "cyan",
+  "Alaska" = "cyan",
   "West" = "yellow",
-  "East" = "dodgerblue",
+  "East" = "#377eb8",
   "TX" = "orange",
   "FL" = "purple"
 )
@@ -1068,14 +902,8 @@ final_map
 
 #Genoscape with banding and genetic data
 ```{r}
-library(ggplot2)
-library(ggspatial)
-library(sf)
-library(dplyr)
-library(readr)
-
 ##banding data
-banding_data <- read_delim("~/AMKEbandingrecoverymatrix.csv")
+banding_data <- read_delim("input/MigConn/AMKEbandingrecoverymatri")
 
 
 banding_data <- banding_data %>%
@@ -1282,9 +1110,6 @@ ggsave("~/Downloads/combinedgenoscape.pdf",
 
 # BUILD PIES FROM COMBINED DATA (GENETICS + BANDING)
 ```{r}
-library(dplyr)
-library(tidyr)
-library(sf)
 
 # --- extract coordinates ---
 combined_sf <- combined_sf %>%

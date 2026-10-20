@@ -6,6 +6,8 @@
 #Large files to ignore
 output/Banding_filtered/map_with_popouts_ALLECOREGIONS.pdf
 output/Rubias/AMKE.pie_chart.quick_n_dirty.pdf
+output/Rubias/AMKE.genetic_sampling.assignment.pretty_map.lamproj.Panel2.pdf
+
 # R data objects
 *.rds
 *.RDS

@@ -12,17 +12,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Libraries
 ```{r cars}
+library(raster)
 library(tidyverse)
 library(sf)
 library(terra)
-
+library(mignette)
 ```
 
 ## Data
 You can also embed plots, for example:
 
 ```{r}
-band<-read_delim("~/Downloads/BBL2025_Req_3027_enc_3600_20260204_060002.csv",delim=",") %>% dplyr::select(-c(other_bands,species_name,species_id,bird_status,extra_info_code,age_code,band_status_code,how_obtained_code,who_obtained_code,reporting_method,present_condition,min_age_at_enc,record_id,record_source,coordinates_precision_code,band_type_code,permit,sex_code))
+band<-read_delim("input/Banding/BBL2025_Req_3027_enc_3600_20260204_060002.csv",delim=",") %>% dplyr::select(-c(other_bands,species_name,species_id,bird_status,extra_info_code,age_code,band_status_code,how_obtained_code,who_obtained_code,reporting_method,present_condition,min_age_at_enc,record_id,record_source,coordinates_precision_code,band_type_code,permit,sex_code))
 dim(band)
 #7454 rows ()
 ```
@@ -73,9 +74,6 @@ bb_ew_coordB<- st_as_sf(bb_ew, coords = c("breeding_long", "breeding_lat"),
 ```
 # Place on map and filter on whether the winter birds intersect with nonbreeding region
 ```{r}
-library(terra)
-library(mignette)
-
 ecoregion<-read_sf("AMKE_shapefiles_rasters/winter_ecoregion/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp")
 
 # This function performs a left spatial join, keeping all points and adding polygon attributes to those that intersect. Points outside the polygon are called as NA and require filtering after, so instead we use st_intersection
@@ -140,7 +138,7 @@ dim(out_bb_ew_intsctW) #intersect on winter nodes 200, 758 with all data
 dim(out_bb_ew_intsctB) #intersect on genoscape nodes, 776=same for all data
 ```
 
-## Combine again for all the ones the interesect with ecoregions and genoscape
+## Combine again for all the ones the intersect with ecoregions and genoscape
 ```{r}
 #my a1 and b1 values are different
 
@@ -163,9 +161,9 @@ b1 <- b1[, colnames(a1)]
 
 #combine using row bind function (rbind)
 bbl_eco_genetic <- rbind(a1,b1)
-write.csv(bbl_eco_genetic, 'output/Banding_filt/AMKEbandingrecoverymatrix.csv' )
-
-recmatrix<-rbind(a1,b1) %>%
+#write.csv(bbl_eco_genetic, 'input/MigConn/AMKEbandingrecoverymatrix.csv' )
+bbl_eco_genetic<-read_csv("input/MigConn/AMKEbandingrecoverymatrix_filt.csv")
+recmatrix<-bbl_eco_genetic %>%
   dplyr::select(Cluster, Region) %>%
   filter(!Cluster == '<NA>',
          !Region == '<NA>',
@@ -190,11 +188,11 @@ cat('recmatrix:\n'); print(recmatrix)
 # Need to reverse order again to get west to east...
 recmatrix <- recmatrix[nrow(recmatrix):1, ncol(recmatrix):1]
 
-write.csv(recmatrix,  'output/Banding_filt/AMKE815_recovery_matrix_all_data_geneco.csv')
+#write.csv(recmatrix,  'input/MigConn/AMKE815_recovery_matrix_all_data_geneco.csv')
 sub_recoveries <- sum(recmatrix)
+sub_recoveries
 
-
-recmatrix<-read.csv("output/Banding_filt/AMKE815_recovery_matrix_all_data_geneco.csv",row.names = 1,stringsAsFactors=T)
+recmatrix<-read.csv("input/MigConn/AMKE815_recovery_matrix_all_data_geneco.csv",row.names = 1,stringsAsFactors=T)
 
 ```
 ## Plot the kept BBL data
@@ -206,6 +204,8 @@ library(ggspatial)
 library(ggplot2)
 library(raster)
 library(dplyr)
+library(tess3r)
+library(genoscapeRtools)
 ##adding ecoregion labels
 ecoregion <- st_read("AMKE_shapefiles_rasters/winter_ecoregion/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp") %>%
   mutate(node = case_when(
@@ -232,17 +232,28 @@ centroids <- cbind(
 )
 
 # ---- Load nice background ----
-hypso_bg <- raster::stack("~/winter_backgroundAK.tif")
+# This raster is easily downloaded from ne_rasters
+hypso_bg <- raster::stack("~/Dropbox/BGP/genoscape_maps/shapefiles/ne_rasters/HYP_HR_SR_OB_DR/HYP_HR_SR_OB_DR.tif")
 
 # ---- Read and crop the breeding range shapefile ----
+# This shapefile is easily downloaded from eBird ()
 breeding <- st_read("AMKE_shapefiles_rasters/eBird_range/AMKE.range_smooth.sf.WGS84.Ebird.shp") %>%
   filter(season == "breeding")
 
 breeding_crop <- st_crop(breeding, c(xmin=-152.9703, xmax=-37.20669, ymin=14, ymax=68.98193))
 
 # ---- Read and prepare the genoscape raster ----
-genoscape_brick1 <- raster::stack("AMKE_shapefiles_rasters/AMKE_crop.genoscape_brick.tif")
+genoscape_brick1 <- stack("AMKE_shapefiles_rasters/AMKE_crop.genoscape_brick.tif")
+crs(genoscape_brick1) <- "EPSG:4326"
+summary(genoscape_brick1)
 names(genoscape_brick1) <- c("West", "TX", "East", "FL", "AK")
+cluster_colors <-  c(
+  AK= "cyan",#AK, cyan 
+  West = "#ffff33", #west yellow 
+  TX = "#ff7f00", #TX, orange 
+  East = "#377eb8", #East, blue
+  FL = "#984ea3" #FL, purple 
+  ) 
 
 
 # ---- Convert raster to RGBA using genoscapeRtools ----
@@ -270,17 +281,10 @@ line_colors <- c(
   FL = "#984ea3" 
 )
 
-cluster_colors <-  c(
-  AK= "cyan",
-  West = "#ffff33", #west yellow 
-  TX = "#ff7f00", #TX, orange 
-  East = "#377eb8", #East, blue
-  FL = "#984ea3" #FL, purple 
-  ) #AK, cyan 
 
 # ---- Plot the final map ----
 main_map <- ggplot() +
-   ggspatial::layer_spatial(hypso_bg, alpha=.8) +
+   ggspatial::layer_spatial(hypso_bg_cropped, alpha=.8) +
   # Raster background (slightly transparent)
   ggspatial::layer_spatial(genoscape_rgba, alpha = 0.7) +
   
@@ -437,7 +441,7 @@ draw_plot(fl_map, x = 0.6, y = 0.7, width = 0.3, height = 0.3)
 
 final_map
 ggsave(
-  filename = "map_with_popouts_ALLECOREGIONS.pdf",  # name & format
+  filename = "output/Banding_filtered/map_with_popouts_ALLECOREGIONS.pdf",  # name & format
   plot = final_map,                   # the plot object
   width = 12,                         # width in inches
   height = 6.96,                         # height in inches
@@ -446,59 +450,5 @@ ggsave(
 )
 
 ```
-#If only using genetic ecoregions:
-Filter out regions without enough data (only 1 or 2 bird captured in a nonbreeding region)- this is for only genetic  ecoregions
-```{r}
-# remove regions without enough data
-recmatrix_filt_gen <- recmatrix %>%
-  data.frame() %>%
-  # Remove target regions if the total number of recoveries are less than/equal to 1
-  dplyr::select(!which(colSums(.) <= 1)) %>%
-  # Put columns in alphabetical order
-  dplyr::select(order(colnames(.))) %>%
-  # Remove origin regions if the total number of recoveries are less than/equal to 1
-  mutate(sum = rowSums(.)) %>%
-  filter(!sum <=1) %>%
-  dplyr::select(!sum) %>%
-  # Remove target regions if the total number of recoveries are less than/equal to 1
-  dplyr::select(!which(colSums(.) <= 1)) %>%
-  # Put columns in alphabetical order
-  #dplyr::select(Pacific, MidContinent, Atlantic) %>%
-  # Remove origin regions if the total number of recoveries are less than/equal to 1
-  mutate(sum = rowSums(.)) %>%
-  filter(!sum <= 1) %>%
-  dplyr::select(!sum) %>%
-  rename(`Highland/Interior Mexico`= Highland.Interior.Mexico, `Southcentral US`= Southcentral.US, `Southeastern US` = Southeastern.US) %>% 
-  #dplyr::select(CAL,SCUS,HIM,SEUS) %>% 
-  as.matrix()
 
-cat('recmatrix_filt_genetic_ecoregion:\n'); print(recmatrix_filt_gen)
-
-sum(recmatrix_filt_gen)
-
-write.csv(recmatrix_filt_gen,  'AMKE71_recovery_matrix_all_GeneticEco_filt1.csv')
-
-##The filtering removed TX, and several ecoregions. Could try to remove sites with only 1 ind. That would keep TX
-
-```
-
-## Plot the kept BBL data
-```{r}
-cluster_colors <-  c(
-  West = "#ffff33", #west yellow 
-  TX = "#ff7f00", #TX, orange 
-  East = "#377eb8", #East, blue
-  FL = "#984ea3", #FL, purple 
-  AK = "#00ffff") #AK, cyan 
-
-library(ggspatial)
-ggplot() +
-  geom_sf(data = genoscape,alpha = 0.75, aes(fill = Cluster)) +
-  geom_sf(data = ecoregion,alpha = 0.75, aes(fill = NULL)) +
-  geom_point(data=bbl_eco_genetic,aes(x=winter_long,y=winter_lat,fill= Cluster),shape=22)+
-  geom_spatial_segment(data = bbl_eco_genetic, mapping = aes(x = winter_long, y = winter_lat, xend = breeding_long, yend = breeding_lat),linewidth  = .2, alpha = 0.8,lineend= "round")+
-  scale_fill_manual(values = cluster_colors) +
-  theme_bw()
-
-```
 

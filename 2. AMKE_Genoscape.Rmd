@@ -40,12 +40,14 @@ You can get those like this:
 ### Load the Packages We will work with
 
 ```{r, comment=FALSE, warning=FALSE, message=FALSE}
-library(raster)  # important to load before tidyverse, otherwise it masks select()
+#library(raster)  # important to load before tidyverse, otherwise it masks select()
 library(tidyverse)
 library(sf)
 library(ggspatial)
 library(scales)
 library(terra)
+library(tess3r)
+library(genoscapeRtools)
 ```
 
 ## Making the genoscape
@@ -64,7 +66,7 @@ Normally you would input the ancestry matrix created in STRUCTURE or ADMIXTURE. 
 #### Breeding Bird Lat-Longs
 We also need to know where those individuals were sampled in space. We have that here- though use the file I created specifically for the breeding birds from your previous tutorial.
 ```{r, message=FALSE}
-met<-read_delim("~/Dropbox/BGP/Teaching/BZ525_Fall2025/Week5_PopStructure/AMKE_assays/AMKE_186SNPgenotypes.breeders.412inds_197Radinds.stateFID.hwe.ped.locationfile_fix.txt",delim="\t") %>%
+met<-read_delim("input/Rubias/AMKE_186SNPgenotypes.breeders.412inds_197Radinds.stateFID.hwe.ped.locationfile_fix.txt",delim="\t") %>%
   rename(indiv=Sample_Name)
 
 #Put the meta data in order of the Qmatrices:
@@ -80,13 +82,11 @@ the colors that we wish to assign to each of those clusters.  We do that with a 
 vector like this:
 ```{r}
 cluster_colors <-  c(
-  grp1 = "#ffff33", #west yellow 
-  grp2 = "#ff7f00", #TX, orange 
-  grp3 = "#377eb8", #East, blue
-  grp4 = "#984ea3", #FL, purple 
-  grp5 = "#00ffff") #AK, cyan 
-
-
+  West = "#ffff33", #west yellow 
+  TX = "#ff7f00", #TX, orange 
+  East = "#377eb8", #East, blue
+  FL = "#984ea3", #FL, purple 
+  AK = "#00ffff") #AK, cyan 
 
 show_col(cluster_colors)
 ```
@@ -108,8 +108,8 @@ birds, so that genoscape can be clipped properly.  We read this shapefile with t
 `st_read()` function from package `sf`. American Kestrels have a range that goes into South America, where we do not have sampling, so we crop to North America.
 ```{r, results='hide'}
 breeding <- st_read("AMKE_shapefiles_rasters/eBird_range/AMKE.range_smooth.sf.WGS84.Ebird.shp") %>% filter(season=="breeding")
-crop<-c(-152.9703,-37.20669,0,68.98193)
-breeding_crop <- st_crop(breeding, c(xmin=-152.9703, xmax=-37.20669, ymin=14, ymax=68.98193))
+#crop<-c(-152.9703,-37.20669,0,68.98193)
+breeding_crop <- st_crop(breeding, c(xmin=-152.9703, xmax=-37.20669, ymin=25.2, ymax=68.98193))
 
 ```
 
@@ -123,19 +123,10 @@ ggplot(breeding_crop) +
 ### Preparing the data for tess3Q_map_rasters
 Here is the raster of the AMKE genoscape. Read it in, and name the layers so they match with the color assignment above.
 ```{r}
-install.packages(c("terra", "raster"))
-install.packages(c("Rcpp", "terra"), type = "binary")
-
-terra::gdal() 
-r <- rast(system.file("ex/elev.tif", package = "terra"))
-r
-file.size("AMKE_shapefiles_rasters/AMKE_crop.genoscape_brick.tif") 
-file.size("~/Dropbox/BGP/AMKE_Genotype/Manuscript_MigCon/Dryad_submission_final/AMKE_shapefiles_rasters/AMKE_crop.genoscape_brick.tif") 
-packageVersion("raster")   # should be >= 3.6
-genoscape_brick1 <- rast("~/Dropbox/BGP/AMKE_Genotype/Manuscript_MigCon/Dryad_submission_final/AMKE_shapefiles_rasters/AMKE_crop.genoscape_brick.tif")
+genoscape_brick1 <- stack("AMKE_shapefiles_rasters/AMKE_crop.genoscape_brick.tif")
 crs(genoscape_brick1) <- "EPSG:4326"
 summary(genoscape_brick1)
-names(genoscape_brick1) <- c("grp1","grp2","grp3","grp4","grp5")
+names(genoscape_brick1) <- c("West", "TX", "East", "FL", "AK")
 
 ```
 
@@ -178,7 +169,10 @@ Note that if we wanted to add the actual sampling points to this (that are given
 in `long_lat_tibble`), we can use ggspatial's `geom_spatial_point()` function.
 /Users/clairelabuda/Downloads/AMKEproject/AMKE.Plate58.Wint.SoutheastUS.rep_indiv_est.inclRES_result.filt_certain.assignment.meta.xlsx
 ```{r}
-Rub_result<-read_delim("~/Downloads/Supp_Table_2.txt",delim="\t")
+library(openxlsx)
+#Rub_result<-read_delim("~/Downloads/Supp_Table_2.txt",delim="\t")
+Rub_result<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates =T) %>% filter(Stage!="Breeding")
+
 library(writexl)
 
 #write_xlsx(Rub_result, "~/Downloads/Rub_result.xlsx")
@@ -192,13 +186,11 @@ Rub_result <- Rub_result %>%
       West == max_prob ~ "West",
       East == max_prob ~ "East",
     ) 
-  ) %>%
-  filter(!is.na(assignment)) #%>%
-  #filter(Stage != "Breeding") )
+  ) 
 
 
 Rub_certain <- Rub_result %>%
-  filter(!is.na(assignment), assignment != "Uncertain")
+  filter(!is.na(assignment2), assignment2 != "Uncertain")
 
 #write.table(Rub_certain, "genetics_certain1.txt", sep = "\t", row.names = FALSE)
 
@@ -209,7 +201,7 @@ geno_simple
 
  
 map_assignRub_geno <-geno_simple + 
-  geom_spatial_point(data = Rub_certain, mapping = aes(x = Long, y = Lat,color=assignment,shape=Stage)) +
+  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude,color=assignment2,shape=Stage)) +
   scale_colour_manual(values=c( "cyan","#377eb8","#ffff33", "purple")) +
 theme_bw() +
   coord_sf()
@@ -280,7 +272,7 @@ mapg <- ggplot() +
 
 # now plot it under default lat-long projection
 mapg +
-  geom_spatial_point(data = Rub_certain, mapping = aes(x = Long, y = Lat, col=assignment),size=2)+
+  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude, col=assignment2),size=2)+
   scale_colour_manual(values=c("cyan","#377eb8","#ffff33")) +
   coord_sf(xlim=c(-165,-55),ylim=c(-10,70),expand=F) 
 
@@ -300,7 +292,7 @@ Now, let's see how our developing map looks under such a projection.  We just de
 a coordinate reference system and pass it in to `coord_sf()`:
 ```{r}
 mapg +
-  geom_spatial_point(data = Rub_certain, mapping = aes(x = Long, y = Lat, col=assignment),size=2)+
+  geom_spatial_point(data = Rub_certain, mapping = aes(x = Longitude, y = Latitude, col=assignment2),size=2)+
   scale_colour_manual(values=c("cyan","#377eb8","#ffff33")) +
   coord_sf(crs = st_crs(lamproj))
 ```
@@ -337,16 +329,15 @@ hypso <- rast(file.path(name, paste0(name, ".tif")))
 if (crs(hypso) == "") crs(hypso) <- "EPSG:4326"   # georeferenced via .tfw; set CRS if missing
 hypso
 
-
-hypso <- brick("~/Downloads/AMKEproject/HYP_HR_SR_OB_DR/HYP_HR_SR_OB_DR/HYP_HR_SR_OB_DR.tif")
-hypso_cropped <- crop(hypso, extent(domain)) 
+#hypso <- brick("~/Downloads/AMKEproject/HYP_HR_SR_OB_DR/HYP_HR_SR_OB_DR/HYP_HR_SR_OB_DR.tif")
+#hypso_cropped <- crop(hypso, extent(domain)) 
 
 # Crop to exact extent
-desired_ext <- ext(-180, -40, -50, 80)
-hypso_bg <- crop(hypso, desired_ext)
+desired_ext <- ext(-180, -10, -50, 90)
+hypso_bg_cropped <- crop(hypso, desired_ext)
 
 # Save
-writeRaster(hypso_cropped, "~/winter_background_extended.tif", overwrite=TRUE)
+writeRaster(hypso_bg_cropped, "AMKE_shapefiles_rasters/hypso_background_extended.tif", overwrite=TRUE)
 
 ```
 
@@ -368,19 +359,19 @@ not just in simple lat-long coordinates (i.e. we have to project those too!)
 I've done this already, so easy peasy for you. Let's plot this below. Note it will take a bit!
 ```{r}
 rectangled <- ggplot() +
-  ggspatial::layer_spatial(hypso_cropped) +
+  ggspatial::layer_spatial(hypso_bg_cropped) +
   geom_sf(data = countries_cropped, fill = NA, size = 0.15) +
   geom_sf(data = states_cropped, fill = NA, size = 0.1) +
   ggspatial::layer_spatial(genoscape_rgba) +
   geom_spatial_point(data = LatLong_tibble, mapping = aes(x = meanLong, y = meanLat),shape=1) +
 #  geom_spatial_point(data = Rub_certain, mapping = aes(x = Long, y = Lat, col=assignment),size=2)+
   scale_colour_manual(values=c("cyan","#377eb8","#ffff33")) +
-  geom_spatial_text(data = LatLong_tibble, mapping = aes(x = meanLong, y = meanLat,label=State)) +
+  geom_spatial_text(data = LatLong_tibble, mapping = aes(x = meanLong-2, y = meanLat+2,label=State),size=3) +
   theme_bw() + 
   coord_sf(
     crs = st_crs(lamproj), 
-    xlim = c(-4068118, 3671262), 
-    ylim = c(-1699797, 4464362),
+    xlim = c(-3968118, 3671262), 
+    ylim = c(-1699797, 4264362),
     expand = FALSE)  # expand = FALSE means put the axes right at the xlim and ylim
 
 rectangled 
@@ -401,7 +392,7 @@ there using geom_sf().  It all fits nicely
 into the ggplot framework.
 
 ## Session Info
-#creates genoscape with points
+# creates genoscape with points
 ```{r}
 library(readr)
 library(dplyr)

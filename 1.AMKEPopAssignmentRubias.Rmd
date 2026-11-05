@@ -1,6 +1,6 @@
 ---
 title: "Pop Assignment"
-author: "CH Bossu&Claire Labuda"
+author: "Christen Bossu & Claire Labuda"
 date: "2026-05-13"
 output:
   html_document: default
@@ -66,16 +66,10 @@ ggplot() +
 ```
 ## Meta data file for nonbreeding birds
 ```{r}
-new_meta<-read.xlsx("input/SupplementaryTable2.AppendixCH.7172026.xlsx",sheet=1,detectDates = T)  %>% 
+new_meta<-read.xlsx("input/SuppTable2.AMKE.assigment.maxprob.incl_meta.Appendix.xlsx",sheet=1,detectDates = T)  %>% 
   #rename(Sample=indiv) %>%
   dplyr::select(Sample,Country_code,State,Location,Latitude,Longitude,CollectionDate,Stage,Contact,SampleTypeExtracted) %>% distinct() %>% arrange(Sample)
 
-read.xlsx("input/SupplementaryTable2.AppendixCH.7172026.xlsx",sheet=1,detectDates = T)  %>% 
-  #rename(Sample=indiv) %>%
-  dplyr::select(Sample,Country_code,State,Location,Latitude,Longitude,CollectionDate,Stage,Contact,SampleTypeExtracted,Alaska:Florida) %>% 
-  distinct() %>% 
-  arrange(Sample) %>% 
-  mutate(assignment=if_else(Alaska > 0.8,"Alaska",if_else(West > 0.8,"West",if_else(Texas > 0.8 ,"Texas",if_else(East > 0.8, "East",if_else(Florida >0.8, "Florida","Uncertain")))))) %>% group_by(assignment) %>% tally()
 ```
 
 ## Population assignment using rubias
@@ -88,7 +82,7 @@ We ran this is 3 iterations, a first batch of US nonbreeding birds, a second rou
 ``` {r}
 amke_mix1<-read_delim("input/Rubias/AMKE.groupPlate58.Wint.rubias_input2.rmdup.txt",delim="\t") 
 
-amke_mix2<-read_delim("input/Rubias/AMKE_186SNPgenotypes_str_format.414WintMigr.StateFID.str.rubias2.rename.txt",delim="\t") %>% 
+amke_mix2<-read_delim("input/Rubias/AMKE_186SNPgenotypes.414WintMigr.rubias_input.rename.txt",delim="\t") %>% 
   filter(indiv %in% new_meta$Sample) %>% 
   mutate(collection2="mixture") %>% 
   dplyr::select(-collection) %>% 
@@ -96,7 +90,7 @@ amke_mix2<-read_delim("input/Rubias/AMKE_186SNPgenotypes_str_format.414WintMigr.
   dplyr::select(sample_type,repunit,collection,indiv,everything()) %>% distinct()
 
 
-amke_mix3<-read_delim("input/Rubias/AMKE.Plate54_57.Wint.callmap.rubias_input3.txt",delim="\t")
+amke_mix3<-read_delim("input/Rubias/AMKE.Plate54_57.Wint.rubias_input3.txt",delim="\t")
 amke_mix_tot<-amke_mix1 %>% full_join(amke_mix2) %>% full_join(amke_mix3) %>% rename(Sample=indiv) %>% filter(Sample %in% new_meta$Sample)
 ```
 
@@ -106,7 +100,7 @@ amke_mix_tot<-amke_mix1 %>% full_join(amke_mix2) %>% full_join(amke_mix3) %>% re
 Read in the reference file (597 individuals gentoyped at 182 SNP-type assays) and make sure all fields are correct type. For instance, missing data needs to be coded as NA.
 ```{r}
 ## With resident individuals
-amke_ref_inclRes<-read_delim("~/Dropbox/BGP/Teaching/BZ525_Fall2025/Week5_PopStructure/AMKE_assays/AMKE_data/AMKE_186SNPgenotypes.breeders.412inds_197Radinds.stateFID.hwe.ped.str.5regionlocation.0_NA.4rubias2.txt",delim="\t")
+amke_ref_inclRes<-read_delim("input/Rubias/AMKE_186SNPgenotypes.breeders.412inds_197RADinds.0_NA.rubias_input.txt",delim="\t")
 
 #amke_ref_inclRes<-read_delim("input/Rubias/AMKE_186SNPgenotypes.breeders.412inds_197Radinds.stateFID.hwe.ped.str.5regionlocation.4rubias2.txt",delim="\t")
 
@@ -259,8 +253,12 @@ rep_indiv_ests.a2 %>% filter(Florida>0.8)
 library(writexl)
  rep_indiv_ests.a2 %>% mutate(maxprob= do.call(pmax, c(pick(Alaska:West), na.rm = TRUE)),assignment=if_else(Alaska > 0.8, "Alaska",if_else(East>0.8,"East",if_else(Florida>0.8,"Florida",if_else(Texas>0.8,"Texas",if_else(West>0.8,"West","Uncertain")))))) %>% writexl::write_xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx")
 
+rep_indiv_ests.a2<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1) %>% filter(Stage %in% c("Wintering","Migratory"))
 rep_indiv_ests.a2 %>% mutate(assignment=if_else(Alaska > 0.8, "Alaska",if_else(East>0.8,"East",if_else(Florida>0.8,"Florida",if_else(Texas>0.8,"Texas",if_else(West>0.8,"West","Uncertain")))))) %>% group_by(assignment) %>% tally()
- 
+```
+
+
+```{r}
 filt<- rep_indiv_ests.a2 %>%
   filter(Stage!="Breeding") %>% 
   mutate(maxprob= do.call(pmax, c(pick(Alaska:West), na.rm = TRUE))) %>% 
@@ -291,8 +289,27 @@ assign01 %>% group_by(assignment) %>% tally()
 ```{r}
 `%notin%` <- Negate(`%in%`)
 
-uncertain_birds<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates=T) %>% filter(Sample %notin% assign01$Sample)
+uncertain_birds<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates=T) %>% 
+  filter(Sample %notin% assign01$Sample)  %>%
+  filter(!Stage=="Breeding") %>% 
+  arrange(Sample)
 uncertain_birds
+
+uncertain_birds %>% filter(maxprob==West) #%>% distinct(Country_code,State)
+uncertain_birds %>% filter(maxprob==East) #%>% distinct(Country_code,State)
+
+uncertain_birds %>% filter(maxprob==Alaska) #%>% distinct(Country_code,State)
+uncertain_birds %>% filter(maxprob==Florida) #%>% distinct(Country_code,State)
+
+uncertain_birds %>% filter(maxprob==West & Alaska > East) #%>% distinct(Country_code,State)
+uncertain_birds %>% filter(maxprob==East & Alaska > West) #%>% distinct(Country_code,State)
+
+uncertain_birds %>% filter(maxprob==West & Alaska < East) #%>% distinct(Country_code,State)
+uncertain_birds %>% filter(maxprob==East & Alaska < West) #%>% distinct(Country_code,State)
+
+uncertain_birds %>% filter(maxprob==West & Florida > East) #%>% distinct(Country_code,State)
+uncertain_birds %>% filter(maxprob==East & Florida > West) #%>% distinct(Country_code,State)
+
 ```
 Where are the uncertain birds located? All over?
 

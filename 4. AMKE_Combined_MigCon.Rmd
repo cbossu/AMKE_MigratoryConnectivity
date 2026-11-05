@@ -1,6 +1,6 @@
 ---
 title: "MigConnectivity-AMKE-CombinedBanding&Genetics"
-author: "Christen Bossu"
+author: "Christen Bossu & Claire Labuda"
 date: "5/13/2026"
 output: html_document
 ---
@@ -63,24 +63,24 @@ origin.names
 nOriginSites <- 3
 ```
 
-##Ecoregions- 
+## Conservation regions sampled, separated by assignment via genetic data and banding-recapture data
 ```{r, eval=FALSE}
 
 ecoregionsGen <- c("Atlantic Lowland Mexico","California","Highland Central America", "Highland/Interior Mexico","Northern Andes","Northwest Mexico","Southcentral US","Southeastern US","Southwest Mexico","Northwestern Forested Mountains", "Marine West Coast Forests")
 ecoregionsBand <- c("Eastern Temperate Forests","Great Plains","North American Deserts","Southcentral US", "Southeastern US", 	"Marine West Coast Forests"	,"California","Northwestern Forested Mountains","Highland/Interior Mexico","Northwest Mexico")
 
-      CAL ETF GP  HIM
-AK    0    0   0   0
-West  32   0   0   11
-East  0    398 34  0
-     MWCF NAD NWM NWFM
-AK    0    0    0   0
-West  4   164   10  13
-East  0    0    0   0
-     SCUS SEUS
-AK    0   0     
-West  7   0   
-East  7   122    
+#      CAL ETF GP  HIM
+#AK    0    0   0   0
+#West  32   0   0   11
+#East  0    398 34  0
+#     MWCF NAD NWM NWFM
+#AK    0    0    0   0
+#West  4   164   10  13
+#East  0    0    0   0
+#     SCUS SEUS
+#AK    0   0     
+#West  7   0   
+#East  7   122    
 				
 
 ecoregions<-read_sf("AMKE_shapefiles_rasters/winter_ecoregion/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326) %>% 
@@ -195,6 +195,13 @@ genetic_samples<-read.xlsx("input/SupplementaryTable2.AppendixCH.7172026.xlsx",s
 
 genetic_samples<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates = T) %>% arrange(Sample) %>% rename(Lat=Latitude,Long=Longitude) %>% 
   filter(Stage %notin% c("Breeding","Migratory"))
+
+genetic_samples_nonbreeding<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates = T) %>% arrange(Sample) %>% rename(Lat=Latitude,Long=Longitude) %>% 
+  filter(Stage %notin% c("Breeding"))
+
+genetic_samples_breeding<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates = T) %>% arrange(Sample) %>% rename(Lat=Latitude,Long=Longitude) %>% 
+  filter(Stage %in% c("Breeding"))
+
 
 genetic_samples %>% write.table("input/MigConn/AMKE.genetic_sample_wint_only.appendix.txt",row.names=F,quote=F,sep="\t")
 library(writexl)

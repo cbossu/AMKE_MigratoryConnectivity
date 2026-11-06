@@ -437,7 +437,8 @@ dev.off()
 ```{r}
 #save transition probabilities 
 psi_table <- as.data.frame(psiAMKE$psi$mean) %>%
-  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`Atlantic Lowland Mexico`:`Southwest Mexico`) > 0.0001))
+  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`Atlantic Lowland Mexico`:`Southwest Mexico`) > 0.0001))%>% dplyr::select(Breeding,n_regions)
+psi_table
 
 psi_mat <- ifelse(
   psiAMKE$psi$mean < 0.0001,
@@ -446,11 +447,11 @@ psi_mat <- ifelse(
 ) 
 
 # Put in data.frame and reorder for Supp Table 3
-as.data.frame(psi_mat) %>% rownames_to_column("Breeding") %>% dplyr::rename(ALM=`Atlantic Lowland Mexico`, CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,GP,ETF,NAndes) %>% mutate(n_regions = rowSums(across(NWFM:NAndes) > 0.0001)) write.xlsx("output/MigConn/AMKE.psi_table.Combined.xlsx", row.names = T)
+as.data.frame(psi_mat) %>% rownames_to_column("Breeding") %>% dplyr::rename(ALM=`Atlantic Lowland Mexico`, CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,GP,ETF,NAndes) %>% write.xlsx("output/MigConn/AMKE.psi_table.Combined.xlsx", rowNames = F)
 
 table_grob <- tableGrob(psi_mat)
 
-pdf("output/MigConn/AMKE_psi_table.redoCH.Combined.pdf", width = 30, height = 6)
+pdf("output/MigConn/AMKE_psi_table.Combined.pdf", width = 30, height = 6)
 grid.draw(table_grob)
 dev.off()
 
@@ -481,7 +482,8 @@ psiAMKE.gen<-readRDS("output/MigConn/AMKE.MigConn.Genetics351.psi.RDS")
 
 #save transition probabilities 
 psi_table.gen <- as.data.frame(psiAMKE.gen$psi$mean) %>%
-  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`Atlantic Lowland Mexico`:`Southwest Mexico`) > 0.0001))
+  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`Atlantic Lowland Mexico`:`Southwest Mexico`) > 0.0001)) %>% dplyr::select(Breeding,n_regions)
+psi_table.gen
 
 psi_mat.gen <- ifelse(
   psiAMKE.gen$psi$mean < 0.0001,
@@ -489,10 +491,8 @@ psi_mat.gen <- ifelse(
   round(psiAMKE.gen$psi$mean, 3)
 ) 
 
-as.data.frame(psi_mat.gen) %>% rownames_to_column("Breeding") %>% dplyr::rename(ALM=`Atlantic Lowland Mexico`, CAL=California,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,NAndes) %>% mutate(n_regions = rowSums(across(NWFM:NAndes) > 0.001)) write.xlsx("output/MigConn/AMKE.psi_table.Combined.xlsx", row.names = T)
+as.data.frame(psi_mat.gen) %>% rownames_to_column("Breeding") %>% dplyr::rename(ALM=`Atlantic Lowland Mexico`, CAL=California,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,NAndes) %>%  write.xlsx("output/MigConn/AMKE.psi_table.Genetic.xlsx", rowNames = F)
  
-write.xlsx(psi_mat, "output/MigConn/AMKE.psi_table.redoCH.Combined.xlsx", row.names = T)
-
 ```
 
 ##Banding only
@@ -529,7 +529,8 @@ psiAMKE.band<-readRDS("output/MigConn/AMKE.MigConn.Banding_only.psi.RDS")
 
 
 psi_table.band <- as.data.frame(psiAMKE.band$psi$mean) %>%
-  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`California`:`Southeastern US`) > 0.0001))
+  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`California`:`Southeastern US`) > 0.0001)) %>% dplyr::select(Breeding,n_regions)
+psi_table.band
 
 psi_mat.band <- ifelse(
   psiAMKE.band$psi$mean < 0.0001,
@@ -538,7 +539,7 @@ psi_mat.band <- ifelse(
 ) 
 
 # Put in data.frame and reorder for Supp Table 3
-as.data.frame(psi_mat) %>% rownames_to_column("Breeding") %>% dplyr::rename( CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,GP,ETF,NAndes) %>% mutate(n_regions = rowSums(across(NWFM:NAndes) > 0.0001)) write.xlsx("output/MigConn/AMKE.psi_table.Combined.xlsx", row.names = T)
+as.data.frame(psi_mat.band) %>% rownames_to_column("Breeding") %>% dplyr::rename( CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,HIM,SEUS,GP,ETF) %>%  write.xlsx("output/MigConn/AMKE.psi_table.BAND.xlsx", rowNames = F)
 
 ```
 

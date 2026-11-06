@@ -539,7 +539,7 @@ psi_mat.band <- ifelse(
 ) 
 
 # Put in data.frame and reorder for Supp Table 3
-as.data.frame(psi_mat.band) %>% rownames_to_column("Breeding") %>% dplyr::rename( CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,HIM,SEUS,GP,ETF) %>%  write.xlsx("output/MigConn/AMKE.psi_table.BAND.xlsx", rowNames = F)
+as.data.frame(psi_mat.band) %>% rownames_to_column("Breeding") %>% dplyr::rename( CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,HIM,SEUS,GP,ETF) %>%  write.xlsx("output/MigConn/AMKE.psi_table.Banding.xlsx", rowNames = F)
 
 ```
 

@@ -29,22 +29,22 @@ library(data.table)
 
 #Read in polygons of breeding 
 ```{r}
-AK <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_4.45no_ovlp.WGS84.shp") 
-West <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_2.45no_ovlp.WGS84.shp") 
-TX <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_5.45no_ovlp.WGS84.shp") 
-East <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_1.45no_ovlp.WGS84.shp") 
-FL <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_3.45no_ovlp.WGS84.shp")
+AK_shp <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_4.45no_ovlp.WGS84.shp") 
+West_shp <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_2.45no_ovlp.WGS84.shp") 
+TX_shp <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_5.45no_ovlp.WGS84.shp") 
+East_shp <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_1.45no_ovlp.WGS84.shp") 
+FL_shp <- st_read("AMKE_shapefiles_rasters/genoscape_polygon/AMKE_crop.genoscape_brick_3.45no_ovlp.WGS84.shp")
 
 ggplot() +
-  geom_sf(data = East,alpha = 0.75, aes(fill = "blue")) +
-  geom_sf(data = West,alpha = 0.75, aes(fill = "yellow")) +
-  geom_sf(data = AK,alpha = 0.75, aes(fill = "cyan")) 
+  geom_sf(data = East_shp,alpha = 0.75, aes(fill = "blue")) +
+  geom_sf(data = West_shp,alpha = 0.75, aes(fill = "yellow")) +
+  geom_sf(data = AK_shp,alpha = 0.75, aes(fill = "cyan")) 
   #scale_fill_manual(values = cluster_colors) +
   theme_bw()
 
-genoscape <- rbind(AK,
-                   West,
-                   East
+genoscape <- rbind(AK_shp,
+                   West_shp,
+                   East_shp
                    )
 genoscape$Cluster <- c("AK", "West", "East")
 
@@ -156,7 +156,7 @@ target.abund.gen <- c(27989,22565,4822,96736,3152,12112,30908,2823,95139,100632,
 target.abund.gen <- target.abund.gen / sum(target.abund.gen)
 target.abund.gen
 
-# banding only, XX sites
+# banding only, 10 sites
 target.abund.band <- c(22565,52007,39451,96736,3152,32369,30908,2823,95139,100632) #10 conservation regions for banding
 
 target.abund.band <- target.abund.band / sum(target.abund.band)
@@ -418,10 +418,9 @@ summary(est.psi.gen_band)
 library(gridExtra)
 library(grid)
 
-saveRDS(est.psi.gen_band ,"output/MigConn/AMKE.MigConn.COMBINED.psi.redoCH.RDS")
-#psiAMKE<- readRDS("output/MigConn/AMKE.MigConn.COMBINED.psi.RDS")
+saveRDS(est.psi.gen_band ,"output/MigConn/AMKE.MigConn.COMBINED.psi.RDS")
 
-psiAMKE<- readRDS("output/MigConn/AMKE.MigConn.COMBINED.psi.redoCH.RDS")
+psiAMKE<- readRDS("output/MigConn/AMKE.MigConn.COMBINED.psi.RDS")
  
 pdf("output/MigConn/AMKE.COMBINED.pdf")
 par(mar = c(2,3,0,0))
@@ -436,19 +435,18 @@ dev.off()
 ```
 
 ```{r}
-  #save transition probabilities 
+#save transition probabilities 
 psi_table <- as.data.frame(psiAMKE$psi$mean) %>%
-  rownames_to_column("origin")
-write.xlsx(psi_table, "output/MigConn/AMKE.psi_table.redoCH.Combined.xlsx", row.names = FALSE)
+  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`Atlantic Lowland Mexico`:`Southwest Mexico`) > 0.0001))
 
 psi_mat <- ifelse(
-  psiAMKE$psi$mean < 0.001,
+  psiAMKE$psi$mean < 0.0001,
   formatC(psiAMKE$psi$mean, format = "e", digits = 2),
   round(psiAMKE$psi$mean, 3)
-)
-#  rownames_to_column("origin")
- 
-write.xlsx(psi_mat, "output/MigConn/AMKE.psi_table.redoCH.Combined.xlsx", row.names = T)
+) 
+
+# Put in data.frame and reorder for Supp Table 3
+as.data.frame(psi_mat) %>% rownames_to_column("Breeding") %>% dplyr::rename(ALM=`Atlantic Lowland Mexico`, CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,GP,ETF,NAndes) %>% mutate(n_regions = rowSums(across(NWFM:NAndes) > 0.0001)) write.xlsx("output/MigConn/AMKE.psi_table.Combined.xlsx", row.names = T)
 
 table_grob <- tableGrob(psi_mat)
 
@@ -477,9 +475,24 @@ est.psi.gen <- estTransition(originSites = originSitesAMKE,
                           )
 
 summary(est.psi.gen)
-saveRDS(est.psi.gen,"output/MigConn/AMKE.MigConn.Genetics351.psi.redoCH.RDS")
+saveRDS(est.psi.gen,"output/MigConn/AMKE.MigConn.Genetics351.psi.RDS")
 
-psiAMKE.gen<-readRDS("output/MigConn/AMKE.MigConn.Genetics351.psi.redoCH.RDS")
+psiAMKE.gen<-readRDS("output/MigConn/AMKE.MigConn.Genetics351.psi.RDS")
+
+#save transition probabilities 
+psi_table.gen <- as.data.frame(psiAMKE.gen$psi$mean) %>%
+  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`Atlantic Lowland Mexico`:`Southwest Mexico`) > 0.0001))
+
+psi_mat.gen <- ifelse(
+  psiAMKE.gen$psi$mean < 0.0001,
+  formatC(psiAMKE.gen$psi$mean, format = "e", digits = 2),
+  round(psiAMKE.gen$psi$mean, 3)
+) 
+
+as.data.frame(psi_mat.gen) %>% rownames_to_column("Breeding") %>% dplyr::rename(ALM=`Atlantic Lowland Mexico`, CAL=California,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,NAndes) %>% mutate(n_regions = rowSums(across(NWFM:NAndes) > 0.001)) write.xlsx("output/MigConn/AMKE.psi_table.Combined.xlsx", row.names = T)
+ 
+write.xlsx(psi_mat, "output/MigConn/AMKE.psi_table.redoCH.Combined.xlsx", row.names = T)
+
 ```
 
 ##Banding only
@@ -512,7 +525,21 @@ summary(est.psi.band)
 ```
 ```{r}
 saveRDS(est.psi.band,"output/MigConn/AMKE.MigConn.Banding_only.psi.redoCH.RDS")
-psiAMKE.band<-readRDS("output/MigConn/AMKE.MigConn.Banding_only.psi.redoCH.RDS")
+psiAMKE.band<-readRDS("output/MigConn/AMKE.MigConn.Banding_only.psi.RDS")
+
+
+psi_table.band <- as.data.frame(psiAMKE.band$psi$mean) %>%
+  rownames_to_column("Breeding") %>% mutate(n_regions = rowSums(across(`California`:`Southeastern US`) > 0.0001))
+
+psi_mat.band <- ifelse(
+  psiAMKE.band$psi$mean < 0.0001,
+  formatC(psiAMKE.band$psi$mean, format = "e", digits = 2),
+  round(psiAMKE.band$psi$mean, 3)
+) 
+
+# Put in data.frame and reorder for Supp Table 3
+as.data.frame(psi_mat) %>% rownames_to_column("Breeding") %>% dplyr::rename( CAL=California,ETF=`Eastern Temperate Forests`,GP=`Great Plains`,HCA=`Highland Central America`,HIM=`Highland/Interior Mexico`,MWCF=`Marine West Coast Forests`,NAD=`North American Deserts`,NAndes= `Northern Andes`,NWM=`Northwest Mexico`,NWFM=`Northwestern Forested Mountains`,SCUS=`Southcentral US`,SEUS=`Southeastern US`, SWM=`Southwest Mexico`) %>% dplyr::select(Breeding,NWFM,MWCF,NAD,CAL,SCUS,NWM,SWM,HCA,HIM,ALM,SEUS,GP,ETF,NAndes) %>% mutate(n_regions = rowSums(across(NWFM:NAndes) > 0.0001)) write.xlsx("output/MigConn/AMKE.psi_table.Combined.xlsx", row.names = T)
+
 ```
 
 ```{r}
@@ -556,6 +583,7 @@ str(br_abunds)
 
 #Calculate relative abundance, plot weighted alluvial
 ```{r}
+library(data.table)
 Breeding<-c("AK","West", "East")
 #actual abundance
 origin.abund <- br_abunds$Relative_abundance[c(1,2,3)] 
@@ -623,22 +651,28 @@ g.alluvial <- ggplot(amke_lodes,
     aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
     stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
   ) +
+    # Nonbreeding labels (below)
   ggrepel::geom_label_repel(
     aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
-    stat = "stratum", size = 3, force = 15, xlim = .75, fill = "white",
+    stat = "stratum", size = 3, fill = "white",
+    nudge_x = -0.2,              # push down (x is vertical after the flip)
+    xlim = c(NA, 0.8),           # never let them drift back up onto the bar
+    force = 5, min.segment.length = 0,
+    max.overlaps = Inf
   ) +
-  scale_x_discrete(limits=rev) +
-  coord_flip() +
+  scale_x_discrete(limits = rev,
+                   expand = expansion(add = c(0.6, 0.2))) +  # room below / above
+  coord_flip(clip = "off") +
   theme_void() +
-  theme(plot.background = element_rect(fill = "white")) +
-  theme(aspect.ratio = 1)
+  theme(plot.background = element_rect(fill = "white"),
+        aspect.ratio = 1)
 
 g.alluvial
 ```
 
 
-# Below is the alluvial plot if you do not adjust the the transition probablities by breeding node abundance. 
-Visually, it is easier to see where Alaska breeing population is going.
+# Below is the alluvial plot if you do not adjust the the transition probabilities by breeding node abundance. 
+Visually, it is easier to see where Alaska breeding population is going.
 
 ```{r}
 amke_conn_band_df_abun <-psiAMKE$psi$mean %>% 
@@ -677,15 +711,21 @@ g.alluvial_no_weight <- ggplot(amke_lodes,
     aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
     stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
   ) +
+    # Nonbreeding labels (below)
   ggrepel::geom_label_repel(
     aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
-    stat = "stratum", size = 3, force = 20, xlim = .75, fill = "white",
+    stat = "stratum", size = 3, fill = "white",
+    nudge_x = -0.2,              # push down (x is vertical after the flip)
+    xlim = c(NA, 0.8),           # never let them drift back up onto the bar
+    force = 5, min.segment.length = 0,
+    max.overlaps = Inf
   ) +
-  scale_x_discrete(limits=rev) +
-  coord_flip() +
+  scale_x_discrete(limits = rev,
+                   expand = expansion(add = c(0.6, 0.2))) +  # room below / above
+  coord_flip(clip = "off") +
   theme_void() +
-  theme(plot.background = element_rect(fill = "white")) +
-  theme(aspect.ratio = 1)
+  theme(plot.background = element_rect(fill = "white"),
+        aspect.ratio = 1)
 
 g.alluvial_no_weight
 ```
@@ -734,15 +774,21 @@ g.alluvial.weighted.gen <- ggplot(amke_lodes,
     aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
     stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
   ) +
+    # Nonbreeding labels (below)
   ggrepel::geom_label_repel(
     aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
-    stat = "stratum", size = 3, force = 15, xlim = .75, fill = "white",
+    stat = "stratum", size = 3, fill = "white",
+    nudge_x = -0.2,              # push down (x is vertical after the flip)
+    xlim = c(NA, 0.8),           # never let them drift back up onto the bar
+    force = 5, min.segment.length = 0,
+    max.overlaps = Inf
   ) +
-  scale_x_discrete(limits=rev) +
-  coord_flip() +
+  scale_x_discrete(limits = rev,
+                   expand = expansion(add = c(0.6, 0.2))) +  # room below / above
+  coord_flip(clip = "off") +
   theme_void() +
-  theme(plot.background = element_rect(fill = "white")) +
-  theme(aspect.ratio = 1)
+  theme(plot.background = element_rect(fill = "white"),
+        aspect.ratio = 1)
 
 g.alluvial.weighted.gen
 ```
@@ -786,15 +832,21 @@ g.alluvial_no_weight_gen <- ggplot(amke_lodes,
     aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
     stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
   ) +
+    # Nonbreeding labels (below)
   ggrepel::geom_label_repel(
     aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
-    stat = "stratum", size = 3, force = 20, xlim = .75, fill = "white",
+    stat = "stratum", size = 3, fill = "white",
+    nudge_x = -0.2,              # push down (x is vertical after the flip)
+    xlim = c(NA, 0.8),           # never let them drift back up onto the bar
+    force = 5, min.segment.length = 0,
+    max.overlaps = Inf
   ) +
-  scale_x_discrete(limits=rev) +
-  coord_flip() +
+  scale_x_discrete(limits = rev,
+                   expand = expansion(add = c(0.6, 0.2))) +  # room below / above
+  coord_flip(clip = "off") +
   theme_void() +
-  theme(plot.background = element_rect(fill = "white")) +
-  theme(aspect.ratio = 1)
+  theme(plot.background = element_rect(fill = "white"),
+        aspect.ratio = 1)
 
 g.alluvial_no_weight_gen
 ```
@@ -862,15 +914,21 @@ g.alluvial.band <- ggplot(amke_lodes,
     aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
     stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
   ) +
+    # Nonbreeding labels (below)
   ggrepel::geom_label_repel(
     aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
-    stat = "stratum", size = 3, force = 15, xlim = .75, fill = "white",
+    stat = "stratum", size = 3, fill = "white",
+    nudge_x = -0.2,              # push down (x is vertical after the flip)
+    xlim = c(NA, 0.8),           # never let them drift back up onto the bar
+    force = 5, min.segment.length = 0,
+    max.overlaps = Inf
   ) +
-  scale_x_discrete(limits=rev) +
-  coord_flip() +
+  scale_x_discrete(limits = rev,
+                   expand = expansion(add = c(0.6, 0.2))) +  # room below / above
+  coord_flip(clip = "off") +
   theme_void() +
-  theme(plot.background = element_rect(fill = "white")) +
-  theme(aspect.ratio = 1)
+  theme(plot.background = element_rect(fill = "white"),
+        aspect.ratio = 1)
 
 g.alluvial.band
 ```
@@ -916,15 +974,21 @@ g.alluvial_no_weight_band <- ggplot(amke_lodes,
     aes(label = ifelse(x == "Breeding", as.character(stratum), NA)),
     stat = "stratum", size = 3, direction = "y", nudge_x = .25, fill = "white",
   ) +
+    # Nonbreeding labels (below)
   ggrepel::geom_label_repel(
     aes(label = ifelse(x != "Breeding", as.character(stratum), NA)),
-    stat = "stratum", size = 3, force = 20, xlim = .75, fill = "white",
+    stat = "stratum", size = 3, fill = "white",
+    nudge_x = -0.2,              # push down (x is vertical after the flip)
+    xlim = c(NA, 0.8),           # never let them drift back up onto the bar
+    force = 5, min.segment.length = 0,
+    max.overlaps = Inf
   ) +
-  scale_x_discrete(limits=rev) +
-  coord_flip() +
+  scale_x_discrete(limits = rev,
+                   expand = expansion(add = c(0.6, 0.2))) +  # room below / above
+  coord_flip(clip = "off") +
   theme_void() +
-  theme(plot.background = element_rect(fill = "white")) +
-  theme(aspect.ratio = 1)
+  theme(plot.background = element_rect(fill = "white"),
+        aspect.ratio = 1)
 
 g.alluvial_no_weight_band
 ```
@@ -935,7 +999,7 @@ set.seed(11)
 pf <- grid.arrange(g.alluvial_no_weight + guides(fill = "none") + theme_nothing(),
              g.alluvial + guides(fill = "none")+ theme_nothing(),
              ncol = 1)
-pf <- grid.arrange(pf, ggpubr::get_legend(g.alluvial_no_weight), widths = c(2, .8), nrow = 1)
+pf <- grid.arrange(pf, ggpubr::get_legend(g.alluvial_no_weight), widths = c(2.2, 1), nrow = 1)
 ```
 
 ```{r}
@@ -946,21 +1010,21 @@ ggsave("output/MigConn/AMKE.FINALCOMBINED.combined_alluvial.redo_geneticsCH_fixB
 gf <- grid.arrange(g.alluvial_no_weight_gen + guides(fill = "none") + theme_nothing(),
              g.alluvial.weighted.gen + guides(fill = "none")+ theme_nothing(),
              ncol = 1)
-gf <- grid.arrange(gf, ggpubr::get_legend(g.alluvial_no_weight_gen), widths = c(2, .8), nrow = 1)
+gf <- grid.arrange(gf, ggpubr::get_legend(g.alluvial_no_weight_gen), widths = c(2.1, 1), nrow = 1)
 ```
 ```{r}
-ggsave("output/MigConn/AMKE.FINALGENETICS.combined_alluvial.redo_geneticsCH.pdf", pf, width = 13, height = 6)
+ggsave("output/MigConn/AMKE.FINALGENETICS.combined_alluvial.redo_geneticsCH.pdf", gf, width = 13, height = 6)
 ```
 
 ```{r}
 bf <- grid.arrange(g.alluvial_no_weight_band + guides(fill = "none") + theme_nothing(),
              g.alluvial.band + guides(fill = "none")+ theme_nothing(),
              ncol = 1)
-bf <- grid.arrange(bf, ggpubr::get_legend(g.alluvial_no_weight_band), widths = c(2, .8), nrow = 1)
+bf <- grid.arrange(bf, ggpubr::get_legend(g.alluvial_no_weight_band), widths = c(2.2, 1), nrow = 1)
 ```
 
 ```{r}
-ggsave("output/MigConn/AMKE.FINALBANDING.combined_alluvial.redo_bandCH.pdf", pf, width = 13, height = 6)
+ggsave("output/MigConn/AMKE.FINALBANDING.combined_alluvial.redo_bandCH.pdf", bf, width = 13, height = 6)
 ```
 
 #Calculate NMC
@@ -1094,7 +1158,7 @@ combined_plot <- ggplot(combined_df, aes(x = Node, y = Mean, color = Node)) +
 
 combined_plot
 
-ggsave("4.Combined MigCon/FULLcombined_NMC_Oct052026.pdf", combined_plot, width = 10, height = 8)
+ggsave("output/MigConn/FULLcombined_NMC_11052026.pdf", combined_plot, width = 10, height = 8)
 ```
 
 #Creating and saving table of NMCs
@@ -1168,5 +1232,5 @@ gt_table <- final_table %>%
   )
 
 # Save as image
-gtsave(gt_table, "output/MigConn/nmc_table.redo.pdf")
+gtsave(gt_table, "output/MigConn/nmc_table.pdf")
 ```

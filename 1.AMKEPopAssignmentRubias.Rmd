@@ -1,6 +1,6 @@
 ---
 title: "Pop Assignment"
-author: "Christen Bossu & Claire Labuda"
+author: "Christen M. Bossu & Claire Labuda"
 date: "2026-05-13"
 output:
   html_document: default
@@ -295,18 +295,23 @@ uncertain_birds<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.excl
   arrange(Sample)
 uncertain_birds
 
+## Uncertain, but highest probability of assignment to West and East
 uncertain_birds %>% filter(maxprob==West) #%>% distinct(Country_code,State)
 uncertain_birds %>% filter(maxprob==East) #%>% distinct(Country_code,State)
 
+## Uncertain, but highest probability of assignment to Alaska and Florida
 uncertain_birds %>% filter(maxprob==Alaska) #%>% distinct(Country_code,State)
 uncertain_birds %>% filter(maxprob==Florida) #%>% distinct(Country_code,State)
 
+## Uncertain, admixed with Alaska
 uncertain_birds %>% filter(maxprob==West & Alaska > East) #%>% distinct(Country_code,State)
 uncertain_birds %>% filter(maxprob==East & Alaska > West) #%>% distinct(Country_code,State)
 
+## Uncertain, admixed with East and West
 uncertain_birds %>% filter(maxprob==West & Alaska < East) #%>% distinct(Country_code,State)
 uncertain_birds %>% filter(maxprob==East & Alaska < West) #%>% distinct(Country_code,State)
 
+## Uncertain, admixed with Florida
 uncertain_birds %>% filter(maxprob==West & Florida > East) #%>% distinct(Country_code,State)
 uncertain_birds %>% filter(maxprob==East & Florida > West) #%>% distinct(Country_code,State)
 
@@ -432,7 +437,5 @@ NA.pie_map <- ggplot(data = NorthAmerica) +
 NA.pie_map
 
 ```
-```{r}
-ggsave("output/Rubias/AMKE.pie_chart.quick_n_dirty.pdf")
-```
+
 

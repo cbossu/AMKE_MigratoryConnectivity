@@ -1,6 +1,6 @@
 ---
-title: "Make a BGP map Notebook for American Kestrel"
-author: "C. M. Bossu&Claire Labuda"
+title: "Make a BGP map for American Kestrel"
+author: "Christen M. Bossu & Claire Labuda"
 output: 
   html_notebook:
     toc: true
@@ -73,7 +73,7 @@ Normally you would input the ancestry matrix created in STRUCTURE or ADMIXTURE. 
 #### Breeding Bird Lat-Longs
 We also need to know where those individuals were sampled in space. We have that here- though use the file I created specifically for the breeding birds.
 ```{r, message=FALSE}
-met<-read_delim("input/Rubias/AMKE_186SNPgenotypes.breeders.412inds_197Radinds.stateFID.hwe.ped.locationfile_fix.txt",delim="\t") %>%
+met<-read_delim("input/Rubias/AMKE_186SNPgenotypes.breeders.412inds_197RADinds.locationfile_fix.txt",delim="\t") %>%
   rename(indiv=Sample_Name)
 
 #Put the meta data in order of the Qmatrices:
@@ -116,7 +116,7 @@ birds, so that genoscape can be clipped properly.  We read this shapefile with t
 ```{r, results='hide'}
 breeding <- st_read("AMKE_shapefiles_rasters/eBird_range/AMKE.range_smooth.sf.WGS84.Ebird.shp") %>% filter(season=="breeding")
 #crop<-c(-152.9703,-37.20669,0,68.98193)
-breeding_crop <- st_crop(breeding, c(xmin=-152.9703, xmax=-37.20669, ymin=25.2, ymax=68.98193))
+breeding_crop <- st_crop(breeding, c(xmin=-152.9703, xmax=-37.20669, ymin=14.2, ymax=68.98193))
 
 ```
 
@@ -176,15 +176,10 @@ Note that if we wanted to add the actual sampling points to this (that are given
 in `LatLong_tibble`), we can use ggspatial's `geom_spatial_point()` function.
 
 ```{r}
-
-#Rub_result<-read_delim("~/Downloads/Supp_Table_2.txt",delim="\t")
 Rub_result<-read.xlsx("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX_result.incl_meta.Appendix2.xlsx",sheet=1,detectDates =T) %>% filter(Stage!="Breeding")
-
 
 Rub_certain <- Rub_result %>%
   filter(!is.na(assignment), assignment != "Uncertain")
-
-#write.table(Rub_certain, "genetics_certain1.txt", sep = "\t", row.names = FALSE)
 
 geno_simple<- ggplot() + 
   layer_spatial(genoscape_rgba) + 
@@ -259,7 +254,6 @@ mapg <- ggplot() +
   geom_sf(data = countries_cropped, fill = NA) +
   geom_sf(data = states_cropped, fill = NA) +
   ggspatial::layer_spatial(genoscape_rgba) +
-  geom_spatial_point(data = LatLong_tibble, mapping = aes(x = meanLong, y = meanLat),shape=1) + 
   theme_bw() 
 
 # now plot it under default lat-long projection
@@ -347,43 +341,9 @@ do that by setting the xlim and ylim to `coord_sf()`.  But, note that
 we have to do that in terms of the units that the Lambert projection is referring to,
 not just in simple lat-long coordinates (i.e. we have to project those too!)
 
-I've done this already, so easy peasy for you. Let's plot this below. Note it will take a bit!
-```{r}
-rectangled <- ggplot() +
-  ggspatial::layer_spatial(hypso_bg_cropped) +
-  geom_sf(data = countries_cropped, fill = NA, size = 0.15) +
-  geom_sf(data = states_cropped, fill = NA, size = 0.1) +
-  ggspatial::layer_spatial(genoscape_rgba) +
-  geom_spatial_point(data = LatLong_tibble, mapping = aes(x = meanLong, y = meanLat),shape=1) +
-#  geom_spatial_point(data = Rub_certain, mapping = aes(x = Long, y = Lat, col=assignment),size=2)+
-  scale_colour_manual(values=c("cyan","#377eb8","#ffff33")) +
-  geom_spatial_text(data = LatLong_tibble, mapping = aes(x = meanLong-2, y = meanLat+2,label=State),size=3) +
-  theme_bw() + 
-  coord_sf(
-    crs = st_crs(lamproj), 
-    xlim = c(-3968118, 3671262), 
-    ylim = c(-1699797, 4264362),
-    expand = FALSE)  # expand = FALSE means put the axes right at the xlim and ylim
+Let's plot this below. Note it will take a bit!
 
-rectangled 
-
-#ggsave("AMKE.genoscape.wbreedingpoints_meanLatLong.clip.rubias_assignment.pdf")
-```
-
-
-Okay, that does it.  In reality, you would probably want to expand the original `domain`
-to be a bigger chunk of the earth, so that when you cut stuff off there was more left...
-
-
-## A final note
-
-If you want to add more elements to the figure you can do so by giving them
-a lat-long and making a simple features tibble out of it and then putting them
-there using geom_sf().  It all fits nicely
-into the ggplot framework.
-
-## Session Info
-# creates genoscape with points
+# creates genoscape with points for nonbreeding (wintering and migratory) birds
 ```{r}
 # Load winter bird assignments
 winter_birds_gen <- read_delim("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX.result.filt_certain_withAssignments01.txt", delim = "\t") %>% filter(Stage!="Breeding") %>% mutate(Sample_type="Genetics")
@@ -397,9 +357,10 @@ winter_birds_gen <- winter_birds_gen %>%
   )
 
 winter_birds_gen %>% group_by(assignment) %>% tally()
+
 ```
 
-# Read in ecoregions and add abbreviations
+# Read in conservation regions and add abbreviations
 ```{r}
 ecoregions <- st_read("AMKE_shapefiles_rasters/winter_ecoregion/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp")
 ecoregions <- ecoregions %>%
@@ -560,7 +521,7 @@ ggplot() +
 # -------------------------------
 # Convert birds to sf + project to meters
 # -------------------------------
-birds_sf <- winter_birds %>%
+birds_sf <- winter_birds_gen %>%
   #filter(!is.na(longitude), !is.na(latitude)) %>%
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326) %>%
   st_transform(5070)   # NAD83 / Conus Albers (good for ecology)
@@ -771,34 +732,8 @@ ggplot() +
 
 ```
 
-#Adds labels to ecoregions
+
 ```{r}
-# --- Step 1: Add abbreviations to your ecoregions ---
-ecoregions <- ecoregions %>%
-  mutate(node = case_when(
-        Region == "Highland/Interior Mexico" ~ "HIM",
-    Region == "Highland Central America" ~ "HCA",
-    Region == "Lowland Central America" ~ "LCA",
-    Region == "Atlantic Lowland Mexico" ~ "ALM",
-    Region == "Northwest Mexico" ~ "NWM",
-    Region == "Southwest Mexico" ~ "SWM",
-    Region == "Northern Andes" ~ "NAndes",
-    Region == "Amazon/Orinoco-Northern Uplands" ~ "AONU",
-    Region == "Caribbean" ~ "CAR",
-    Region == "California" ~ "CAL",
-    Region == "Southcentral US" ~ "SCUS",
-    Region == "Southeastern US" ~ "SEUS",
-    Region == "Marine West Coast Forests" ~ "MWCF",
-    Region == "Northwestern Forested Mountains" ~ "NFM",
-    TRUE ~ Region
-  ))
-
-# --- Step 2: Compute centroids for labeling ---
-ecoregion_centroids <- cbind(
-  ecoregions,
-  st_coordinates(st_centroid(ecoregions))
-)
-
 # --- Step 3: Define breeding colors ---
 breeding_colors <- c(
   "Alaska" = "cyan",
@@ -811,7 +746,7 @@ breeding_colors <- c(
 # --- Step 4: Build the map ---
 final_map <- ggplot() +
   # Bottom layer: hypso background
-  ggspatial::layer_spatial(hypso_bg) +
+  ggspatial::layer_spatial(hypso_bg_cropped) +
   
   # Genoscape raster
   ggspatial::layer_spatial(genoscape_rgba, alpha = 1.1) +
@@ -883,7 +818,8 @@ final_map
 #Genoscape with banding and genetic data
 ```{r}
 ##banding data
-banding_data <- read_delim("input/MigConn/AMKEbandingrecoverymatri")
+banding_data <- read_delim("input/MigConn/AMKEbandingrecoverymatrix_filt.csv") %>% 
+  dplyr::select(band,winter_lat,winter_long,Cluster) %>% rename(Sample=band)
 
 
 banding_data <- banding_data %>%
@@ -901,14 +837,15 @@ banding_sf <- banding_sf %>%
   mutate(
     assignment = Cluster,
     stage_clean = "Banding"
-  )
+  ) %>% dplyr::select(-Cluster)
 banding_sf$source <- "Banding"
 
 
 # --- Load data ---
-winter_birds <- read_delim("~/genetics_certain1.txt", delim = "\t")
+winter_birds_gen <- read_delim("output/Rubias/AMKE.all.rep_indiv_est.inclRES_US.exclRES_MX.result.filt_certain_withAssignments01.txt", delim = "\t") %>% 
+  dplyr::select(Sample,assignment,Longitude,Latitude,Stage) %>% mutate(stage_clean="Genetics")
 
-winter_birds <- winter_birds %>%
+winter_birds_gen <- winter_birds_gen %>%
   mutate(stage_clean = case_when(
     is.na(Stage) ~ "Wintering",
     Stage %in% c("Winter", "Wintering") ~ "Wintering",
@@ -916,42 +853,11 @@ winter_birds <- winter_birds %>%
     TRUE ~ "Wintering"  
   ))
 
-winter_birds <- winter_birds %>%
+winter_birds_gen <- winter_birds_gen %>%
   rename(
-    latitude = Lat,
-    longitude = Long
+    latitude = Latitude,
+    longitude = Longitude
   )
-
-# --- Load ecoregions ---
-ecoregion <- st_read("~/Downloads/winter_ecoregion 2/AMKE.winterEcoregions.simple.sf.WGS84.noWater.Ebird.shp") %>%
-  mutate(node = case_when(
-    Region == "North American Deserts" ~ "NAD",
-    Region == "Great Plains" ~ "GP",
-    Region == "Eastern Temperate Forests" ~ "ETF",
-    Region == "Northwestern Forested Mountains" ~ "NWFM",
-    Region == "Marine West Coast Forests" ~ "MWCF",
-    Region == "Highland/Interior Mexico" ~ "HIM",
-    Region == "Highland Central America" ~ "HCA",
-    Region == "Northwest Mexico" ~ "NWM",
-    Region == "Atlantic Lowland Mexico" ~ "ALM",
-    Region == "California" ~ "CAL",
-    Region == "Southcentral US" ~ "SCUS",
-    Region == "Southeastern US" ~ "SEUS",
-    Region == "Southwest Mexico" ~ "SWM",
-    Region == "Northern Andes" ~ "NAndes",
-    TRUE ~ NA_character_   
-  )) %>%
-  filter(!is.na(node))
-centroids <- cbind(
-  ecoregion,
-  st_coordinates(st_centroid(ecoregion))
-)
-
-# --- Centroids for labels ---
-centroids <- cbind(
-  ecoregions,
-  st_coordinates(st_centroid(ecoregions))
-)
 
 # --- Colors ---
 winter_colors <- c(
@@ -963,45 +869,48 @@ winter_colors <- c(
 )
 #jitter points
 # Convert to sf (WGS84)
-winter_sf <- st_as_sf(
-  winter_birds,
+winter_gen_sf <- st_as_sf(
+  winter_birds_gen,
   coords = c("longitude", "latitude"),
   crs = 4326
 )
 
 # Project to lambert (same CRS you used before)
-winter_sf_proj <- st_transform(winter_sf, crs = lamproj)
+winter_gen_sf_proj <- st_transform(winter_gen_sf, crs = lamproj)
 
 # Extract coordinates
-coords <- st_coordinates(winter_sf_proj)
+coords <- st_coordinates(winter_gen_sf_proj)
 
 # Apply jitter (~70 km like your original)
 coords[,1] <- coords[,1] + rnorm(nrow(coords), 0, 50000)
 coords[,2] <- coords[,2] + rnorm(nrow(coords), 0, 50000)
 
 # Put jittered coords back into sf object
-winter_sf_proj$geometry <- st_as_sf(
+winter_gen_sf_proj$geometry <- st_as_sf(
   data.frame(coords),
   coords = c("X", "Y"),
   crs = lamproj
 )$geometry
 
 # Transform BACK to WGS84 for raster compatibility
-winter_sf_final <- st_transform(winter_sf_proj, 4326)
-winter_sf_final$source <- "Genetics"
-combined_sf <- bind_rows(winter_sf_final, banding_sf)
+winter_gen_sf_final <- st_transform(winter_gen_sf_proj, 4326)
+winter_gen_sf_final$source <- "Genetics"
+combined_sf <- bind_rows(winter_gen_sf_final, banding_sf) %>% dplyr::select(-Stage)
+combined_sf
+```
 
+```{r}
 # =========================================================
 # ️ FINAL MAP
 # =========================================================
 #to plot alaska on top
-ak_points <- winter_sf_final %>% filter(assignment == "AK")
-other_points <- winter_sf_final %>% filter(assignment != "AK")
+ak_points <- winter_gen_sf_final %>% filter(assignment == "Alaska")
+other_points <- winter_gen_sf_final %>% filter(assignment != "Alaska")
 
 winter_map <- ggplot() +
 
   # --- Background (same as pie chart map) ---
-  ggspatial::layer_spatial(rast("~/winter_background_extended.tif")) +
+  ggspatial::layer_spatial(hypso_bg_cropped) +
   ggspatial::layer_spatial(genoscape_rgba, alpha = 1.1) +
 
   # --- Ecoregions ---
@@ -1082,10 +991,10 @@ guides(
 # --- Plot ---
 winter_map
 
-ggsave("~/Downloads/combinedgenoscape.pdf",
-       winter_map,
-       width = 10,
-       height = 8)
+#ggsave("~/Downloads/combinedgenoscape.pdf",
+#       winter_map,
+#       width = 10,
+#       height = 8)
 ```
 
 # BUILD PIES FROM COMBINED DATA (GENETICS + BANDING)
@@ -1125,7 +1034,7 @@ pie_wide_combined <- pie_data_combined %>%
 # --- total count per grid ---
 pie_wide_combined <- pie_wide_combined %>%
 mutate(
-  n = rowSums(across(c(AK, West, East, TX, FL)), na.rm = TRUE)
+  n = rowSums(across(c(Alaska, West, East, TX, FL)), na.rm = TRUE)
 )
 
 # ---  filter small samples (same rule as before) ---
@@ -1163,14 +1072,14 @@ filt_pies_south <- filt_pies_combined %>%
 
 south_pie <- filt_pies_south %>%
   summarise(
-    AK = sum(AK, na.rm = TRUE),
+    Alaska = sum(Alaska, na.rm = TRUE),
     West = sum(West, na.rm = TRUE),
     East = sum(East, na.rm = TRUE),
     TX = sum(TX, na.rm = TRUE),
     FL = sum(FL, na.rm = TRUE)
   ) %>%
   mutate(
-    n = AK + West + East + TX + FL,
+    n = Alaska + West + East + TX + FL,
     X = mean(filt_pies_south$X, na.rm = TRUE),   # center it
     Y = 2   #place it slightly above cutoff so it's visible
   )
@@ -1182,7 +1091,7 @@ filt_pies_final <- bind_rows(
 
 # --- Define breeding colors ---
 breeding_colors <- c(
-  "AK" = "cyan",
+  "Alaska" = "cyan",
   "West" = "yellow",
   "East" = "dodgerblue",
   "TX" = "orange",
@@ -1192,7 +1101,7 @@ breeding_colors <- c(
 # ---  Build the map ---
 final_map <- ggplot() +
   # Bottom layer: hypso background
-  ggspatial::layer_spatial(hypso_bg) +
+  ggspatial::layer_spatial(hypso_bg_cropped) +
   
   # Genoscape raster
   ggspatial::layer_spatial(genoscape_rgba, alpha = 1.1) +
@@ -1204,7 +1113,7 @@ final_map <- ggplot() +
   geom_scatterpie(
     aes(x = X, y = Y, group = grid_id),
     data = filt_pies_final,
-    cols = c("AK", "West", "East", "FL", "TX"),
+    cols = c("Alaska", "West", "East", "FL", "TX"),
     color = NA,
     alpha = 0.9,
     pie_scale = .8
@@ -1214,7 +1123,7 @@ final_map <- ggplot() +
   data = filt_pies_final,
   aes(x = X, y = Y, label = n),
   size = 1.8,
-  color = "gray"
+  color = "black"
 ) +
   
   # Ecoregion labels
@@ -1252,12 +1161,16 @@ final_map <- ggplot() +
   theme(
     plot.margin = unit(c(0,0,0,0), "cm"),
     legend.position = "right"
-  )
+  ) +
+  xlab("Longitude") + ylab("Latitude")
 
 # ---  Plot ---
 final_map
+```
 
-ggsave("~/Downloads/combinedpiechartgenoscape.pdf",
+
+```{r}
+ggsave("output/Rubias/combinedpiechartgenoscape.pdf",
        final_map,
        width = 10,
        height = 8)

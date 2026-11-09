@@ -7,10 +7,16 @@
 output/Banding_filtered/map_with_popouts_ALLECOREGIONS.pdf
 output/Rubias/AMKE.pie_chart.quick_n_dirty.pdf
 output/Rubias/AMKE.genetic_sampling.assignment.pretty_map.lamproj.Panel2.pdf
-
+*table.pdf
+AMKE_psi_table.Combined.pdf
+*heatmap_version1.png
+*combinedpiechartgenoscape.pdf
 # R data objects
 *.rds
 *.RDS
+
+# Remove html files created from R markdown files 
+*nb.html
 
 # Large tif files that are easily downloadable
 HYP_HR_SR_OB_DR.zip
@@ -18,4 +24,4 @@ HYP_HR_SR_OB_DR/*
 AMKE_shapefiles_rasters/hypso_background_extended.tif*
 
 # Range files that can be downloaded from eBird
-AMKE_shapefiles_rasters/eBird_range/*
+AMKE_shapefiles_rasters/eBird_range/*output/MigConn/AMKE.psi_table.redoCH.xlsx

@@ -1,324 +1,319 @@
-mixture_collection	Sample	AK	East	FL	TX	West	assignment	Country_code	State	Location	Latitude	Longitude	CollectionDate	Stage
-mixture	24N12791	0	1	0	0	0	East	USA	GA	Cusseta	32.405842	-84.54172	2023-12-23	Wintering
-mixture	24N12793	0	1	0	0	0	East	USA	GA	Buena Vista	32.233331	-84.499937	2023-12-30	Wintering
-mixture	24N12794	0	1	0	0	0	East	USA	GA	Buena Vista	32.236181	-84.552749	2024-01-01	Wintering
-mixture	24N12795	0	1	0	0	0	East	USA	GA	Buena Vista	32.241155	-84.533333	2024-01-01	Wintering
-mixture	24N12796	0	1	0	0	0	East	USA	GA	Mauk	32.523063	-84.429097	2024-01-19	Wintering
-mixture	24N12797	0	1	0	0	0	East	USA	AL	Summerdale	30.4866	-87.68296	2024-01-29	Wintering
-mixture	24N12798	0	1	0	0	0	East	USA	AL	Foley	30.381088	-87.759499	2024-01-30	Wintering
-mixture	24N12799	0	1	0	0	0	East	USA	AL	Orange Beach	30.316449	-87.57351	2024-01-30	Wintering
-mixture	24N12800	0	1	0	0	0	East	USA	AL	Orange Beach	30.327532	-87.573637	2024-01-30	Wintering
-mixture	24N12802	0	1	0	0	0	East	USA	AL	Foley	30.443658	-87.578836	2024-01-30	Wintering
-mixture	24N12805	0	1	0	0	0	East	USA	AL	Auburn	32.626954	-85.543643	2024-02-08	Wintering
-mixture	24N12807	0	1	0	0	0	East	USA	AL	Orange Beach	30.330896	-87.561891	2024-02-15	Wintering
-mixture	24N12808	0	1	0	0	0	East	USA	AL	Perdido Beach	30.384931	-87.52231	2024-02-15	Wintering
-mixture	24N12809	0	1	0	0	0	East	USA	AL	Foley	30.352073	-87.590665	2024-02-15	Wintering
-mixture	24N12810	0	0	0	0	1	West	USA	AL	Dauphin Island	30.23366	-87.956502	2024-02-15	Wintering
-mixture	24N12811	0	1	0	0	0	East	USA	AL	Summerdale	30.458097	-87.681466	2024-02-16	Wintering
-mixture	24N12812	0	1	0	0	0	East	USA	AL	Auburn	32.426552	-85.421818	2024-02-17	Wintering
-mixture	24N12813	0	1	0	0	0	East	USA	AL	Auburn	32.430016	-85.425949	2024-02-17	Wintering
-mixture	24N12814	0	1	0	0	0	East	USA	AL	Opelika	32.521447	-85.305697	2024-02-17	Wintering
-mixture	24N12815	0	1	0	0	0	East	USA	AL	Auburn	32.56067	-85.56292	2024-02-17	Wintering
-mixture	24N12816	0	1	0	0	0	East	USA	AL	Gulf Shores	30.342233	-87.759547	2024-02-21	Wintering
-mixture	24N12817	0	1	0	0	0	East	USA	AL	Lillian	30.42916	-87.464626	2024-02-21	Wintering
-mixture	24N12819	0	1	0	0	0	East	USA	AL	Theodore	30.566343	-88.284258	2024-02-22	Wintering
-mixture	24N12820	0	1	0	0	0	East	USA	AL	Union Church	30.568093	-88.377146	2024-02-22	Wintering
-mixture	24N12821	0	1	0	0	0	East	USA	AL	Mobile	30.590267	-88.147931	2024-02-22	Wintering
-mixture	24N12823	0	1	0	0	0	East	USA	AL	Fairhope	30.479891	-87.895209	2024-02-23	Wintering
-mixture	24N12824	0	1	0	0	0	East	USA	AL	Fairhope	30.479881	-87.892099	2024-02-23	Wintering
-mixture	24N12825	0	1	0	0	0	East	USA	AL	Ellisville	30.62277	-87.801439	2024-02-23	Wintering
-mixture	24N12827	0	1	0	0	0	East	USA	AL	Robertsdale	30.538283	-87.692709	2024-02-23	Wintering
-mixture	24N12829	0	1	0	0	0	East	USA	AL	Foley	30.356122	-87.589874	2024-02-24	Wintering
-mixture	24N12830	0	1	0	0	0	East	USA	AL	Elberta	30.436463	-87.557439	2024-02-24	Wintering
-mixture	24N12831	0	1	0	0	0	East	USA	AL	Foley	30.34845	-87.62739	2024-02-25	Wintering
-mixture	24N12832	0	1	0	0	0	East	USA	AL	Foley	30.413904	-87.715909	2024-02-27	Wintering
-mixture	24N12833	0	1	0	0	0	East	USA	GA	Mauk	32.429533	-84.48847	2024-02-29	Wintering
-mixture	25N07740	0	1	0	0	0	East	USA	GA	Tazewell	32.36372	-84.460864	2025-02-22	Wintering
-mixture	25N07741	0	1	0	0	0	East	USA	GA	Tazewell	32.433543	-84.497338	2025-02-22	Wintering
-mixture	25N07742	0	1	0	0	0	East	USA	GA	Mauk	32.459482	-84.425437	2025-02-22	Wintering
-mixture	25N07743	0	1	0	0	0	East	USA	GA	Howard	32.569195	-84.412289	2025-02-22	Wintering
-mixture	25N07745	0	1	0	0	0	East	USA	AL	Sikes	32.871134	-85.54617	2025-02-15	Wintering
-mixture	25N07746	0	1	0	0	0	East	USA	AL	Magnolia Springs	30.36892	-87.80254	2025-02-09	Wintering
-mixture	25N07749	0	1	0	0	0	East	USA	AL	Foley	30.364232	-87.682287	2025-02-09	Wintering
-mixture	25N07750	0	1	0	0	0	East	USA	AL	Foley	30.393253	-87.647067	2025-02-08	Wintering
-mixture	25N07751	0	1	0	0	0	East	USA	AL	Penton	32.99876	-85.432566	2025-02-06	Wintering
-mixture	25N07752	0	1	0	0	0	East	USA	AL	Fredonia	33.004737	-85.323791	2025-02-06	Wintering
-mixture	25N07753	0	1	0	0	0	East	USA	AL	Penton	32.994957	-85.43371	2025-02-06	Wintering
-mixture	25N07754	0	1	0	0	0	East	USA	AL	Auburn	32.514837	-85.533764	2025-02-02	Wintering
-mixture	25N07755	0	0	0	0	1	West	USA	GA	Tazewell	32.387035	-84.445338	2025-02-01	Wintering
-mixture	25N07756	0	0	0	0	1	West	USA	GA	Cusseta	32.25066	-84.561801	2025-02-01	Wintering
-mixture	25N07757	0	1	0	0	0	East	USA	GA	Buena Vista	32.301112	-84.517635	2025-02-01	Wintering
-mixture	25N07758	0	1	0	0	0	East	USA	GA	Mauk	32.455697	-84.4252	2025-02-01	Wintering
-mixture	25N07759	0	1	0	0	0	East	USA	AL	Opelika	32.740435	-85.31808	2025-01-09	Wintering
-mixture	25N07760	0	1	0	0	0	East	USA	AL	Moorefield	32.836674	-85.438384	2025-01-09	Wintering
-mixture	25N07761	0	1	0	0	0	East	USA	GA	Ellaville	32.241479	-84.427865	2024-12-22	Wintering
-mixture	25N07762	0	1	0	0	0	East	USA	GA	Buena Vista	32.259808	-84.477329	2024-12-22	Wintering
-mixture	25N07763	0	1	0	0	0	East	USA	GA	Buena Vista	32.233211	-84.479534	2024-12-22	Wintering
-mixture	25N07764	0	1	0	0	0	East	USA	GA	Warm Springs	32.935153	-84.724802	2024-12-20	Wintering
-mixture	25N07767	0	1	0	0	0	East	USA	AL	Opelika	32.74554	-85.31893	2024-11-22	Wintering
-mixture	25N07768	0	1	0	0	0	East	USA	AL	La Fayette	32.890341	-85.479674	2024-11-22	Wintering
-mixture	25N07770	0	1	0	0	0	East	USA	AL	Marvyn	32.412982	-85.41663	2024-10-18	Wintering
-mixture	25N07771	0	1	0	0	0	East	USA	AL	Marvyn	32.401349	-85.410824	2024-10-10	Wintering
-mixture	25N19414	0	1	0	0	0	East	USA	GA	Tazewell	32.3754	-84.4516	2024-01-19	Wintering
-mixture	25N19415	0	1	0	0	0	East	USA	GA	Tazewell	32.3754	-84.4516	2024-01-19	Wintering
-mixture	25N19416	0	1	0	0	0	East	USA	AL	Robertsdale	30.552869	-87.722628	2024-02-18	Wintering
-mixture	25N19417	0	1	0	0	0	East	USA	AL	Summerdale	30.444677	-87.708695	2024-02-18	Wintering
-mixture	25N19418	0	1	0	0	0	East	USA	AL	Foley	30.37141	-87.759278	2024-02-18	Wintering
-mixture	16N2019	0	0	0	0	1	West	USA	CA	Sausalito	37.83	-122.5	2017-12-07	Wintering
-mixture	16N2410	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
-mixture	16N2411	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
-mixture	16N2412	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
-mixture	16N2413	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
-mixture	16N2414	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
-mixture	16N2415	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
-mixture	16N2416	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
-mixture	16N2417	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
-mixture	16N2419	0	1	0	0	0	East	USA	TX	Cameron	26.237442	-97.583088	2016-12-18	Wintering
-mixture	16N2420	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
-mixture	16N2421	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
-mixture	16N2423	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-18	Wintering
-mixture	16N2424	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
-mixture	16N2426	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
-mixture	16N2427	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
-mixture	16N2428	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
-mixture	16N2429	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
-mixture	16N2430	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
-mixture	16N2431	0	1	0	0	0	East	USA	TX	Cameron	26.237442	-97.583088	2016-12-21	Wintering
-mixture	16N2435	0	0	0	0	1	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-28	Wintering
-mixture	16N3353	0	0	0	0	1	West	USA	CA	Ulmar	37.746033	-121.658262	2016-12-13	Wintering
-mixture	17N02669	0	1	0	0	0	East	USA	FL	Baker	30.83518	-86.67538	2017-12-12	Wintering
-mixture	17N02671	0	0	0	0	1	West	USA	FL	Baker	30.83782	-86.65842	2017-12-12	Wintering
-mixture	17N02672	0	0	0	0	1	West	USA	FL	Key Largo	25.15011	-80.39254	2017-12-13	Wintering
-mixture	17N02673	0	0	0	0	1	West	USA	FL	Marathon Key	24.72609	-81.05974	2017-12-14	Wintering
-mixture	17N02674	0	1	0	0	0	East	USA	FL	Marathon Key	24.69254	-81.08396	2017-12-14	Wintering
-mixture	17N02678	0	0	0	0	1	West	USA	FL	Knight Key	24.70624	-81.12328	2017-12-14	Wintering
-mixture	17N02679	0	1	0	0	0	East	USA	FL	Cudjoe Key	24.68009	-81.49957	2017-12-15	Wintering
-mixture	17N02680	0	0	0	0	1	West	USA	FL	Baker	30.82029	-86.69452	2017-12-12	Wintering
-mixture	17N02681	0	1	0	0	0	East	USA	FL	Baker	30.85434	-86.65449	2017-12-12	Wintering
-mixture	17N02683	0	0	0	0	1	West	USA	FL	Baker	30.82074	-86.66774	2017-12-12	Wintering
-mixture	17N02695	0	0	0	0	1	West	USA	FL	North key	25.1885	-80.35898	2017-12-13	Wintering
-mixture	17N02696	0	1	0	0	0	East	USA	FL	Key Largo	25.19155	-80.35234	2017-12-13	Wintering
-mixture	17N02769	0	0	0	0	1	West	USA	OR	Corvallis	44.69156	-123.18213	2017-12-17	Wintering
-mixture	17N02770	0	0	0	0	1	West	USA	OR	Corvallis	44.7431	-123.1941	2017-12-17	Wintering
-mixture	17N02771	0	0	0	0	1	West	USA	OR	Corvallis	44.50354	-123.2785	2017-12-21	Wintering
-mixture	17N02772	0	0	0	0	1	West	USA	OR	Corvallis	44.50794	-123.27888	2017-12-21	Wintering
-mixture	17N02773	0	0	0	0	1	West	USA	OR	Corvallis	44.3676	-123.35543	2017-12-21	Wintering
-mixture	17N02774	0	0	0	0	1	West	USA	OR	Bellfountain	44.36325	-123.35569	2017-12-21	Wintering
-mixture	17N02775	0	0	0	0	1	West	USA	OR	Corvallis	44.3772	-123.28876	2017-12-21	Wintering
-mixture	17N02776	0	0	0	0	1	West	USA	OR	Corvallis	44.39101	-123.27968	2017-12-21	Wintering
-mixture	17N02777	0	0	0	0	1	West	USA	OR	Corvallis	44.64771	-123.18302	2017-12-22	Wintering
-mixture	17N02778	0	0	0	0	1	West	USA	OR	Corvallis	44.67042	-123.19573	2017-12-22	Wintering
-mixture	17N02779	0	0	0	0	1	West	USA	OR	Corvallis	44.74402	-123.24352	2017-12-22	Wintering
-mixture	17N02781	0	0	0	0	1	West	USA	OR	Corvallis	44.76354	-123.33697	2017-12-26	Wintering
-mixture	17N02782	0	0	0	0	1	West	USA	OR	Corvallis	44.51335	-123.04916	2017-12-30	Wintering
-mixture	17N02783	0	0	0	0	1	West	USA	OR	Corvallis	44.53675	-123.11807	2017-12-30	Wintering
-mixture	17N02784	0	0	0	0	1	West	USA	OR	Corvallis	44.52982	-123.11002	2017-12-30	Wintering
-mixture	17N02785	0	0	0	0	1	West	USA	OR	Corvallis	44.51792	-123.10663	2017-12-30	Wintering
-mixture	17N02786	0	0	0	0	1	West	USA	OR	Corvallis	44.51919	-123.10728	2017-12-30	Wintering
-mixture	17N02787	0	0	0	0	1	West	USA	OR	Corvallis	44.53835	-123.1372	2017-12-30	Wintering
-mixture	17N02796	0	0	0	0	1	West	USA	AZ	Prescott Valley	34.61327	-112.28975	2017-12-22	Wintering
-mixture	17N02797	0	0	0	0	1	West	USA	AZ	Yuma	32.64032	-114.64697	2017-12-28	Wintering
-mixture	17N02798	0	0	0	0	1	West	USA	AZ	Yuma	32.64011	-114.65227	2017-12-29	Wintering
-mixture	17N02799	0	0	0	0	1	West	USA	AZ	Yuma	32.64025	-114.68209	2017-12-29	Wintering
-mixture	17N02800	0	1	0	0	0	East	USA	AZ	Oco Valley	32.60147	-110.98048	2017-12-03	Wintering
-mixture	17N02802	0	0	0	0	1	West	USA	AZ	Bumstead	33.5655	-112.33995	2017-12-10	Wintering
-mixture	17N02803	0	0	0	0	1	West	USA	AZ	Phoenix	33.45398	-112.08029	2017-12-10	Wintering
-mixture	17N02804	0	0	0	0	1	West	USA	AZ	Sanoita	31.66023	-110.61744	2017-12-15	Wintering
-mixture	17N02805	0	0	0	0	1	West	USA	AZ	Marana	32.42509	-111.1879	2017-12-15	Wintering
-mixture	17N02806	0	0	0	0	1	West	USA	AZ	Hassayampa	33.34846	-112.71185	2017-12-27	Wintering
-mixture	17N02807	0	0	0	0	1	West	USA	AZ	Hassayampa	33.33465	-112.69415	2017-12-27	Wintering
-mixture	17N02808	0	0	0	0	1	West	USA	AZ	Hassayampa	33.33381	-112.68909	2017-12-27	Wintering
-mixture	18N00020	0	0	0	0	1	West	USA	AZ	Somerton	32.56727	-114.73859	2018-01-29	Wintering
-mixture	18N00021	0	0	0	0	1	West	USA	CA	Calipatria	33.17669	-115.6138	2018-01-28	Wintering
-mixture	18N00022	0	0	0	0	1	West	USA	CA	Calipatria	33.16937	-115.61684	2018-01-28	Wintering
-mixture	18N00023	0	0	0	0	1	West	USA	CA	Calipatria	33.1548	-115.60734	2018-01-28	Wintering
-mixture	18N00024	0	0	0	0	1	West	USA	CA	Calipatria	33.14748	-115.64194	2018-01-28	Wintering
-mixture	18N00025	0	0	0	0	1	West	USA	CA	Calipatria	33.14049	-115.64885	2018-01-28	Wintering
-mixture	18N00026	0	0	0	0	1	West	USA	CA	Calipatria	33.13303	-115.64868	2018-01-28	Wintering
-mixture	18N00027	0	0	0	0	1	West	USA	CA	Calipatria	33.11853	-115.59664	2018-01-28	Wintering
-mixture	18N00028	0	0	0	0	1	West	USA	CA	Calipatria	33.09664	-115.49149	2018-01-28	Wintering
-mixture	18N00029	0	0	0	0	1	West	USA	CA	Brawley	32.99455	-115.60418	2018-01-29	Wintering
-mixture	18N00030	0	0	0	0	1	West	USA	CA	Westmorland	33.01554	-115.66478	2018-01-29	Wintering
-mixture	18N00031	0	0	0	0	1	West	USA	CA	Calipatria	33.07492	-115.66063	2018-01-29	Wintering
-mixture	18N00032	0	0	0	0	1	West	USA	CA	Calipatria	33.07454	-115.65667	2018-01-29	Wintering
-mixture	18N00033	0	0	0	0	1	West	USA	CA	Calipatria	33.05819	-115.61289	2018-01-29	Wintering
-mixture	18N00084	0	0	0	0	1	West	USA	WA	Bueno	46.41881	-120.28288	2018-01-31	Wintering
-mixture	18N00085	0	0	0	0	1	West	USA	WA	Wapato	46.44762	-120.38331	2018-01-31	Wintering
-mixture	18N00103	0	0	0	0	1	West	USA	FL	Islamorada	24.9363	-80.61443	2018-02-14	Wintering
-mixture	18N00104	0	0	0	0	1	West	USA	FL	Homestead	25.40513	-80.53364	2018-02-15	Wintering
-mixture	18N00105	0	1	0	0	0	East	USA	FL	Homestead	25.41098	-80.53958	2018-02-15	Wintering
-mixture	18N00106	0	1	0	0	0	East	USA	FL	Homestead	25.43312	-80.52077	2018-02-15	Wintering
-mixture	18N00107	0	1	0	0	0	East	USA	FL	Homestead	25.54998	-80.5956	2018-02-16	Wintering
-mixture	18N00124	0	0	0	0	1	West	USA	OR	Grande Ronde	45.14823	-123.91393	2018-01-01	Wintering
-mixture	18N00125	0	0	0	0	1	West	USA	OR	Cheshire	44.22625	-123.28683	2018-01-02	Wintering
-mixture	18N00126	0	0	0	0	1	West	USA	OR	Cheshire	44.22035	-123.2874	2018-01-02	Wintering
-mixture	18N00127	0	0	0	0	1	West	USA	OR	Alvadore	44.187	-123.24761	2018-01-02	Wintering
-mixture	18N00128	0	0	0	0	1	West	USA	OR	Alvadore	44.15675	-123.28452	2018-01-02	Wintering
-mixture	18N00129	0	0	0	0	1	West	USA	OR	Alvadore	44.20064	-123.21903	2018-01-02	Wintering
-mixture	18N00131	0	0	0	0	1	West	USA	OR	Medford	42.51828	-122.86675	2018-01-07	Wintering
-mixture	18N00132	0	0	0	0	1	West	USA	OR	Medford	42.47644	-122.979	2018-01-07	Wintering
-mixture	18N00133	0	0	0	0	1	West	USA	OR	Corvallis	44.56463	-123.23497	2018-01-12	Wintering
-mixture	18N00134	0	0	0	0	1	West	USA	OR	Corvallis	44.48473	-123.21113	2018-01-12	Wintering
-mixture	18N00135	0	0	0	0	1	West	USA	OR	Shedd	44.46632	-123.17188	2018-01-12	Wintering
-mixture	18N00136	0	0	0	0	1	West	USA	OR	Shedd	44.45242	-123.11037	2018-01-12	Wintering
-mixture	18N00137	0	0	0	0	1	West	USA	OR	Shedd	44.42364	-123.16432	2018-01-12	Wintering
-mixture	18N00139	0	0	0	0	1	West	USA	OR	Millersburg	44.66932	-123.01958	2018-01-13	Wintering
-mixture	18N00140	0	0	0	0	1	West	USA	OR	Forest Grove	45.5481	-123.10638	2018-01-16	Wintering
-mixture	18N00141	0	0	0	0	1	West	USA	OR	Forest Grove	45.56334	-123.12678	2018-01-16	Wintering
-mixture	18N00142	0	0	0	0	1	West	USA	OR	Dalles	44.92955	-123.19685	2018-01-19	Wintering
-mixture	18N00143	0	0	0	0	1	West	USA	OR	Brooks	45.04808	-122.94037	2018-01-22	Wintering
-mixture	18N00144	0	0	0	0	1	West	USA	OR	Brooks	45.07183	-122.86852	2018-01-22	Wintering
-mixture	18N00145	0	0	0	0	1	West	USA	OR	Brooks	45.05839	-122.91347	2018-01-22	Wintering
-mixture	18N00146	0	0	0	0	1	West	USA	OR	Brooks	45.05665	-122.88488	2018-01-22	Wintering
-mixture	18N00147	0	0	0	0	1	West	USA	OR	Corvallis	45.08294	-122.91134	2018-01-22	Wintering
-mixture	18N00148	0	0	0	0	1	West	USA	OR	Corvallis	44.45488	-123.27561	2018-02-02	Wintering
-mixture	18N00149	0	0	0	0	1	West	USA	OR	Corvallis	44.45662	-123.29816	2018-02-02	Wintering
-mixture	18N00150	0	0	0	0	1	West	USA	OR	Corvallis	44.50403	-123.285	2018-02-02	Wintering
-mixture	18N00151	0	0	0	0	1	West	USA	OR	Airlic	44.75474	-123.30999	2018-02-03	Wintering
-mixture	18N00152	0	0	0	0	1	West	USA	OR	Dalles	44.96783	-123.29919	2018-01-01	Wintering
-mixture	18N00153	0	0	0	0	1	West	USA	OR	Pacific City	45.08996	-123.66846	2018-01-01	Wintering
-mixture	18N00154	0	0	0	0	1	West	USA	OR	Pacific City	45.14714	-123.91267	2018-01-01	Wintering
-mixture	99N8825	0	0	0	0	1	West	USA	CA	Merced	37.3021633	-120.4829677	1999-12-04	Wintering
-mixture	99N8826	0	0	0	0	1	West	USA	CA	Merced	37.3021633	-120.4829677	1999-12-04	Wintering
-mixture	16N006291	0	0	0	0	1	West	USA	CA	Taft	35.1425	-119.4565	2016-02-04	Wintering
-mixture	16N006292	0	0	0	0	1	West	USA	CA	Bakersfield	34.9943	-119.1853	2016-02-04	Wintering
-mixture	16N006295	0	1	0	0	0	East	USA	CA	Button Willow	35	-118	2016-12-01	Wintering
-mixture	16N006296	0	0	0	0	1	West	USA	CA	Button Willow	35	-118	2016-12-15	Wintering
-mixture	16N006301	0	0	0	0	1	West	USA	CA	Button Willow	35	-119	2016-12-27	Wintering
-mixture	17N006054	0	0	0	0	1	West	USA	CA	Button Willow	35	-119	2017-02-21	Wintering
-mixture	17N006055	0	0	0	0	1	West	USA	CA	Button Willow	35	-119	2017-02-21	Wintering
-mixture	18N006307	0	0	0	0	1	West	USA	CA	Button Willow	35	-119	2018-02-01	Wintering
-mixture	18N006309	0	0	0	0	1	West	USA	CA	Button Willow	35	-119	2018-02-20	Wintering
-mixture	18N006310	0	0	0	0	1	West	USA	CA	Button Willow	35	-119	2018-02-22	Wintering
-mixture	18N006312	0	0	0	0	1	West	USA	CA	Button Willow	35	-118	2018-02-28	Wintering
-mixture	22N00426	0	0	0	0	1	West	USA	TX	Bluetown	26.11374	-97.78328	2020-12-01	Wintering
-mixture	22N00427	0	1	0	0	0	East	USA	TX	Rangerville	26.0899	-97.74225	2020-12-17	Wintering
-mixture	22N00428	0	0	0	0	1	West	USA	TX	Monte Alto	26.40453	-97.93045	2020-12-19	Wintering
-mixture	22N00429	1	0	0	0	0	Alaska	USA	TX	Bluetown	26.09735	-97.78526	2020-12-01	Wintering
-mixture	22N00430	0	0	0	0	1	West	USA	TX	Bixby	26.14367	-97.86561	2021-01-03	Wintering
-mixture	22N00431	1	0	0	0	0	Alaska	USA	TX	Santa Rosa	26.27732	-97.83731	2021-01-05	Wintering
-mixture	22N00432	0	1	0	0	0	East	USA	TX	Santa Rosa	26.26323	-97.83719	2021-01-05	Wintering
-mixture	22N00433	0	1	0	0	0	East	USA	TX	La Feria	26.19656	-97.83674	2021-01-06	Wintering
-mixture	22N00434	0	0	0	0	1	West	USA	TX	Santa Rosa	26.24981	-97.83714	2021-01-13	Wintering
-mixture	22N00436	0	1	0	0	0	East	USA	TX	Santa Rosa	26.22855	-97.80683	2021-01-15	Wintering
-mixture	22N00437	0	1	0	0	0	East	USA	TX	Raymondville	26.4555	-97.86269	2021-01-15	Wintering
-mixture	22N00438	0	0	0	0	1	West	USA	TX	Santa Maria	26.06548	-97.84367	2021-01-21	Wintering
-mixture	22N00439	0	0	0	0	1	West	USA	TX	Sebastian	26.30696	-97.82478	2021-01-21	Wintering
-mixture	22N00440	0	1	0	0	0	East	USA	TX	Sebastian	26.34977	-97.81463	2021-01-21	Wintering
-mixture	22N00441	0	0	0	0	1	West	USA	TX	La Feria	26.16879	-97.83652	2021-01-21	Wintering
-mixture	22N00442	0	0	0	0	1	West	USA	TX	La Feria	26.19798	-97.82024	2021-01-19	Wintering
-mixture	22N03042	0	1	0	0	0	East	Mexico	Puebla	Huauchinango	20.398607	-97.849852	1942-11-26	Wintering
-mixture	22N03045	0	1	0	0	0	East	Ecuador	Chimborazo	Riobamba Area	-1.670984	-78.647124	1929-08-14	Migratory
-mixture	22N03046	0	1	0	0	0	East	Ecuador	Valle Caldera	Valle Caldera	-0.18	-78.46	1930-10-01	Migratory
-mixture	22N03047	0	0	0	0	1	West	Mexico	Sinaloa	San Ignacio	23.939314	-106.426125	1937-03-20	Wintering
-mixture	22N03048	0	1	0	0	0	East	Ecuador	Chimborazo	Alao	-1.9	-78.483333	1932-09-12	Migratory
-mixture	22N03050	0	0	0	0	1	West	Mexico	Michoacan	Apatzingan	19.145807	-102.320915	1940-01-15	Wintering
-mixture	22N03051	0	0	0	0	1	West	Mexico	Michoacan	Apatzingan	19.145807	-102.320915	1940-02-06	Wintering
-mixture	22N03052	0	0	0	0	1	West	Mexico	Michoacan	Apatzingan	19.145807	-102.320915	1940-02-02	Wintering
-mixture	22N03053	0	0	0	0	1	West	Mexico	Guanajuato	Puerta de Guadalupe	21.368751	-101.623828	1939-05-27	Breeding
-mixture	22N03055	0	0	0	0	1	West	Mexico	Guerrero	Acapulco	16.856933	-99.901496	1936-12-30	Wintering
-mixture	22N03056	0	0	0	0	1	West	Mexico	Sonora	Camoa	27.224631	-109.259601	1932-01-11	Wintering
-mixture	22N03057	0	1	0	0	0	East	Ecuador	Pichincha	Valle Tumbaco	-0.213996	-78.404887	1926-09-02	Migratory
-mixture	22N03058	0	0	0	0	1	West	Mexico	Sonora	Agiabampo	26.364581	-109.141882	1933-04-19	Wintering
-mixture	22N03059	1	0	0	0	0	Alaska	Mexico	Sinaloa	Ahome	25.919848	-109.17321	1933-09-08	Migratory
-mixture	22N03060	0	0	0	0	1	West	Ecuador	Pichincha	Valle Tumbaco	-0.213996	-78.404887	1928-11-05	Wintering
-mixture	22N03061	0	0	0	0	1	West	Ecuador	Pichincha	Valle Tumbaco	-0.213996	-78.404887	1926-09-02	Migratory
-mixture	22N03063	0	1	0	0	0	East	Ecuador	Imbabura	Pimampiro	0.391156	-77.94068	1930-10-04	Wintering
-mixture	22N03064	0	0	0	0	1	West	Mexico	Sonora	Guirocoba	26.90293	-108.69501	1933-09-25	Migratory
-mixture	22N03065	0	0	0	0	1	West	Mexico	Sinaloa	Ahome	25.919848	-109.17321	1933-09-08	Migratory
-mixture	22N03066	0	1	0	0	0	East	Ecuador	Chimborazo	Near Pallatanga	-1.999204	-78.966047	1932-09-12	Migratory
-mixture	22N03068	0	0	0	0	1	West	Mexico	Aguascalientes	San Jacinto	22.348508	-102.233884	1940-10-12	Migratory
-mixture	22N03069	0	0	0	0	1	West	Mexico	Nayarit	Chacala	21.165981	-105.224185	1941-03-22	Wintering
-mixture	22N03070	0	0	0	0	1	West	Mexico	Guerrero	San Vicente de Benitez	17.297901	-100.283612	1936-11-29	Wintering
-mixture	22N03072	0	0	0	0	1	West	Mexico	Guerrero	Coapango	17.506199	-99.636357	1936-10-19	Migratory
-mixture	22N03073	0	0	0	0	1	West	Mexico	Mexico	Puerto Lengua de Vaca	19.435109	-100.186681	1941-10-13	Migratory
-mixture	22N03074	0	0	0	0	1	West	Mexico	Guerrero	Omiltemi	17.5	-99.666667	1937-02-05	Wintering
-mixture	22N03075	0	0	0	0	1	West	Mexico	Michoacan	Sierra Ozumatlan	19.676056	-100.89939	1941-11-05	Wintering
-mixture	22N03076	0	0	0	0	1	West	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-16	Wintering
-mixture	22N03077	0	1	0	0	0	East	Ecuador	Pichincha	above Lloa	-0.245072	-78.579838	1932-01-18	Wintering
-mixture	22N03078	0	0	0	0	1	West	Mexico	Sinaloa	El Fuerte	26.415321	-108.618325	1933-05-16	Breeding
-mixture	22N03079	0	1	0	0	0	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-16	Wintering
-mixture	22N03080	0	1	0	0	0	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-17	Wintering
-mixture	22N03081	0	1	0	0	0	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-16	Wintering
-mixture	22N03082	0	1	0	0	0	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1931-01-17	Wintering
-mixture	22N03084	0	0	0	0	1	West	Mexico	Jalisco	Atoyac	20.027693	-103.605245	1940-03-09	Wintering
-mixture	22N03087	1	0	0	0	0	Alaska	Mexico	Sinaloa	Cerro Aguila	23.469404	-105.834055	1934-11-16	Wintering
-mixture	22N03088	0	0	0	0	1	West	Mexico	Sinaloa	San Lorenzo	24.434298	-107.124041	1936-01-15	Wintering
-mixture	22N03089	0	0	0	0	1	West	Mexico	Michoacan	Tiquicheo	19.038168	-100.735873	1952-12-29	Wintering
-mixture	22N03091	0	0	0	0	1	West	Mexico	Jalisco	Tapalpa	19.960772	-103.75855	1940-03-29	Wintering
-mixture	22N03092	0	0	0	0	1	West	Mexico	Sinaloa	Babizos	25.764948	-107.460082	1935-12-03	Wintering
-mixture	22N03093	0	0	0	0	1	West	Mexico	Sinaloa	Babizos	25.764948	-107.460082	1935-12-02	Wintering
-mixture	22N03094	0	0	0	0	1	West	Mexico	Morelos	Chapultepec	18.9	-99.216667	1935-02-23	Wintering
-mixture	22N03095	0	0	0	0	1	West	Mexico	Sinaloa	Rancho El Fielo	22.918318	-105.777427	1935-01-15	Wintering
-mixture	22N03097	0	0	0	0	1	West	Mexico	Morelos	Atlacomulco	18.894027	-99.172069	1935-10-18	Migratory
-mixture	22N03098	0	0	0	0	1	West	Mexico	Michoacan	Rancho Los Ates	19.179674	-101.784329	1953-02-15	Wintering
-mixture	22N03099	0	0	0	0	1	West	Mexico	Oaxaca	Rancho Las Animas	16.623538	-96.032237	1952-09-26	Migratory
-mixture	22N03100	0	0	0	0	1	West	Mexico	Guerrero	Chilpancingo	17.550599	-99.505783	1953-02-01	Wintering
-mixture	22N03101	0	0	0	0	1	West	Mexico	Oaxaca	Rancho Las Animas	16.623538	-96.032237	1952-09-28	Migratory
-mixture	22N03102	0	1	0	0	0	East	Mexico	Colima	Lajuela	19.246099	-104.533169	1952-02-14	Wintering
-mixture	22N03104	0	0	0	0	1	West	Mexico	Jalisco	Lagos De Moreno	21.283224	-101.93399	1942-03-07	Wintering
-mixture	22N03105	0	0	0	0	1	West	Mexico	Jalisco	Tapalpa	19.960772	-103.75855	1940-04-12	Migratory
-mixture	22N03106	0	0	0	0	1	West	Mexico	Guerrero	Coapango	17.506199	-99.636357	1937-04-19	Migratory
-mixture	22N03107	0	0	0	0	1	West	Mexico	Morelos	Cuautla	18.804589	-98.94555	1935-03-25	Wintering
-mixture	22N03108	0	0	0	0	1	West	Mexico	Guerrero	Chilpancingo	17.550599	-99.505783	1953-03-12	Wintering
-mixture	22N03112	0	0	0	0	1	West	Mexico	Durango	El Salto	23.760513	-105.433093	1954-10-14	Migratory
-mixture	22N03114	0	1	0	0	0	East	Mexico	Nayarit	Acaponeta	22.422892	-105.349167	1954-11-11	Wintering
-mixture	22N03115	0	0	0	0	1	West	Mexico	Nayarit	Acaponeta	22.422892	-105.349167	1954-11-05	Wintering
-mixture	22N03116	0	0	0	0	1	West	Mexico	Durango	Tamazula	24.969695	-106.966246	1937-11-25	Wintering
-mixture	22N03118	0	1	0	0	0	East	Ecuador	Pichincha	Cerro Atacazo	-0.353524	-78.617464	1935-12-24	Wintering
-mixture	22N03119	0	1	0	0	0	East	Mexico	Sinaloa	Mouth of Rio Sinaloa	25.295049	-108.486722	1937-03-03	Wintering
-mixture	22N03120	0	0	0	0	1	West	Mexico	Durango	El Guasimal	25.123951	-106.685822	1937-11-16	Wintering
-mixture	22N03122	0	0	0	0	1	West	Mexico	Guerrero	Chilpancingo	17.550599	-99.505783	1936-01-07	Wintering
-mixture	22N03123	0	0	0	0	1	West	Mexico	Guanajuato	Irapuato Area	20.678402	-101.34654	1938-09-30	Migratory
-mixture	22N03124	0	0	0	0	1	West	Mexico	Michoacan	San Augustin	19.901854	-101.31068	1939-02-15	Wintering
-mixture	22N03125	0	0	0	0	1	West	Mexico	Guanajuato	Irapuato Area	20.678402	-101.346541	1938-10-03	Migratory
-mixture	22N03126	0	1	0	0	0	East	Mexico	Sinaloa	Mazatlan	23.2279373	-106.4006576	1938-04-12	Wintering
-mixture	22N03131	0	1	0	0	0	East	Mexico	Mexico	Temascaltepec	19.044417	-100.04405	1943-12-05	Wintering
-mixture	22N03133	0	0	0	0	1	West	Mexico	Chiapas	Prusia	15.716477	-92.793126	1942-03-17	Wintering
-mixture	22N03134	0	0	0	0	1	West	Mexico	Sonora	Guirojaqui	26.897553	-108.688066	1934-02-01	Wintering
-mixture	22N03136	0	0	0	0	1	West	Mexico	Zacatecas	Sain Alto	23.580227	-103.248137	1946-05-18	Breeding
-mixture	22N03138	0	0	0	0	1	West	Mexico	Durango	Resbalon	24.772165	-104.51971	1948-12-13	Wintering
-mixture	22N03139	0	0	0	0	1	West	Mexico	Jalisco	Charco Redondo	21.76172	-101.838711	1944-03-08	Wintering
-mixture	22N03140	0	0	0	0	1	West	Mexico	Jalisco	Charco Redondo	21.76172	-101.838711	1944-03-10	Wintering
-mixture	22N03141	0	1	0	0	0	East	Mexico	Tamaulipas	Rio Corona	23.96616	-99.10602	1944-10-24	Wintering
-mixture	22N03142	0	0	0	0	1	West	Mexico	San Luis Potosi	Presa De Guadalupe	22.862635	-100.15951	1944-07-23	Breeding
-mixture	22N03143	0	0	0	0	1	West	Mexico	Morelos	Cuernavaca	18.890108	-99.228488	1946-10-31	Wintering
-mixture	22N03145	0	1	0	0	0	East	Mexico	Tamaulipas	Jaumave	23.405876	-99.378578	1947-03-31	Wintering
-mixture	22N03146	0	0	0	0	1	West	Mexico	Veracruz	Cerro Guzman	19.236793	-96.3797	1947-10-22	Wintering
-mixture	22N03147	0	0	0	0	1	West	Mexico	Veracruz	Mirador	19.210815	-96.825344	1950-11-10	Wintering
-mixture	22N03148	0	0	0	0	1	West	Mexico	Jalisco	Charco Redondo	21.76172	-101.838711	1946-05-15	Breeding
-mixture	22N03150	0	0	0	0	1	West	Mexico	Morelos	Cuernavaca	18.890108	-99.228488	1946-11-03	Wintering
-mixture	22N03151	0	0	0	0	1	West	Mexico	Oaxaca	Rancho Santa Efigenia	16.437053	-94.215455	1948-01-27	Wintering
-mixture	22N03152	0	0	0	0	1	West	Mexico	Durango	La Ciudad	23.762114	-105.74129	1951-06-28	Breeding
-mixture	22N03153	0	1	0	0	0	East	Mexico	Chiapas	El Carmen	16.545465	-92.443778	1949-09-11	Migratory
-mixture	22N08317	0	0	0	0	1	West	USA	CA	Gorman	34.91667	-118.9167	2020-12-01	Wintering
-mixture	22N08318	0	0	0	0	1	West	USA	CA	Gorman	34.91667	-118.9167	2020-12-01	Wintering
-mixture	22N08327	0	0	0	0	1	West	USA	CA	Taft	35.25	-119.4167	2020-12-15	Wintering
-mixture	22N08337	0	0	0	0	1	West	USA	CA	Mettler	35.08333	-118.75	2022-01-05	Wintering
-mixture	22N08338	0	0	0	0	1	West	USA	CA	Gorman	34.91667	-118.9167	2022-01-05	Wintering
-mixture	22N08339	0	0	0	0	1	West	USA	CA	Gorman	34.91667	-118.9167	2021-12-21	Wintering
-mixture	22N08341	0	0	0	0	1	West	USA	CA	Taft	35.08333	-119.4167	2021-01-13	Wintering
-mixture	22N08342	0	0	0	0	1	West	USA	CA	Shafter	35.41667	-119.25	2021-01-12	Wintering
-mixture	22N08343	0	0	0	0	1	West	USA	CA	Shafter	35.41667	-119.25	2020-01-12	Wintering
-mixture	22N08344	0	0	0	0	1	West	USA	CA	Shafter	35.41667	-119.25	2021-01-12	Wintering
-mixture	22N08345	0	1	0	0	0	East	USA	CA	Antelope Acres	34.75	-118.25	2020-01-05	Wintering
-mixture	22N08347	0	0	0	0	1	West	USA	CA	Antelope Acres	34.75	-118.25	2021-01-01	Wintering
-mixture	22N08359	0	0	0	0	1	West	USA	CA	Gorman	34.91667	-118.9167	2020-12-09	Wintering
-mixture	22N13862	0	0	0	0	1	West	USA	CA	Gorman	34.91667	-118.9167	2019-12-18	Wintering
-mixture	22N13867	0	0	0	0	1	West	USA	CA	Bakersfield	35.25	-119.0833	2019-12-10	Wintering
-mixture	22N13879	0	0	0	0	1	West	USA	CA	Mettler	35.08333	-118.75	2017-01-14	Wintering
-mixture	22N13881	0	0	0	0	1	West	USA	CA	Gorman	34.91667	-118.9167	2020-02-18	Wintering
-mixture	22N13882	0	0	0	0	1	West	USA	CA	Mettler	35.08333	-119.0833	2020-01-16	Wintering
-mixture	22N13883	0	0	0	0	1	West	USA	CA	Mettler	35.08333	-119.0833	2020-01-16	Wintering
-mixture	22N13884	0	0	0	0	1	West	USA	CA	Mettler	35.08333	-119.0833	2020-01-16	Wintering
-mixture	22N13896	0	1	0	0	0	East	USA	CA	Button Willow	35.41667	-119.4167	2019-12-17	Wintering
-mixture	22N13898	0	0	0	0	1	West	USA	CA	Button Willow	35.41667	-119.4167	2019-12-11	Wintering
-mixture	23N10126	0	0	0	0	1	West	Mexico	Ciudad de Mexico	Donado por la Facultad de Medicina Veterinaria y Zootecnia, UNAM	19.3901944	-99.204222	2012-12-07	Wintering
-mixture	23N10127	0	0	0	0	1	West	Mexico	San Luis Potosi	San Nicolas de los Montes	22.1216667	-99.425	1999-10-20	Migratory
-mixture	23N10130	0	1	0	0	0	East	Mexico	Guerrero	Zumpango del Rio	17.7266667	-99.562	1979-11-11	Wintering
-mixture	23N10132	0	0	0	0	1	West	Mexico	Nayarit	Singayta	21.5766667	-105.225	1982-01-19	Wintering
-mixture	23N10133	0	1	0	0	0	East	Mexico	Veracruz	Balzapote	18.6	-95.067	1979-03-12	Wintering
-mixture	23N10134	0	0	0	0	1	West	Mexico	Veracruz	Balzapote	18.6	-95.067	1975-10-10	Migratory
-mixture	23N10137	0	0	0	0	1	West	Mexico	Guerrero	Chichihualco	17.59	-99.782	1979-09-30	Migratory
-mixture	23N10139	0	0	0	0	1	West	Mexico	Puebla	Rancho "S"	19.275	-97.433333	1994-02-16	Wintering
-mixture	23N10141	0	1	0	0	0	East	Mexico	Chiapas	Rancho Alejandria	17.6416667	-93.156667	1983-12-13	Wintering
+mixture_collection	Sample	Alaska	East	Florida	Texas	West	maxprob	assignment	Country_code	State	Location	Latitude	Longitude	CollectionDate	Stage
+mixture	24N12791	0	1	0	0	0	0.999375010802795	East	USA	GA	Cusseta	32.405842	-84.54172	2023-12-23	Wintering
+mixture	24N12793	0	1	0	0	0	0.999726024499252	East	USA	GA	Buena Vista	32.233331	-84.499937	2023-12-30	Wintering
+mixture	24N12794	0	1	0	0	0	0.97398025029283	East	USA	GA	Buena Vista	32.236181	-84.552749	2024-01-01	Wintering
+mixture	24N12795	0	1	0	0	0	0.932104354086098	East	USA	GA	Buena Vista	32.241155	-84.533333	2024-01-01	Wintering
+mixture	24N12796	0	1	0	0	0	0.976657607445465	East	USA	GA	Mauk	32.523063	-84.429097	2024-01-19	Wintering
+mixture	24N12797	0	1	0	0	0	0.999993659385088	East	USA	AL	Summerdale	30.4866	-87.68296	2024-01-29	Wintering
+mixture	24N12798	0	1	0	0	0	0.982605433827508	East	USA	AL	Foley	30.381088	-87.759499	2024-01-30	Wintering
+mixture	24N12799	0	1	0	0	0	0.899208387273027	East	USA	AL	Orange Beach	30.316449	-87.57351	2024-01-30	Wintering
+mixture	24N12800	0	1	0	0	0	0.999910469333716	East	USA	AL	Orange Beach	30.327532	-87.573637	2024-01-30	Wintering
+mixture	24N12802	0	1	0	0	0	0.999940660572964	East	USA	AL	Foley	30.443658	-87.578836	2024-01-30	Wintering
+mixture	24N12805	0	1	0	0	0	0.997407260331465	East	USA	AL	Auburn	32.626954	-85.543643	2024-02-08	Wintering
+mixture	24N12807	0	1	0	0	0	0.917936617177297	East	USA	AL	Orange Beach	30.330896	-87.561891	2024-02-15	Wintering
+mixture	24N12808	0	1	0	0	0	0.997633072871238	East	USA	AL	Perdido Beach	30.384931	-87.52231	2024-02-15	Wintering
+mixture	24N12809	0	1	0	0	0	0.995906135991599	East	USA	AL	Foley	30.352073	-87.590665	2024-02-15	Wintering
+mixture	24N12810	0	0	0	0	1	0.87673611140265	West	USA	AL	Dauphin Island	30.23366	-87.956502	2024-02-15	Wintering
+mixture	24N12811	0	1	0	0	0	0.987984591198859	East	USA	AL	Summerdale	30.458097	-87.681466	2024-02-16	Wintering
+mixture	24N12812	0	1	0	0	0	0.999917323195085	East	USA	AL	Auburn	32.426552	-85.421818	2024-02-17	Wintering
+mixture	24N12813	0	1	0	0	0	0.999396402844643	East	USA	AL	Auburn	32.430016	-85.425949	2024-02-17	Wintering
+mixture	24N12815	0	1	0	0	0	0.993035905784769	East	USA	AL	Auburn	32.56067	-85.56292	2024-02-17	Wintering
+mixture	24N12816	0	1	0	0	0	0.999365029664089	East	USA	AL	Gulf Shores	30.342233	-87.759547	2024-02-21	Wintering
+mixture	24N12817	0	1	0	0	0	0.999995174519096	East	USA	AL	Lillian	30.42916	-87.464626	2024-02-21	Wintering
+mixture	24N12819	0	1	0	0	0	0.999909933790442	East	USA	AL	Theodore	30.566343	-88.284258	2024-02-22	Wintering
+mixture	24N12820	0	1	0	0	0	0.9999329204429	East	USA	AL	Union Church	30.568093	-88.377146	2024-02-22	Wintering
+mixture	24N12821	0	1	0	0	0	0.999887725984318	East	USA	AL	Mobile	30.590267	-88.147931	2024-02-22	Wintering
+mixture	24N12822	0	0	0	0	1	0.814472565750831	West	USA	AL	Yupon	30.420373	-87.834534	2024-02-23	Wintering
+mixture	24N12823	0	1	0	0	0	0.999515027689919	East	USA	AL	Fairhope	30.479891	-87.895209	2024-02-23	Wintering
+mixture	24N12824	0	1	0	0	0	0.998949950397545	East	USA	AL	Fairhope	30.479881	-87.892099	2024-02-23	Wintering
+mixture	24N12825	0	1	0	0	0	0.999997325129615	East	USA	AL	Ellisville	30.62277	-87.801439	2024-02-23	Wintering
+mixture	24N12827	0	1	0	0	0	0.901804638818	East	USA	AL	Robertsdale	30.538283	-87.692709	2024-02-23	Wintering
+mixture	24N12829	0	1	0	0	0	0.998922159240346	East	USA	AL	Foley	30.356122	-87.589874	2024-02-24	Wintering
+mixture	24N12830	0	1	0	0	0	0.997790232329844	East	USA	AL	Elberta	30.436463	-87.557439	2024-02-24	Wintering
+mixture	24N12831	0	1	0	0	0	0.995132782040115	East	USA	AL	Foley	30.34845	-87.62739	2024-02-25	Wintering
+mixture	24N12832	0	1	0	0	0	0.996466919091443	East	USA	AL	Foley	30.413904	-87.715909	2024-02-27	Wintering
+mixture	24N12833	0	1	0	0	0	0.999951679701416	East	USA	GA	Mauk	32.429533	-84.48847	2024-02-29	Wintering
+mixture	25N07740	0	1	0	0	0	0.978256147711748	East	USA	GA	Tazewell	32.36372	-84.460864	2025-02-22	Wintering
+mixture	25N07741	0	1	0	0	0	0.99999741388091	East	USA	GA	Tazewell	32.433543	-84.497338	2025-02-22	Wintering
+mixture	25N07742	0	1	0	0	0	0.999948981119459	East	USA	GA	Mauk	32.459482	-84.425437	2025-02-22	Wintering
+mixture	25N07743	0	1	0	0	0	0.999910194798571	East	USA	GA	Howard	32.569195	-84.412289	2025-02-22	Wintering
+mixture	25N07745	0	1	0	0	0	0.999826852081771	East	USA	AL	Sikes	32.871134	-85.54617	2025-02-15	Wintering
+mixture	25N07746	0	1	0	0	0	0.830212428465584	East	USA	AL	Magnolia Springs	30.36892	-87.80254	2025-02-09	Wintering
+mixture	25N07749	0	1	0	0	0	0.9880610819564	East	USA	AL	Foley	30.364232	-87.682287	2025-02-09	Wintering
+mixture	25N07750	0	1	0	0	0	0.999987805938299	East	USA	AL	Foley	30.393253	-87.647067	2025-02-08	Wintering
+mixture	25N07751	0	1	0	0	0	0.99649802844878	East	USA	AL	Penton	32.99876	-85.432566	2025-02-06	Wintering
+mixture	25N07752	0	1	0	0	0	0.999886690646859	East	USA	AL	Fredonia	33.004737	-85.323791	2025-02-06	Wintering
+mixture	25N07753	0	1	0	0	0	0.969598773901555	East	USA	AL	Penton	32.994957	-85.43371	2025-02-06	Wintering
+mixture	25N07754	0	1	0	0	0	0.999998230768938	East	USA	AL	Auburn	32.514837	-85.533764	2025-02-02	Wintering
+mixture	25N07755	0	0	0	0	1	0.805595731663978	West	USA	GA	Tazewell	32.387035	-84.445338	2025-02-01	Wintering
+mixture	25N07756	0	0	0	0	1	0.969817423618585	West	USA	GA	Cusseta	32.25066	-84.561801	2025-02-01	Wintering
+mixture	25N07757	0	1	0	0	0	0.999999942156023	East	USA	GA	Buena Vista	32.301112	-84.517635	2025-02-01	Wintering
+mixture	25N07758	0	1	0	0	0	0.999997920802057	East	USA	GA	Mauk	32.455697	-84.4252	2025-02-01	Wintering
+mixture	25N07759	0	1	0	0	0	0.999870338867544	East	USA	AL	Opelika	32.740435	-85.31808	2025-01-09	Wintering
+mixture	25N07760	0	1	0	0	0	0.999999974248756	East	USA	AL	Moorefield	32.836674	-85.438384	2025-01-09	Wintering
+mixture	25N07761	0	1	0	0	0	0.999985756281178	East	USA	GA	Ellaville	32.241479	-84.427865	2024-12-22	Wintering
+mixture	25N07762	0	1	0	0	0	0.998694240266056	East	USA	GA	Buena Vista	32.259808	-84.477329	2024-12-22	Wintering
+mixture	25N07763	0	1	0	0	0	0.99992366912259	East	USA	GA	Buena Vista	32.233211	-84.479534	2024-12-22	Wintering
+mixture	25N07764	0	1	0	0	0	0.999951054205172	East	USA	GA	Warm Springs	32.935153	-84.724802	2024-12-20	Wintering
+mixture	25N07767	0	1	0	0	0	0.998697510806725	East	USA	AL	Opelika	32.74554	-85.31893	2024-11-22	Wintering
+mixture	25N07768	0	1	0	0	0	0.999723143068152	East	USA	AL	La Fayette	32.890341	-85.479674	2024-11-22	Wintering
+mixture	25N07770	0	1	0	0	0	0.999999173327657	East	USA	AL	Marvyn	32.412982	-85.41663	2024-10-18	Wintering
+mixture	25N07771	0	1	0	0	0	0.999488394458475	East	USA	AL	Marvyn	32.401349	-85.410824	2024-10-10	Wintering
+mixture	25N19414	0	1	0	0	0	0.995652770120317	East	USA	GA	Tazewell	32.3754	-84.4516	2024-01-19	Wintering
+mixture	25N19416	0	1	0	0	0	0.993137471410754	East	USA	AL	Robertsdale	30.552869	-87.722628	2024-02-18	Wintering
+mixture	25N19417	0	1	0	0	0	0.99972411748697	East	USA	AL	Summerdale	30.444677	-87.708695	2024-02-18	Wintering
+mixture	25N19418	0	1	0	0	0	0.989619863465579	East	USA	AL	Foley	30.37141	-87.759278	2024-02-18	Wintering
+mixture	16N2019	0	0	0	0	1	0.999847753391483	West	USA	CA	Sausalito	37.83	-122.5	2017-12-07	Wintering
+mixture	16N2410	0	0	0	0	1	0.963412385805409	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
+mixture	16N2411	0	0	0	0	1	0.981660678669512	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
+mixture	16N2412	0	0	0	0	1	0.999273220888218	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
+mixture	16N2413	0	0	0	0	1	0.999969682186947	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-05	Wintering
+mixture	16N2414	0	0	0	0	1	0.997644715487174	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
+mixture	16N2415	0	0	0	0	1	0.998269905010954	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
+mixture	16N2416	0	0	0	0	1	0.918213994970768	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
+mixture	16N2417	0	0	0	0	1	0.999850908556499	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
+mixture	16N2419	0	1	0	0	0	0.968641078955444	East	USA	TX	Cameron	26.237442	-97.583088	2016-12-18	Wintering
+mixture	16N2420	0	0	0	0	1	0.999343361405062	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
+mixture	16N2421	0	0	0	0	1	0.999159872039624	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-15	Wintering
+mixture	16N2423	0	0	0	0	1	0.907824825336484	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-18	Wintering
+mixture	16N2424	0	0	0	0	1	0.984931745031527	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
+mixture	16N2426	0	0	0	0	1	0.959959018433047	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
+mixture	16N2427	0	0	0	0	1	0.999932972987313	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
+mixture	16N2428	0	0	0	0	1	0.999906891809035	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
+mixture	16N2429	0	0	0	0	1	0.981399793520701	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
+mixture	16N2430	0	0	0	0	1	0.986648332180081	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-19	Wintering
+mixture	16N2431	0	1	0	0	0	0.996714964700017	East	USA	TX	Cameron	26.237442	-97.583088	2016-12-21	Wintering
+mixture	16N2435	0	0	0	0	1	0.999973593011794	West	USA	TX	Cameron	26.237442	-97.583088	2016-12-28	Wintering
+mixture	16N3353	0	0	0	0	1	0.999562258035917	West	USA	CA	Ulmar	37.746033	-121.658262	2016-12-13	Wintering
+mixture	17N02669	0	1	0	0	0	0.812910710963813	East	USA	FL	Baker	30.83518	-86.67538	2017-12-12	Wintering
+mixture	17N02671	0	0	0	0	1	0.978447347598052	West	USA	FL	Baker	30.83782	-86.65842	2017-12-12	Wintering
+mixture	17N02672	0	0	0	0	1	0.9741195200247	West	USA	FL	Key Largo	25.15011	-80.39254	2017-12-13	Wintering
+mixture	17N02673	0	0	0	0	1	0.997675345472555	West	USA	FL	Marathon Key	24.72609	-81.05974	2017-12-14	Wintering
+mixture	17N02674	0	1	0	0	0	0.999921603698424	East	USA	FL	Marathon Key	24.69254	-81.08396	2017-12-14	Wintering
+mixture	17N02678	0	0	0	0	1	0.998643947450348	West	USA	FL	Knight Key	24.70624	-81.12328	2017-12-14	Wintering
+mixture	17N02679	0	1	0	0	0	0.953866003860103	East	USA	FL	Cudjoe Key	24.68009	-81.49957	2017-12-15	Wintering
+mixture	17N02680	0	0	0	0	1	0.898789210184254	West	USA	FL	Baker	30.82029	-86.69452	2017-12-12	Wintering
+mixture	17N02681	0	1	0	0	0	0.924611775105929	East	USA	FL	Baker	30.85434	-86.65449	2017-12-12	Wintering
+mixture	17N02683	0	0	0	0	1	0.999763240237634	West	USA	FL	Baker	30.82074	-86.66774	2017-12-12	Wintering
+mixture	17N02695	0	0	0	0	1	0.973873204477648	West	USA	FL	North key	25.1885	-80.35898	2017-12-13	Wintering
+mixture	17N02696	0	1	0	0	0	0.919508507838082	East	USA	FL	Key Largo	25.19155	-80.35234	2017-12-13	Wintering
+mixture	17N02769	0	0	0	0	1	0.998558837077316	West	USA	OR	Corvallis	44.69156	-123.18213	2017-12-17	Wintering
+mixture	17N02770	0	0	0	0	1	0.999796531652872	West	USA	OR	Corvallis	44.7431	-123.1941	2017-12-17	Wintering
+mixture	17N02771	0	0	0	0	1	0.999947580160763	West	USA	OR	Corvallis	44.50354	-123.2785	2017-12-21	Wintering
+mixture	17N02772	0	0	0	0	1	0.999984734617626	West	USA	OR	Corvallis	44.50794	-123.27888	2017-12-21	Wintering
+mixture	17N02773	0	0	0	0	1	0.999981581469735	West	USA	OR	Corvallis	44.3676	-123.35543	2017-12-21	Wintering
+mixture	17N02774	0	0	0	0	1	0.999997512567234	West	USA	OR	Bellfountain	44.36325	-123.35569	2017-12-21	Wintering
+mixture	17N02775	0	0	0	0	1	0.999520183962633	West	USA	OR	Corvallis	44.3772	-123.28876	2017-12-21	Wintering
+mixture	17N02776	0	0	0	0	1	0.949831791840445	West	USA	OR	Corvallis	44.39101	-123.27968	2017-12-21	Wintering
+mixture	17N02777	0	0	0	0	1	0.999079806584281	West	USA	OR	Corvallis	44.64771	-123.18302	2017-12-22	Wintering
+mixture	17N02778	0	0	0	0	1	0.999250353120453	West	USA	OR	Corvallis	44.67042	-123.19573	2017-12-22	Wintering
+mixture	17N02779	0	0	0	0	1	0.999133559749471	West	USA	OR	Corvallis	44.74402	-123.24352	2017-12-22	Wintering
+mixture	17N02781	0	0	0	0	1	0.99996238340127	West	USA	OR	Corvallis	44.76354	-123.33697	2017-12-26	Wintering
+mixture	17N02782	0	0	0	0	1	0.999975119469681	West	USA	OR	Corvallis	44.51335	-123.04916	2017-12-30	Wintering
+mixture	17N02783	0	0	0	0	1	0.99981857901804	West	USA	OR	Corvallis	44.53675	-123.11807	2017-12-30	Wintering
+mixture	17N02784	0	0	0	0	1	0.998015688954577	West	USA	OR	Corvallis	44.52982	-123.11002	2017-12-30	Wintering
+mixture	17N02785	0	0	0	0	1	0.999998577860776	West	USA	OR	Corvallis	44.51792	-123.10663	2017-12-30	Wintering
+mixture	17N02786	0	0	0	0	1	0.999976449617241	West	USA	OR	Corvallis	44.51919	-123.10728	2017-12-30	Wintering
+mixture	17N02787	0	0	0	0	1	0.999844661627793	West	USA	OR	Corvallis	44.53835	-123.1372	2017-12-30	Wintering
+mixture	17N02796	0	0	0	0	1	0.999890239655243	West	USA	AZ	Prescott Valley	34.61327	-112.28975	2017-12-22	Wintering
+mixture	17N02797	0	0	0	0	1	0.946922979467773	West	USA	AZ	Yuma	32.64032	-114.64697	2017-12-28	Wintering
+mixture	17N02798	0	0	0	0	1	0.97402724717224	West	USA	AZ	Yuma	32.64011	-114.65227	2017-12-29	Wintering
+mixture	17N02799	0	0	0	0	1	0.999998576986487	West	USA	AZ	Yuma	32.64025	-114.68209	2017-12-29	Wintering
+mixture	17N02800	0	1	0	0	0	0.93190291308303	East	USA	AZ	Oco Valley	32.60147	-110.98048	2017-12-03	Wintering
+mixture	17N02802	0	0	0	0	1	0.999998492619968	West	USA	AZ	Bumstead	33.5655	-112.33995	2017-12-10	Wintering
+mixture	17N02803	0	0	0	0	1	0.999993920734136	West	USA	AZ	Phoenix	33.45398	-112.08029	2017-12-10	Wintering
+mixture	17N02804	0	0	0	0	1	0.999012346414217	West	USA	AZ	Sanoita	31.66023	-110.61744	2017-12-15	Wintering
+mixture	17N02805	0	0	0	0	1	0.997500712695305	West	USA	AZ	Marana	32.42509	-111.1879	2017-12-15	Wintering
+mixture	17N02806	0	0	0	0	1	0.999967399581958	West	USA	AZ	Hassayampa	33.34846	-112.71185	2017-12-27	Wintering
+mixture	17N02807	0	0	0	0	1	0.996469452413288	West	USA	AZ	Hassayampa	33.33465	-112.69415	2017-12-27	Wintering
+mixture	17N02808	0	0	0	0	1	0.998326855145224	West	USA	AZ	Hassayampa	33.33381	-112.68909	2017-12-27	Wintering
+mixture	18N00020	0	0	0	0	1	0.999999990398437	West	USA	AZ	Somerton	32.56727	-114.73859	2018-01-29	Wintering
+mixture	18N00021	0	0	0	0	1	0.965153731524024	West	USA	CA	Calipatria	33.17669	-115.6138	2018-01-28	Wintering
+mixture	18N00022	0	0	0	0	1	0.999936716414764	West	USA	CA	Calipatria	33.16937	-115.61684	2018-01-28	Wintering
+mixture	18N00023	0	0	0	0	1	0.884619778833325	West	USA	CA	Calipatria	33.1548	-115.60734	2018-01-28	Wintering
+mixture	18N00024	0	0	0	0	1	0.999949658255032	West	USA	CA	Calipatria	33.14748	-115.64194	2018-01-28	Wintering
+mixture	18N00025	0	0	0	0	1	0.999343058168138	West	USA	CA	Calipatria	33.14049	-115.64885	2018-01-28	Wintering
+mixture	18N00026	0	0	0	0	1	0.904604677928059	West	USA	CA	Calipatria	33.13303	-115.64868	2018-01-28	Wintering
+mixture	18N00027	0	0	0	0	1	0.999997196112627	West	USA	CA	Calipatria	33.11853	-115.59664	2018-01-28	Wintering
+mixture	18N00028	0	0	0	0	1	0.926420971654084	West	USA	CA	Calipatria	33.09664	-115.49149	2018-01-28	Wintering
+mixture	18N00029	0	0	0	0	1	0.999815027611747	West	USA	CA	Brawley	32.99455	-115.60418	2018-01-29	Wintering
+mixture	18N00030	0	0	0	0	1	0.999713992835514	West	USA	CA	Westmorland	33.01554	-115.66478	2018-01-29	Wintering
+mixture	18N00031	0	0	0	0	1	0.999992166328136	West	USA	CA	Calipatria	33.07492	-115.66063	2018-01-29	Wintering
+mixture	18N00032	0	0	0	0	1	0.999168793620457	West	USA	CA	Calipatria	33.07454	-115.65667	2018-01-29	Wintering
+mixture	18N00033	0	0	0	0	1	0.848858341252129	West	USA	CA	Calipatria	33.05819	-115.61289	2018-01-29	Wintering
+mixture	18N00084	0	0	0	0	1	0.96602354749598	West	USA	WA	Bueno	46.41881	-120.28288	2018-01-31	Wintering
+mixture	18N00085	0	0	0	0	1	0.99999994923859	West	USA	WA	Wapato	46.44762	-120.38331	2018-01-31	Wintering
+mixture	18N00103	0	0	0	0	1	0.999218579565647	West	USA	FL	Islamorada	24.9363	-80.61443	2018-02-14	Wintering
+mixture	18N00104	0	0	0	0	1	0.997468561648066	West	USA	FL	Homestead	25.40513	-80.53364	2018-02-15	Wintering
+mixture	18N00105	0	1	0	0	0	0.993924530793475	East	USA	FL	Homestead	25.41098	-80.53958	2018-02-15	Wintering
+mixture	18N00106	0	1	0	0	0	0.979027862231943	East	USA	FL	Homestead	25.43312	-80.52077	2018-02-15	Wintering
+mixture	18N00107	0	1	0	0	0	0.976731050491022	East	USA	FL	Homestead	25.54998	-80.5956	2018-02-16	Wintering
+mixture	18N00124	0	0	0	0	1	0.993737237915244	West	USA	OR	Grande Ronde	45.14823	-123.91393	2018-01-01	Wintering
+mixture	18N00125	0	0	0	0	1	0.999999912926942	West	USA	OR	Cheshire	44.22625	-123.28683	2018-01-02	Wintering
+mixture	18N00126	0	0	0	0	1	0.995262158724024	West	USA	OR	Cheshire	44.22035	-123.2874	2018-01-02	Wintering
+mixture	18N00127	0	0	0	0	1	0.9999943070761	West	USA	OR	Alvadore	44.187	-123.24761	2018-01-02	Wintering
+mixture	18N00128	0	0	0	0	1	0.999870663626437	West	USA	OR	Alvadore	44.15675	-123.28452	2018-01-02	Wintering
+mixture	18N00129	0	0	0	0	1	0.999727129217127	West	USA	OR	Alvadore	44.20064	-123.21903	2018-01-02	Wintering
+mixture	18N00131	0	0	0	0	1	0.995337661204918	West	USA	OR	Medford	42.51828	-122.86675	2018-01-07	Wintering
+mixture	18N00132	0	0	0	0	1	0.999850620845675	West	USA	OR	Medford	42.47644	-122.979	2018-01-07	Wintering
+mixture	18N00133	0	0	0	0	1	0.932202000183095	West	USA	OR	Corvallis	44.56463	-123.23497	2018-01-12	Wintering
+mixture	18N00134	0	0	0	0	1	0.991986431947806	West	USA	OR	Corvallis	44.48473	-123.21113	2018-01-12	Wintering
+mixture	18N00135	0	0	0	0	1	0.999999375513068	West	USA	OR	Shedd	44.46632	-123.17188	2018-01-12	Wintering
+mixture	18N00136	0	0	0	0	1	0.99874711608886	West	USA	OR	Shedd	44.45242	-123.11037	2018-01-12	Wintering
+mixture	18N00137	0	0	0	0	1	0.998191259226648	West	USA	OR	Shedd	44.42364	-123.16432	2018-01-12	Wintering
+mixture	18N00139	0	0	0	0	1	0.999986145314515	West	USA	OR	Millersburg	44.66932	-123.01958	2018-01-13	Wintering
+mixture	18N00140	0	0	0	0	1	0.998603947608558	West	USA	OR	Forest Grove	45.5481	-123.10638	2018-01-16	Wintering
+mixture	18N00141	0	0	0	0	1	0.999993147303463	West	USA	OR	Forest Grove	45.56334	-123.12678	2018-01-16	Wintering
+mixture	18N00142	0	0	0	0	1	0.980027079410946	West	USA	OR	Dalles	44.92955	-123.19685	2018-01-19	Wintering
+mixture	18N00143	0	0	0	0	1	0.999616341867686	West	USA	OR	Brooks	45.04808	-122.94037	2018-01-22	Wintering
+mixture	18N00144	0	0	0	0	1	0.999982920683932	West	USA	OR	Brooks	45.07183	-122.86852	2018-01-22	Wintering
+mixture	18N00145	0	0	0	0	1	0.991475113760946	West	USA	OR	Brooks	45.05839	-122.91347	2018-01-22	Wintering
+mixture	18N00146	0	0	0	0	1	0.999988087347617	West	USA	OR	Brooks	45.05665	-122.88488	2018-01-22	Wintering
+mixture	18N00147	0	0	0	0	1	0.999999298216192	West	USA	OR	Corvallis	45.08294	-122.91134	2018-01-22	Wintering
+mixture	18N00148	0	0	0	0	1	0.999990037001655	West	USA	OR	Corvallis	44.45488	-123.27561	2018-02-02	Wintering
+mixture	18N00149	0	0	0	0	1	0.986970642104124	West	USA	OR	Corvallis	44.45662	-123.29816	2018-02-02	Wintering
+mixture	18N00150	0	0	0	0	1	0.999886409991455	West	USA	OR	Corvallis	44.50403	-123.285	2018-02-02	Wintering
+mixture	18N00151	0	0	0	0	1	0.99985832452841	West	USA	OR	Airlic	44.75474	-123.30999	2018-02-03	Wintering
+mixture	18N00152	0	0	0	0	1	0.999995433300227	West	USA	OR	Dalles	44.96783	-123.29919	2018-01-01	Wintering
+mixture	18N00153	0	0	0	0	1	0.999917037227188	West	USA	OR	Pacific City	45.08996	-123.66846	2018-01-01	Wintering
+mixture	18N00154	0	0	0	0	1	0.999982477447479	West	USA	OR	Pacific City	45.14714	-123.91267	2018-01-01	Wintering
+mixture	99N8825	0	0	0	0	1	0.998760680877966	West	USA	CA	Merced	37.3021633	-120.4829677	1999-12-04	Wintering
+mixture	99N8826	0	0	0	0	1	0.999772535049734	West	USA	CA	Merced	37.3021633	-120.4829677	1999-12-04	Wintering
+mixture	16N006291	0	0	0	0	1	0.977580001126114	West	USA	CA	Taft	35.1425	-119.4565	2016-02-04	Wintering
+mixture	16N006292	0	0	0	0	1	0.867773497882924	West	USA	CA	Bakersfield	34.9943	-119.1853	2016-02-04	Wintering
+mixture	16N006295	0	1	0	0	0	0.998455668000931	East	USA	CA	Button Willow	35	-118	2016-12-01	Wintering
+mixture	16N006296	0	0	0	0	1	0.999955850601254	West	USA	CA	Button Willow	35	-118	2016-12-15	Wintering
+mixture	16N006301	0	0	0	0	1	0.998720109351616	West	USA	CA	Button Willow	35	-119	2016-12-27	Wintering
+mixture	17N006054	0	0	0	0	1	0.99471427400426	West	USA	CA	Button Willow	35	-119	2017-02-21	Wintering
+mixture	17N006055	0	0	0	0	1	0.943261709555377	West	USA	CA	Button Willow	35	-119	2017-02-21	Wintering
+mixture	18N006307	0	0	0	0	1	0.999146246338352	West	USA	CA	Button Willow	35	-119	2018-02-01	Wintering
+mixture	18N006309	0	0	0	0	1	0.851140894253366	West	USA	CA	Button Willow	35	-119	2018-02-20	Wintering
+mixture	18N006310	0	0	0	0	1	0.813210615428809	West	USA	CA	Button Willow	35	-119	2018-02-22	Wintering
+mixture	18N006312	0	0	0	0	1	0.953074194657623	West	USA	CA	Button Willow	35	-118	2018-02-28	Wintering
+mixture	22N00426	0	0	0	0	1	0.999985251249136	West	USA	TX	Bluetown	26.11374	-97.78328	2020-12-01	Wintering
+mixture	22N00427	0	1	0	0	0	0.997371432861354	East	USA	TX	Rangerville	26.0899	-97.74225	2020-12-17	Wintering
+mixture	22N00428	0	0	0	0	1	0.904825186577081	West	USA	TX	Monte Alto	26.40453	-97.93045	2020-12-19	Wintering
+mixture	22N00429	1	0	0	0	0	0.82291236825152	Alaska	USA	TX	Bluetown	26.09735	-97.78526	2020-12-01	Wintering
+mixture	22N00430	0	0	0	0	1	0.999963350252537	West	USA	TX	Bixby	26.14367	-97.86561	2021-01-03	Wintering
+mixture	22N00431	1	0	0	0	0	0.998520896470012	Alaska	USA	TX	Santa Rosa	26.27732	-97.83731	2021-01-05	Wintering
+mixture	22N00432	0	1	0	0	0	0.993879577727976	East	USA	TX	Santa Rosa	26.26323	-97.83719	2021-01-05	Wintering
+mixture	22N00433	0	1	0	0	0	0.997929072605312	East	USA	TX	La Feria	26.19656	-97.83674	2021-01-06	Wintering
+mixture	22N00434	0	0	0	0	1	0.982282152835803	West	USA	TX	Santa Rosa	26.24981	-97.83714	2021-01-13	Wintering
+mixture	22N00435	0	1	0	0	0	0.823565268524983	East	USA	TX	La Feria	26.17204	-97.82534	2021-01-15	Wintering
+mixture	22N00436	0	1	0	0	0	0.994191599750788	East	USA	TX	Santa Rosa	26.22855	-97.80683	2021-01-15	Wintering
+mixture	22N00437	0	1	0	0	0	0.993096892699858	East	USA	TX	Raymondville	26.4555	-97.86269	2021-01-15	Wintering
+mixture	22N00438	0	0	0	0	1	0.97874264513813	West	USA	TX	Santa Maria	26.06548	-97.84367	2021-01-21	Wintering
+mixture	22N00439	0	0	0	0	1	0.901353871868181	West	USA	TX	Sebastian	26.30696	-97.82478	2021-01-21	Wintering
+mixture	22N00440	0	1	0	0	0	0.92034169121508	East	USA	TX	Sebastian	26.34977	-97.81463	2021-01-21	Wintering
+mixture	22N00441	0	0	0	0	1	0.953143904133416	West	USA	TX	La Feria	26.16879	-97.83652	2021-01-21	Wintering
+mixture	22N00442	0	0	0	0	1	0.999205929856779	West	USA	TX	La Feria	26.19798	-97.82024	2021-01-19	Wintering
+mixture	22N03042	0	1	0	0	0	0.826431808709529	East	Mexico	Puebla	Huauchinango	20.398607	-97.849852	1942-11-26	Wintering
+mixture	22N03045	0	1	0	0	0	0.999716172274183	East	Ecuador	Chimborazo	Riobamba Area	-1.670984	-78.647124	1929-08-14	Migratory
+mixture	22N03046	0	1	0	0	0	0.973727864396211	East	Ecuador	Valle Caldera	Valle Caldera	-0.18	-78.46	1930-10-01	Migratory
+mixture	22N03047	0	0	0	0	1	0.887953365265678	West	Mexico	Sinaloa	San Ignacio	23.939314	-106.426125	1937-03-20	Wintering
+mixture	22N03048	0	1	0	0	0	0.951097180152653	East	Ecuador	Chimborazo	Alao	-1.9	-78.483333	1932-09-12	Migratory
+mixture	22N03050	0	0	0	0	1	0.999979805224672	West	Mexico	Michoacan	Apatzingan	19.145807	-102.320915	1940-01-15	Wintering
+mixture	22N03051	0	0	0	0	1	0.999985848548707	West	Mexico	Michoacan	Apatzingan	19.145807	-102.320915	1940-02-06	Wintering
+mixture	22N03052	0	0	0	0	1	0.999736078710214	West	Mexico	Michoacan	Apatzingan	19.145807	-102.320915	1940-02-02	Wintering
+mixture	22N03055	0	0	0	0	1	0.945167520606429	West	Mexico	Guerrero	Acapulco	16.856933	-99.901496	1936-12-30	Wintering
+mixture	22N03056	0	0	0	0	1	0.99982044494528	West	Mexico	Sonora	Camoa	27.224631	-109.259601	1932-01-11	Wintering
+mixture	22N03057	0	1	0	0	0	0.99882791620263	East	Ecuador	Pichincha	Valle Tumbaco	-0.213996	-78.404887	1926-09-02	Migratory
+mixture	22N03058	0	0	0	0	1	0.999999140545777	West	Mexico	Sonora	Agiabampo	26.364581	-109.141882	1933-04-19	Wintering
+mixture	22N03059	1	0	0	0	0	0.84535220418692	Alaska	Mexico	Sinaloa	Ahome	25.919848	-109.17321	1933-09-08	Migratory
+mixture	22N03060	0	0	0	0	1	0.960263942884031	West	Ecuador	Pichincha	Valle Tumbaco	-0.213996	-78.404887	1928-11-05	Wintering
+mixture	22N03061	0	0	0	0	1	0.998613152768688	West	Ecuador	Pichincha	Valle Tumbaco	-0.213996	-78.404887	1926-09-02	Migratory
+mixture	22N03063	0	1	0	0	0	0.999835502053508	East	Ecuador	Imbabura	Pimampiro	0.391156	-77.94068	1930-10-04	Wintering
+mixture	22N03064	0	0	0	0	1	0.979134499999149	West	Mexico	Sonora	Guirocoba	26.90293	-108.69501	1933-09-25	Migratory
+mixture	22N03065	0	0	0	0	1	0.945182196423819	West	Mexico	Sinaloa	Ahome	25.919848	-109.17321	1933-09-08	Migratory
+mixture	22N03066	0	1	0	0	0	0.999866132405595	East	Ecuador	Chimborazo	Near Pallatanga	-1.999204	-78.966047	1932-09-12	Migratory
+mixture	22N03068	0	0	0	0	1	0.998256983404476	West	Mexico	Aguascalientes	San Jacinto	22.348508	-102.233884	1940-10-12	Migratory
+mixture	22N03069	0	0	0	0	1	0.999964648910625	West	Mexico	Nayarit	Chacala	21.165981	-105.224185	1941-03-22	Wintering
+mixture	22N03070	0	0	0	0	1	0.99055068410215	West	Mexico	Guerrero	San Vicente de Benitez	17.297901	-100.283612	1936-11-29	Wintering
+mixture	22N03072	0	0	0	0	1	0.99996547560655	West	Mexico	Guerrero	Coapango	17.506199	-99.636357	1936-10-19	Migratory
+mixture	22N03073	0	0	0	0	1	0.999972982294345	West	Mexico	Mexico	Puerto Lengua de Vaca	19.435109	-100.186681	1941-10-13	Migratory
+mixture	22N03074	0	0	0	0	1	0.9925204300081	West	Mexico	Guerrero	Omiltemi	17.5	-99.666667	1937-02-05	Wintering
+mixture	22N03075	0	0	0	0	1	0.999999312879499	West	Mexico	Michoacan	Sierra Ozumatlan	19.676056	-100.89939	1941-11-05	Wintering
+mixture	22N03076	0	0	0	0	1	0.81137166227726	West	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-16	Wintering
+mixture	22N03077	0	1	0	0	0	0.818219960999436	East	Ecuador	Pichincha	above Lloa	-0.245072	-78.579838	1932-01-18	Wintering
+mixture	22N03079	0	1	0	0	0	0.999983697419687	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-16	Wintering
+mixture	22N03080	0	1	0	0	0	0.998824653504885	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-17	Wintering
+mixture	22N03081	0	1	0	0	0	0.982227454473233	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1934-01-16	Wintering
+mixture	22N03082	0	1	0	0	0	0.999929409320733	East	Ecuador	Pichincha	Tanlagua	-0.0833333333	-78.4333333333	1931-01-17	Wintering
+mixture	22N03084	0	0	0	0	1	0.979567557812045	West	Mexico	Jalisco	Atoyac	20.027693	-103.605245	1940-03-09	Wintering
+mixture	22N03087	1	0	0	0	0	0.906225603800339	Alaska	Mexico	Sinaloa	Cerro Aguila	23.469404	-105.834055	1934-11-16	Wintering
+mixture	22N03088	0	0	0	0	1	0.846694256104609	West	Mexico	Sinaloa	San Lorenzo	24.434298	-107.124041	1936-01-15	Wintering
+mixture	22N03089	0	0	0	0	1	0.999500690949481	West	Mexico	Michoacan	Tiquicheo	19.038168	-100.735873	1952-12-29	Wintering
+mixture	22N03091	0	0	0	0	1	0.999518920613913	West	Mexico	Jalisco	Tapalpa	19.960772	-103.75855	1940-03-29	Wintering
+mixture	22N03092	0	0	0	0	1	0.976246951246342	West	Mexico	Sinaloa	Babizos	25.764948	-107.460082	1935-12-03	Wintering
+mixture	22N03093	0	0	0	0	1	0.825374471388893	West	Mexico	Sinaloa	Babizos	25.764948	-107.460082	1935-12-02	Wintering
+mixture	22N03094	0	0	0	0	1	0.978178695730787	West	Mexico	Morelos	Chapultepec	18.9	-99.216667	1935-02-23	Wintering
+mixture	22N03095	0	0	0	0	1	0.998840004898766	West	Mexico	Sinaloa	Rancho El Fielo	22.918318	-105.777427	1935-01-15	Wintering
+mixture	22N03097	0	0	0	0	1	0.999916477762484	West	Mexico	Morelos	Atlacomulco	18.894027	-99.172069	1935-10-18	Migratory
+mixture	22N03098	0	0	0	0	1	0.997142223552125	West	Mexico	Michoacan	Rancho Los Ates	19.179674	-101.784329	1953-02-15	Wintering
+mixture	22N03099	0	0	0	0	1	0.97371179679581	West	Mexico	Oaxaca	Rancho Las Animas	16.623538	-96.032237	1952-09-26	Migratory
+mixture	22N03100	0	0	0	0	1	0.981268871794404	West	Mexico	Guerrero	Chilpancingo	17.550599	-99.505783	1953-02-01	Wintering
+mixture	22N03101	0	0	0	0	1	0.980611899300365	West	Mexico	Oaxaca	Rancho Las Animas	16.623538	-96.032237	1952-09-28	Migratory
+mixture	22N03102	0	1	0	0	0	0.962944523093893	East	Mexico	Colima	Lajuela	19.246099	-104.533169	1952-02-14	Wintering
+mixture	22N03104	0	0	0	0	1	0.977312174479154	West	Mexico	Jalisco	Lagos De Moreno	21.283224	-101.93399	1942-03-07	Wintering
+mixture	22N03105	0	0	0	0	1	0.9999970464945	West	Mexico	Jalisco	Tapalpa	19.960772	-103.75855	1940-04-12	Migratory
+mixture	22N03106	0	0	0	0	1	0.999999961563269	West	Mexico	Guerrero	Coapango	17.506199	-99.636357	1937-04-19	Migratory
+mixture	22N03107	0	0	0	0	1	0.999361089618746	West	Mexico	Morelos	Cuautla	18.804589	-98.94555	1935-03-25	Wintering
+mixture	22N03108	0	0	0	0	1	0.997283200429649	West	Mexico	Guerrero	Chilpancingo	17.550599	-99.505783	1953-03-12	Wintering
+mixture	22N03112	0	0	0	0	1	0.979063778698897	West	Mexico	Durango	El Salto	23.760513	-105.433093	1954-10-14	Migratory
+mixture	22N03114	0	1	0	0	0	0.868001399666798	East	Mexico	Nayarit	Acaponeta	22.422892	-105.349167	1954-11-11	Wintering
+mixture	22N03115	0	0	0	0	1	0.999999771394572	West	Mexico	Nayarit	Acaponeta	22.422892	-105.349167	1954-11-05	Wintering
+mixture	22N03116	0	0	0	0	1	0.999947375552725	West	Mexico	Durango	Tamazula	24.969695	-106.966246	1937-11-25	Wintering
+mixture	22N03118	0	1	0	0	0	0.926330689197718	East	Ecuador	Pichincha	Cerro Atacazo	-0.353524	-78.617464	1935-12-24	Wintering
+mixture	22N03119	0	1	0	0	0	0.819437861601894	East	Mexico	Sinaloa	Mouth of Rio Sinaloa	25.295049	-108.486722	1937-03-03	Wintering
+mixture	22N03120	0	0	0	0	1	0.999930677432732	West	Mexico	Durango	El Guasimal	25.123951	-106.685822	1937-11-16	Wintering
+mixture	22N03122	0	0	0	0	1	0.999846578862838	West	Mexico	Guerrero	Chilpancingo	17.550599	-99.505783	1936-01-07	Wintering
+mixture	22N03123	0	0	0	0	1	0.980740350920444	West	Mexico	Guanajuato	Irapuato Area	20.678402	-101.34654	1938-09-30	Migratory
+mixture	22N03124	0	0	0	0	1	0.999706328781765	West	Mexico	Michoacan	San Augustin	19.901854	-101.31068	1939-02-15	Wintering
+mixture	22N03125	0	0	0	0	1	0.999766951708069	West	Mexico	Guanajuato	Irapuato Area	20.678402	-101.346541	1938-10-03	Migratory
+mixture	22N03126	0	1	0	0	0	0.959096923674329	East	Mexico	Sinaloa	Mazatlan	23.2279373	-106.4006576	1938-04-12	Wintering
+mixture	22N03131	0	1	0	0	0	0.940918568391944	East	Mexico	Mexico	Temascaltepec	19.044417	-100.04405	1943-12-05	Wintering
+mixture	22N03133	0	0	0	0	1	0.994279264617357	West	Mexico	Chiapas	Prusia	15.716477	-92.793126	1942-03-17	Wintering
+mixture	22N03134	0	0	0	0	1	0.996628441730288	West	Mexico	Sonora	Guirojaqui	26.897553	-108.688066	1934-02-01	Wintering
+mixture	22N03138	0	0	0	0	1	0.99670580315333	West	Mexico	Durango	Resbalon	24.772165	-104.51971	1948-12-13	Wintering
+mixture	22N03139	0	0	0	0	1	0.997773862819529	West	Mexico	Jalisco	Charco Redondo	21.76172	-101.838711	1944-03-08	Wintering
+mixture	22N03140	0	0	0	0	1	0.913907839522004	West	Mexico	Jalisco	Charco Redondo	21.76172	-101.838711	1944-03-10	Wintering
+mixture	22N03141	0	1	0	0	0	0.948493896478675	East	Mexico	Tamaulipas	Rio Corona	23.96616	-99.10602	1944-10-24	Wintering
+mixture	22N03143	0	0	0	0	1	0.997229001670708	West	Mexico	Morelos	Cuernavaca	18.890108	-99.228488	1946-10-31	Wintering
+mixture	22N03145	0	1	0	0	0	0.899925927251134	East	Mexico	Tamaulipas	Jaumave	23.405876	-99.378578	1947-03-31	Wintering
+mixture	22N03146	0	0	0	0	1	0.993505885899884	West	Mexico	Veracruz	Cerro Guzman	19.236793	-96.3797	1947-10-22	Wintering
+mixture	22N03147	0	0	0	0	1	0.998784882462114	West	Mexico	Veracruz	Mirador	19.210815	-96.825344	1950-11-10	Wintering
+mixture	22N03150	0	0	0	0	1	0.999500257784267	West	Mexico	Morelos	Cuernavaca	18.890108	-99.228488	1946-11-03	Wintering
+mixture	22N03151	0	0	0	0	1	0.994758906730096	West	Mexico	Oaxaca	Rancho Santa Efigenia	16.437053	-94.215455	1948-01-27	Wintering
+mixture	22N03153	0	1	0	0	0	0.999870764321108	East	Mexico	Chiapas	El Carmen	16.545465	-92.443778	1949-09-11	Migratory
+mixture	22N08317	0	0	0	0	1	0.999846544827982	West	USA	CA	Gorman	34.91667	-118.9167	2020-12-01	Wintering
+mixture	22N08318	0	0	0	0	1	0.999977763146266	West	USA	CA	Gorman	34.91667	-118.9167	2020-12-01	Wintering
+mixture	22N08327	0	0	0	0	1	0.884699465163161	West	USA	CA	Taft	35.25	-119.4167	2020-12-15	Wintering
+mixture	22N08337	0	0	0	0	1	0.998621363486947	West	USA	CA	Mettler	35.08333	-118.75	2022-01-05	Wintering
+mixture	22N08338	0	0	0	0	1	0.998671699002177	West	USA	CA	Gorman	34.91667	-118.9167	2022-01-05	Wintering
+mixture	22N08339	0	0	0	0	1	0.99761539727292	West	USA	CA	Gorman	34.91667	-118.9167	2021-12-21	Wintering
+mixture	22N08341	0	0	0	0	1	0.999936573073895	West	USA	CA	Taft	35.08333	-119.4167	2021-01-13	Wintering
+mixture	22N08342	0	0	0	0	1	0.91290929144792	West	USA	CA	Shafter	35.41667	-119.25	2021-01-12	Wintering
+mixture	22N08343	0	0	0	0	1	0.998475402901598	West	USA	CA	Shafter	35.41667	-119.25	2020-01-12	Wintering
+mixture	22N08344	0	0	0	0	1	0.961942897049096	West	USA	CA	Shafter	35.41667	-119.25	2021-01-12	Wintering
+mixture	22N08345	0	1	0	0	0	0.997401459613278	East	USA	CA	Antelope Acres	34.75	-118.25	2020-01-05	Wintering
+mixture	22N08347	0	0	0	0	1	0.987402165456692	West	USA	CA	Antelope Acres	34.75	-118.25	2021-01-01	Wintering
+mixture	22N08359	0	0	0	0	1	0.999869209390126	West	USA	CA	Gorman	34.91667	-118.9167	2020-12-09	Wintering
+mixture	22N13862	0	0	0	0	1	0.983572104512878	West	USA	CA	Gorman	34.91667	-118.9167	2019-12-18	Wintering
+mixture	22N13867	0	0	0	0	1	0.999943723491723	West	USA	CA	Bakersfield	35.25	-119.0833	2019-12-10	Wintering
+mixture	22N13879	0	0	0	0	1	0.998350976969941	West	USA	CA	Mettler	35.08333	-118.75	2017-01-14	Wintering
+mixture	22N13881	0	0	0	0	1	0.999356746946012	West	USA	CA	Gorman	34.91667	-118.9167	2020-02-18	Wintering
+mixture	22N13882	0	0	0	0	1	0.999399513432684	West	USA	CA	Mettler	35.08333	-119.0833	2020-01-16	Wintering
+mixture	22N13883	0	0	0	0	1	0.991591176139495	West	USA	CA	Mettler	35.08333	-119.0833	2020-01-16	Wintering
+mixture	22N13884	0	0	0	0	1	0.999990293247465	West	USA	CA	Mettler	35.08333	-119.0833	2020-01-16	Wintering
+mixture	22N13896	0	1	0	0	0	0.999853270845853	East	USA	CA	Button Willow	35.41667	-119.4167	2019-12-17	Wintering
+mixture	22N13898	0	0	0	0	1	0.919165468019091	West	USA	CA	Button Willow	35.41667	-119.4167	2019-12-11	Wintering
+mixture	23N10126	0	0	0	0	1	0.984599882731175	West	Mexico	Ciudad de Mexico	Donado por la Facultad de Medicina Veterinaria y Zootecnia, UNAM	19.3901944	-99.204222	2012-12-07	Wintering
+mixture	23N10127	0	0	0	0	1	0.934961986745877	West	Mexico	San Luis Potosi	San Nicolas de los Montes	22.1216667	-99.425	1999-10-20	Migratory
+mixture	23N10130	0	1	0	0	0	0.999386149406039	East	Mexico	Guerrero	Zumpango del Rio	17.7266667	-99.562	1979-11-11	Wintering
+mixture	23N10132	0	0	0	0	1	0.999989416677029	West	Mexico	Nayarit	Singayta	21.5766667	-105.225	1982-01-19	Wintering
+mixture	23N10133	0	1	0	0	0	0.999671672672886	East	Mexico	Veracruz	Balzapote	18.6	-95.067	1979-03-12	Wintering
+mixture	23N10134	0	0	0	0	1	0.99939784725531	West	Mexico	Veracruz	Balzapote	18.6	-95.067	1975-10-10	Migratory
+mixture	23N10135	0	0	0	0	1	0.830811177786397	West	Mexico	Sinaloa	Carretera Escuinapa-Teacapan	22.8233333	-105.77833	1983-01-21	Wintering
+mixture	23N10137	0	0	0	0	1	0.990196170541195	West	Mexico	Guerrero	Chichihualco	17.59	-99.782	1979-09-30	Migratory
+mixture	23N10139	0	0	0	0	1	0.996786223686151	West	Mexico	Puebla	Rancho "S"	19.275	-97.433333	1994-02-16	Wintering
+mixture	23N10141	0	1	0	0	0	0.811520862418143	East	Mexico	Chiapas	Rancho Alejandria	17.6416667	-93.156667	1983-12-13	Wintering

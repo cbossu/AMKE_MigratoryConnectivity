@@ -24,4 +24,5 @@ HYP_HR_SR_OB_DR/*
 AMKE_shapefiles_rasters/hypso_background_extended.tif*
 
 # Range files that can be downloaded from eBird
-AMKE_shapefiles_rasters/eBird_range/*output/MigConn/AMKE.psi_table.redoCH.xlsx
+AMKE_shapefiles_rasters/eBird_range/*
+output/MigConn/AMKE.psi_table.redoCH.xlsx
